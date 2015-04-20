@@ -1,0 +1,53 @@
+<!-- IDs - passport, social security card, drivers license with images -->
+
+<template name="IdItem">
+  <h4>{{ type }}</h4>
+    <li class="list-group-item">{{ name }}</li>
+    <li class="list-group-item">{{ location }}</li>
+    {{#each files}}
+      <img src="{{this.url store='filesStore'}}" />
+    {{/each}}
+</template>
+
+<template name="IdItemForm">
+  <h4>{{ type }}</h4>
+    {{#autoForm id="IdItemForm" type="insert" collection="Items"}}
+      {{> afQuickField name="category" value="ID" type="hidden"}}
+      {{> afQuickField name="type" value=type type="hidden"}}
+      {{> afQuickField name="name" placeholder="Passport"}}
+      {{> afQuickField name="location" }}
+      {{> afQuickField name="fileId" type="cfs-file" collection="files"}}
+      <button type="submit">Submit</button>
+    {{/autoForm}}
+</template>
+
+<!-- Documents - Personal, Medical, Legal -->
+<template name="DocItemRow">
+  <table class="table table-striped">
+  <th>{{ docType }}</th>
+    {{#each documents}}
+      {{> DocItem }}
+    {{/each}}
+  </table>
+</template>
+
+<template name="DocItem">
+  <tr>
+    <td>{{ name }}</td>
+    <td>{{ location }}</td>
+    {{#each files}}
+      <td><a href="{{ this.url store='filesStore' }}" target="_blank">Link</a></td>
+    {{/each}}
+  </tr>
+</template>
+
+<template name="DocItemForm">
+  {{#autoForm id="DocItemForm" type="insert" collection="Items"}}
+    {{> afQuickField name="category" value="document" type="hidden"}}
+    {{> afQuickField name="type" options=docTypeOptions }}
+    {{> afQuickField name="name" placeholder="document name" }}
+    {{> afQuickField name="location" }}
+    {{> afQuickField name="fileId" type="cfs-file" collection="files"}}
+    <button type="submit">Submit</button>
+  {{/autoForm}}
+</template>

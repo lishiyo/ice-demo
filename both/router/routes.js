@@ -2,7 +2,7 @@ Router.configure({
   layoutTemplate: 'appLayout',
   loadingTemplate: 'loading',
   notFoundTemplate: 'notFound',
-  // waitOn: function() { 
+  // waitOn: function() {
   //   return [Meteor.subscribe('notifications')]
   // }
 });

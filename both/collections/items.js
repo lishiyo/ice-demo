@@ -1,8 +1,9 @@
 Items = new Mongo.Collection('items');
 Schema = {};
 
-// items - vital ids, vital documents, vital items
-
+/*
+  ITEMS - vital ids, vital documents, vital items
+ */
 Schema.Item = new SimpleSchema({
 		name: {
     	type: String,
@@ -17,12 +18,17 @@ Schema.Item = new SimpleSchema({
       regEx: /^[a-zA-Z-]{2,25}$/,
       optional: true
     },
+    category: {
+      type: String,
+      regEx: /^[a-zA-Z-]{2,25}$/,
+      optional: false
+    },
     location: {
       type: String,
       optional: true,
       autoform: {
       	rows: 2,
-      	placeholder: "Where is this id stored?"
+      	placeholder: "(optional) Notes : Where is this id stored?"
       }
     },
 });
@@ -30,22 +36,21 @@ Schema.Item = new SimpleSchema({
 Items.attachSchema(Schema.Item);
 
 var fileStore = new FS.Store.GridFS("filesStore", {
-  beforeWrite: function(fileObj){
-    // fileObj.owner_id = Meteor.userId();
-    // console.log("beforeWrite fileObj", fileObj);
-    // return fileObj;
-  }
+  // beforeWrite: function(fileObj){
+  //   fileObj.owner_id = Meteor.userId();
+  //   console.log("beforeWrite fileObj", fileObj);
+  //   return fileObj;
+  // }
 });
 
 Files = new FS.Collection("files", {
   stores: [ fileStore ],
   filter: {
   	allow: {
-  		contentTypes: ['image/*', 'video/*', 'audio/*'],
-  		extensions: ['png', 'docx', 'doc', 'ico']
+  		contentTypes: ['image/*', 'video/*', 'audio/*', 'application/pdf'],
+  		extensions: ['png', 'docx', 'doc', 'pdf' ]
   	}
   },
-
 });
 
 Files.allow({
@@ -69,7 +74,7 @@ Items.before.insert(function (userId, doc) {
   doc.createdAt = moment().toDate();
   doc.owner_id = Meteor.userId();
   if (doc.fileId) {
-    doc.imageUrls = [ pathUrl + doc.fileId];
+    doc.fileUrls = [ pathUrl + doc.fileId];
   }
   console.log("before insert", doc);
 });

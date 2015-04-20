@@ -7,6 +7,9 @@ DashboardController = AppController.extend({
   },
   onAfterAction: function () {
     Meta.setTitle('Dashboard');
+  },
+  action: function (){
+    this.render();
   }
 });
 

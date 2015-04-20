@@ -4,37 +4,41 @@
       <h1>Dashboard</h1>
     </div>
 
-    <ul class="list-group">
-      {{> IdItemForm}}
-    </ul>
-
-    <ul class="list-group">
-      {{#each items}}
-        {{> IdItem }}
-      {{/each}}
-    </ul>
-
+    {{> items }}
   </div>
 </template>
 
-<template name="IdItem">
-  <li class="list-group-item">{{ this.name }}</li>
-  <li class="list-group-item">{{ this.location }}</li>
-  {{#each files}}
-    <div>
-      <img src="{{this.url store='filesStore'}}" />
+<template name="items">
+    <h3>Vital IDs (Passport, Drivers License, Social Security Card)</h3>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-4 col-xs-4 col-lg-4">
+            {{#if userHasItem "passport" }}
+              {{#with passport}}
+                {{> IdItem }}
+              {{/with}}
+            {{else}}
+              {{> IdItemForm type="passport"}}
+            {{/if}}
+        </div>
+      </div>
     </div>
-  {{/each}}
-</template>
 
-<template name="IdItemForm">
-  <h3>Vital IDs</h3>
-  <p>(Passport, Drivers License, Social Security Card)</p>
-    {{#autoForm id="IdItemForm" type="insert" collection="Items"}}
-      {{> afQuickField name="type" value="id" type="hidden"}}
-      {{> afQuickField name="name"}}
-      {{> afQuickField name="location"}}
-      {{> afQuickField name="fileId" type="cfs-file" collection="files"}}
-      <button type="submit">Submit</button>
-    {{/autoForm}}
+  <hr>
+
+  <h3>Vital Documents</h3>
+  <div class="container-fluid">
+    <div class="row">
+      <p><a href="#doc-item-modal" rel="modal:open">Add New Document</a></p>
+      <div class="modal" id="doc-item-modal" style="display:none;">
+       {{> DocItemForm }}
+      </div>
+    </div>
+    <div class="row">
+      {{#each docTypes }}
+        {{> DocItemRow }}
+      {{/each }}
+    </div>
+  </div>
+
 </template>
