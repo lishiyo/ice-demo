@@ -1,0 +1,59 @@
+<template name="profileSetup">
+  <div class="profile">
+    <div class="page-header">
+      <h1>Setup Your Profile</h1>
+    </div>
+
+    {{#autoForm id="userProfile" type="update" collection="Meteor.users" doc=currentUser}}
+      {{> afQuickField name="profile"}}
+    
+      <div class="form-group">
+        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="reset" class="btn btn-default">Reset Form</button>
+      </div>
+
+    {{/autoForm}}
+
+    <!-- {{> quickForm collection="Meteor.users" id="user-profile" type="update" doc=currentUser }} -->
+
+    <!-- <form class='profile'>
+      <div class='form-group'>
+        <label class="control-label" for="url">First Name</label>
+        <div class="controls">
+            <input name="firstName" id="first-name" type="text" value="" placeholder="First Name" class="form-control"/>
+        </div>
+      </div>
+   
+      <div class='form-group'>
+        <label class="control-label" for="url">Last Name</label>
+        <div class="controls">
+            <input name="lastName" id="first-name" type="text" value="" placeholder="Last Name" class="form-control"/>
+        </div>
+      </div>
+
+      <div class='form-group'>
+        <label class="control-label" for="url">Phone Number</label>
+        <div class="controls">
+            <input name="phone" id="phone" type="text" value="" placeholder="(XXX) XXX-XXXX" class="form-control"/>
+        </div>
+      </div>
+
+      <div class='form-group'>
+        <label class="control-label" for="url">Primary Residence</label>
+        <div class="controls">
+            <input name="phone" id="phone" type="text" value="" placeholder="Address" class="form-control"/>
+        </div>
+        <div class="controls">
+            <input name="phone" id="phone" type="text" value="" placeholder="City" class="form-control"/>
+        </div>
+        <div class="controls">
+            <input name="phone" id="phone" type="text" value="" placeholder="Zipcode" class="form-control"/>
+        </div>
+      </div>
+
+
+    <input type="submit" value="Submit" class="btn btn-primary"/>
+    </form> -->
+
+  </div>
+</template>

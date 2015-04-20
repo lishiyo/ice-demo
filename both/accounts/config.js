@@ -1,6 +1,6 @@
 AccountsTemplates.configure({
 	confirmPassword: true,
-	enablePasswordChange: false,
+	enablePasswordChange: true,
 
 	// appearance
 	showForgotPasswordLink: false,
@@ -18,14 +18,19 @@ AccountsTemplates.configure({
     // Texts
     texts: {
       button: {
-          signUp: "Register Now!"
+          changePwd: "Change Password",
+          enrollAccount: "Enroll",
+          forgotPwd: "Forgot Password?",
+          resetPwd: "Reset Password",
+          signIn: "Sign In",
+          signUp: "Sign Up",
       },
-      socialSignUp: "Register",
+      socialSignUp: "Sign Up",
       socialIcons: {
           "meteor-developer": "fa fa-rocket"
       },
       title: {
-          forgotPwd: "Recover Your Passwod"
+          forgotPwd: "Recover Your Password"
       },
     },
 });
@@ -34,12 +39,44 @@ AccountsTemplates.configure({
 
 // default route name => atSignIn
 AccountsTemplates.configureRoute('signIn', {
-	path: '/login',
-	layoutTemplate: 'appLayout'
+	layoutTemplate: 'appLayout',
+  redirect: '/setup'
 });
 AccountsTemplates.configureRoute('signUp', {
-	layoutTemplate: 'appLayout'
+	layoutTemplate: 'appLayout',
+  redirect: '/setup'
 });
 AccountsTemplates.configureRoute('ensureSignedIn', {
 	layoutTemplate: 'appLayout'
 });
+
+// AccountsTemplates.addField({
+//     _id: "gender",
+//     type: "select",
+//     displayName: "Gender",
+//     select: [
+//         {
+//             text: "Male",
+//             value: "male",
+//         },
+//         {
+//             text: "Female",
+//             value: "female",
+//         },
+//     ],
+// });
+
+// AccountsTemplates.addField({
+//     _id: 'phone',
+//     type: 'tel',
+//     displayName: "Phone",
+//     required: true,
+//     func: function (number) {
+//         if (Meteor.isServer){
+//           if (isValidPhone(number))
+//               return false; // meaning no error!
+//           return true; // Validation error!
+//         }
+//     },
+//     errStr: 'Invalid Phone number!',
+// });

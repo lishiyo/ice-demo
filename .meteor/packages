@@ -28,3 +28,7 @@ service-configuration
 accounts-ui
 mrt:twilio-meteor
 mrt:moment
+aldeed:autoform-bs-datepicker
+cfs:autoform
+cfs:standard-packages
+cfs:gridfs

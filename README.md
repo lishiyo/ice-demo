@@ -1,3 +1,33 @@
+## Model Schema
+
+# Users
+email, password, role = source
+firstName, lastName, birthday, phone, address
+contacts [contact_id, contact_id]
+safeboxes [safebox_id, safebox_id]
+id_items [item_id, item_id]
+
+# Contacts (same as user)
+role = locked/unlocked
+belongs_to - source_id 
+email, password - generate random
+belongedSafeboxes - [ safebox_id, safebox_id ]
+belongedGroups - [ group_id ]
+
+# Groups - family, friends, medical, legal, custom
+
+# Items
+ids [{ type: 'passport', location, file }]
+
+# Safebox - check if unlocked, source_id == owner_id, belongedGroups, allowedUsers
+items [item_id, item_id]
+owner_id
+locked/unlocked boolean 
+allowedGroups - [group_id, group_id]
+allowedUsers - [user_id, user_id ]
+
+
+
 # meteor-boilerplate
 
 A starting point for MeteorJS applications. Includes iron-router, Bootstrap 3, Font Awesome, LESS and more.
