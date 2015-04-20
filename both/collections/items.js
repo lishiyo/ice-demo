@@ -29,20 +29,23 @@ Schema.Item = new SimpleSchema({
 
 Items.attachSchema(Schema.Item);
 
+var fileStore = new FS.Store.GridFS("filesStore", {
+  beforeWrite: function(fileObj){
+    // fileObj.owner_id = Meteor.userId();
+    // console.log("beforeWrite fileObj", fileObj);
+    // return fileObj;
+  }
+});
+
 Files = new FS.Collection("files", {
-  stores: [ new FS.Store.GridFS("filesStore") ],
+  stores: [ fileStore ],
   filter: {
   	allow: {
   		contentTypes: ['image/*', 'video/*', 'audio/*'],
   		extensions: ['png', 'docx', 'doc', 'ico']
   	}
   },
-  beforeWrite: function(fileObj){
-  	var owner = { owner_id: Meteor.userId() };
-  	fileObj.attachData({ metadata: owner });
-  	console.log("beforeWrite", fileObj);
-  	return fileObj;
-  }
+
 });
 
 Files.allow({
@@ -61,19 +64,12 @@ Files.allow({
   fetch: null
 });
 
-Items.helpers({
-
-});
-
-
-
 Items.before.insert(function (userId, doc) {
-	var pathUrl = '/cfs/files/images/';
-
+  var pathUrl = '/cfs/files/file/';
   doc.createdAt = moment().toDate();
   doc.owner_id = Meteor.userId();
-  // if (doc.fileId) {
-  // 	doc.imageUrls = [ pathUrl + doc.fileId];
-  // }
+  if (doc.fileId) {
+    doc.imageUrls = [ pathUrl + doc.fileId];
+  }
+  console.log("before insert", doc);
 });
-

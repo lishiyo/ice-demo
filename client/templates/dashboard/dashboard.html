@@ -22,7 +22,7 @@
   <li class="list-group-item">{{ this.location }}</li>
   {{#each files}}
     <div>
-    <img src="{{this.url store='filesStore'}}" />
+      <img src="{{this.url store='filesStore'}}" />
     </div>
   {{/each}}
 </template>
@@ -30,7 +30,7 @@
 <template name="IdItemForm">
   <h3>Vital IDs</h3>
   <p>(Passport, Drivers License, Social Security Card)</p>
-    {{#autoForm id="idItems" type="insert" collection="Items"}}
+    {{#autoForm id="IdItemForm" type="insert" collection="Items"}}
       {{> afQuickField name="type" value="id" type="hidden"}}
       {{> afQuickField name="name"}}
       {{> afQuickField name="location"}}
