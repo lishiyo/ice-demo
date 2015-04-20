@@ -42,10 +42,12 @@ Template.DocItem.helpers({
 	},
 })
 
+// janky way of adding owner id to the new file
 var ItemFormHook = {
   onSuccess: function(formType, itemId){
   	var item = Items.findOne({_id: itemId});
   	Files.files.update(item.fileId, { $set: { owner_id: Meteor.userId() } });
+  	$('.modal').modal('hide');
   }
 };
 

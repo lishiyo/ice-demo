@@ -29,10 +29,19 @@
   <h3>Vital Documents</h3>
   <div class="container-fluid">
     <div class="row">
-      <p><a href="#doc-item-modal" rel="modal:open">Add New Document</a></p>
-      <div class="modal" id="doc-item-modal" style="display:none;">
-       {{> DocItemForm }}
+      <!-- Button trigger modal -->
+      <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#new-doc-modal">
+        Add New Document
+      </button>
+
+      <div class="modal fade" id="new-doc-modal" role="dialog" aria-labelledby="new-doc-modal" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            {{> DocItemForm }}
+          </div>
+        </div>
       </div>
+
     </div>
     <div class="row">
       {{#each docTypes }}

@@ -28,7 +28,7 @@ Schema.Item = new SimpleSchema({
       optional: true,
       autoform: {
       	rows: 2,
-      	placeholder: "(optional) Notes : Where is this id stored?"
+      	placeholder: "(optional) Notes : Where is this item stored?"
       }
     },
 });
