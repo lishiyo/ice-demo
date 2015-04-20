@@ -8,22 +8,33 @@
       {{> IdItemForm}}
     </ul>
 
-    <!-- <ul class="list-group">
+    <ul class="list-group">
       {{#each items}}
-        <li class="list-group-item">{{ name }} <span class="label label-default">{{ rating }}</span></li>
+        {{> IdItem }}
       {{/each}}
-    </ul> -->
+    </ul>
 
   </div>
 </template>
 
+<template name="IdItem">
+  <li class="list-group-item">{{ this.name }}</li>
+  <li class="list-group-item">{{ this.location }}</li>
+  {{#each files}}
+    <div>
+    <img src="{{this.url store='filesStore'}}" />
+    </div>
+  {{/each}}
+</template>
+
 <template name="IdItemForm">
-<h2>Vital ID Info</h2>
-  {{#autoForm id="idItems" type="insert" collection="Items"}}
-    {{> afQuickField name="type" value="id" type="hidden"}}
-    {{> afQuickField name="name"}}
-    {{> afQuickField name="location"}}
-    {{> afQuickField name="fileId" type="cfs-file" collection="files"}}
-    <button type="submit">Submit</button>
-  {{/autoForm}}
+  <h3>Vital IDs</h3>
+  <p>(Passport, Drivers License, Social Security Card)</p>
+    {{#autoForm id="idItems" type="insert" collection="Items"}}
+      {{> afQuickField name="type" value="id" type="hidden"}}
+      {{> afQuickField name="name"}}
+      {{> afQuickField name="location"}}
+      {{> afQuickField name="fileId" type="cfs-file" collection="files"}}
+      <button type="submit">Submit</button>
+    {{/autoForm}}
 </template>

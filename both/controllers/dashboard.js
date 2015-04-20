@@ -1,6 +1,6 @@
 DashboardController = AppController.extend({
   waitOn: function() {
-    return [this.subscribe('items'), this.subscribe('files')];
+    return [this.subscribe('itemsAndFiles', Meteor.userId())];
   },
   data: {
     items: Items.find({})

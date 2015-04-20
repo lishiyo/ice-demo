@@ -32,3 +32,5 @@ aldeed:autoform-bs-datepicker
 cfs:autoform
 cfs:standard-packages
 cfs:gridfs
+cfs:s3
+cfs:ejson-file
