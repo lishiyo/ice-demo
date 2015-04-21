@@ -9,3 +9,16 @@
 			</div>
 		</div>
 </template>
+
+<template name="newGroupForm">
+	<h5>Create Custom Group</h5>
+	{{#autoForm id="newGroupForm" collection="Groups"}}
+		{{> afQuickField name="type" value="custom" type="hidden"}}
+	  {{> afQuickField name="name"}}
+	  <div class="form-group">
+	    <button type="submit" class="btn btn-primary">Submit</button>
+	    <button type="reset" class="btn btn-default">Reset Form</button>
+	  </div>
+	{{/autoForm}}
+
+</template>

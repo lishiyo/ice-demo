@@ -25,8 +25,8 @@ Schema.Safebox = new SimpleSchema({
         type: 'summernote',
         class: 'editor', // optional
         height: 200,
-        minHeight: 100,            
-  			maxHeight: null,             
+        minHeight: 100,
+  			maxHeight: null,
       }
 		}
 	},

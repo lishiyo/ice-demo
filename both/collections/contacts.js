@@ -5,12 +5,14 @@ Schema.ContactProfile = new SimpleSchema({
 	firstName: {
     type: String,
     regEx: /^[a-zA-Z-]{2,25}$/,
-    optional: false
+    optional: false,
+    label: "First Name*"
   },
   lastName: {
     type: String,
     regEx: /^[a-zA-Z]{2,25}$/,
-    optional: false
+    optional: false,
+    label: "Last Name*"
   },
   tel: {
   	type: String,
@@ -27,7 +29,13 @@ Schema.ContactProfile = new SimpleSchema({
 // but if you use only accounts-password, then it can be required
    optional: true
   },
-
+  relation: {
+    type: String,
+    optional: true,
+    autoform: {
+      placeholder: "father, daughter, co-worker, etc.",
+    }
+  },
   createdAt: {
       type: Date,
       optional: true,
@@ -54,13 +62,11 @@ Schema.Contact = new SimpleSchema({
   },
   belongedSafeboxes: {
   	type: [String],
-    optional: true,
     blackbox: true,
   	defaultValue: []
   },
   belongedGroups: {
   	type: [String],
-    optional: true,
     blackbox: true,
   	defaultValue: []
   	// allowedValues: ['family', 'friends', 'medical', 'legal'],
@@ -82,26 +88,17 @@ Contacts.before.insert(function (userId, doc) {
   doc.owner_id = Meteor.userId();
   var profile = doc.profile;
   doc.fullName = profile.firstName.trim() + " " + profile.lastName.trim();
+  return doc;
+});
 
-  var safeboxIds = doc.belongedSafeboxes;
-  var groupIds = doc.belongedGroups;
+Contacts.after.insert(function (userId, doc) {
+  var safeboxIds = ( doc.belongedSafeboxes || [] );
+  var groupIds = ( doc.belongedGroups || [] );
 
-
-  console.log("contactbefore insert", doc._id, doc);
-  
   Meteor.call('updateSafeboxesAndGroups', safeboxIds, groupIds, doc._id);
+  console.log("contacts AFTER insert: doc.safeboxIds, doc", safeboxIds, doc);
 
-  // doc.belongedSafeboxes.forEach(function(safebox_id){
-  // 	Safeboxes.update({_id: safebox_id }, { $addToSet: 
-  //     { allowedContacts: doc._id } 
-  //   }, { multi: true });
-  // });
-  // doc.belongedGroups.forEach(function(group_id){
-  // 	Groups.update({_id: group_id }, { $addToSet: 
-  //     { contactIds: doc._id } 
-  //   });
-  // });
-
+  return doc;
 });
 
 Contacts.allow({

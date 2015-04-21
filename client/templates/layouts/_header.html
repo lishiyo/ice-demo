@@ -34,8 +34,10 @@
 
         <ul class="nav navbar-nav navbar-right">
           <li class="{{ isActiveRoute regex='home' }}"><a href="{{ pathFor 'home' }}"><i class="fa fa-home"></i> Home</a></li>
-          <li class="{{ isActiveRoute regex='dashboard' }}"><a href="{{ pathFor 'dashboard' }}"><i class="fa fa-gear"></i> Dashboard</a></li>
-          <li class="{{ isActiveRoute regex='safeboxes' }}"><a href="{{ pathFor 'safeboxes' }}"><i class="fa fa-lock"></i> My Safeboxes</a></li>
+          {{#if currentUser }}
+            <li class="{{ isActiveRoute regex='dashboard' }}"><a href="{{ pathFor 'dashboard' }}"><i class="fa fa-gear"></i> Dashboard</a></li>
+            <li class="{{ isActiveRoute regex='safeboxes' }}"><a href="{{ pathFor 'safeboxes' }}"><i class="fa fa-lock"></i> My Safeboxes</a></li>
+          {{/if}}
         </ul>
       </div>
 

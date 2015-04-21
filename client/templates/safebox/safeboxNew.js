@@ -1,18 +1,22 @@
+SimpleSchema.debug = true
 
 Template.newSafeboxForm.helpers({
-	itemOptions: function(){
+	safeboxSchema: function() {
+		return Schema.Safebox;
+	},
+	itemOptions: function() {
 		return Items.find().map(function(item){
 			console.log("item", item);
 			var full = [item.category.toUpperCase(), item.type.toUpperCase(), item.name].join(" - ");
 			return { label: full, value: item._id };
 		});
 	},
-	groupOptions: function(){
+	groupOptions: function() {
 		return Groups.find().map(function(group){
 			return { label: group.type.toUpperCase(), value: group._id };
 		});
 	},
-	contactOptions: function(){
+	contactOptions: function() {
 		return Contacts.find().map(function(contact){
 			return { label: contact.fullName, value: contact._id };
 		});
@@ -38,14 +42,13 @@ Template.newSafeboxForm.events({
 					template.allIds.push(id);
 				}
 			})
-			
+
 		});
 		// only render template if changed
 		if (!(_.isEqual(oldArr, template.allIds))) {
-			console.log("changed group");
 			Session.set('allIds', template.allIds);
 		}
-		
+
 	},
 	'change select[name="allowedContacts"]': function(event, template) {
 		var selectBox = $(event.target);
@@ -60,29 +63,44 @@ Template.newSafeboxForm.events({
 		});
 		// only render template if changed
 		if (!(_.isEqual(oldArr, template.allIds))){
-			console.log("changed contact");
 			Session.set('allIds', template.allIds);
 		}
 	}
 });
 
 var newSafeboxHook = {
-	onSubmit: function(insertDocFields, updateDocFields) {
+	onSubmit: function(doc) {
 		var allIds = Session.get('allIds');
-		insertDocFields.allowedAll = allIds;
-		var id = Safeboxes.insert(insertDocFields);
-		this.done(null, id);
+		// add default values and custom values
+		Safeboxes.simpleSchema().clean(doc);
+		doc.allowedAll = allIds;
+
+		Safeboxes.insert(doc, function(err, id){
+			if (err) {
+				this.done(err);
+			} else {
+				this.done();
+			}
+		}.bind(this));
+
+		return false;
 	},
 	onSuccess: function(formType, safeboxId) {
+		console.log("onSuccess");
   	Router.go('safeboxes');
   },
+  onError: function (name, error, template) {
+    console.log(name + " error:", error);
+  }
 };
 
 AutoForm.hooks({
   newSafeboxForm: newSafeboxHook
 });
 
-
+/*
+	Small Reactive Canvas to show all currently selected Contacts
+ */
 Template.ContactsCanvas.created = function(){
 	Session.set('allIds', []);
 };

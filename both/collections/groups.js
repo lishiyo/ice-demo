@@ -5,13 +5,14 @@ Schema.Group = new SimpleSchema({
   type: {
   	type: String,
   	optional: false,
-  	allowedValues: ['family', 'friends', 'medical', 'legal', 'custom'],
+  	allowedValues: App.GLOBALS.Groups.defaultTypes,
     autoform: {
       options: {
         family: "Family",
         friends: "Friends",
         medical: "Medical",
-        legal: "Legal"
+        legal: "Financial/Legal",
+        custom: "Custom"
       }
     }
   },

@@ -10,7 +10,7 @@ DashboardController = AppController.extend({
   },
   action: function (){
     if (Groups.find().count() === 0) {
-      var defaultTypes = ["family", "friends", "medical", "legal", "custom"];
+      var defaultTypes = _.without(App.GLOBALS.Groups.defaultTypes, 'custom');
       Meteor.call("createDefaultGroups", Meteor.user(), defaultTypes);
     }
     this.render();
