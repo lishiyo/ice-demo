@@ -10,7 +10,6 @@ DashboardController = AppController.extend({
   },
   action: function (){
     if (Groups.find().count() === 0) {
-      console.log("in group action");
       var defaultTypes = ["family", "friends", "medical", "legal", "custom"];
       Meteor.call("createDefaultGroups", Meteor.user(), defaultTypes);
     }

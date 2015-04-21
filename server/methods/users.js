@@ -6,7 +6,7 @@ Accounts.onCreateUser(function(options, user) {
 Meteor.methods({
 	// @param user object
 	// add more fields to user
-	setProfile: function(userData) {
+	'setProfile': function(userData) {
     // user.roles = [ 'source' ]
     if (userData.roles.length > 0) {
       // Need _id of existing user record so this call must come
@@ -21,8 +21,6 @@ Meteor.methods({
   },
 
   'createDefaultGroups': function(user, defaultTypes) {
-    console.log("called createDfaultGroups", user, defaultTypes);
-
     defaultTypes.forEach(function(type){
       Groups.insert(
         {
@@ -33,7 +31,6 @@ Meteor.methods({
         }
       );
     });
-
   }
 });
 
