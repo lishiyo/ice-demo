@@ -1,5 +1,4 @@
 SafeboxController = AppController.extend({
-  template: 'safeboxes',
   waitOn: function() {
     return [this.subscribe('safeboxesWithEverything', Meteor.userId())];
   },

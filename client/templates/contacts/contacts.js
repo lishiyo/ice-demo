@@ -19,5 +19,13 @@ Template.newContactForm.helpers({
 Template.contacts.helpers({
 	contacts: function(){
 		return Contacts.find();
+	},
+	groups: function(){
+		return Groups.find();
 	}
+});
+
+
+Template.contact.helpers({
+
 });

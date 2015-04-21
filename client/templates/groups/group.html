@@ -1,3 +1,11 @@
-<template name="group">
 
+<template name="group">
+		<div class="col-sm-4 col-md-4 col-lg-4">
+			<h5>{{ name }}</h5>
+			<div>
+				{{#each contacts}}
+					{{> contact }}
+				{{/each}}
+			</div>
+		</div>
 </template>

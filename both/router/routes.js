@@ -20,9 +20,16 @@ Router.route('/setup', {
 	controller: 'UserProfileController',
 });
 
+Router.route('/safeboxes/new', {
+  name: 'safeboxes.new',
+  controller: 'SafeboxController',
+  template: 'newSafeboxForm'
+});
+
 Router.route('/safeboxes', {
   name: 'safeboxes',
-  controller: 'SafeboxController'
+  controller: 'SafeboxController',
+  template: 'safeboxes'
 });
 
 Router.plugin('ensureSignedIn', {

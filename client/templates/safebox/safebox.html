@@ -1,34 +1,49 @@
 <template name="safeboxes">
-	<h1>My Safeboxes</h1>
-	{{> NewSafeboxForm }}
+	<h1>Safeboxes</h1>
+	<button class="btn btn-lg btn-primary" id="create-safebox">Create a New Safebox</button>
 
-	{{#if safeboxes.length }}
-		{{#each safeboxes}}
-			{{> safebox}}
-		{{/each}}
-	{{else}}
-		<p>You have no safeboxes yet.</p>
-	{{/if}}
-</template>
+	<div class="container-fluid">
+	<h3>Current Safeboxes</h3>
+		{{#if safeboxesCount }}
+			{{#each safeboxes}}
+				{{> safebox}}
+			{{/each}}
+		{{else}}
+			<p>You have no safeboxes yet.</p>
+		{{/if}}
+	</div>
 
-<template name="NewSafeboxForm">
-	<h2>Create New Safebox</h2>
-
-	{{#autoForm id="newSafeboxForm" type="insert" collection="Safeboxes"}}
-	  {{> afQuickField name="name" placeholder="Ex: My Family Files" }}
-	  {{> afQuickField name="unlocked" value="false" type="hidden" }}
-	  {{> afQuickField name="items" options=itemOptions label="Items - IDs, Documents, Important Info"}}
-	  {{> afQuickField name="description" placeholder="(optional) Description"}}
-	  {{> afQuickField name="instructions" placeholder="(optional) Instructions and notes for recipients"}}
-	  {{> afQuickField name="allowedGroups" options=groupOptions label="For Groups"}}
-	  {{> afQuickField name="allowedContacts" options=contactOptions label="Plus Other Contacts (not in Groups)"}}
-	  <div class="form-group">
-	    <button type="submit" class="btn btn-primary">Submit</button>
-	    <button type="reset" class="btn btn-default">Reset Form</button>
-	  </div>
-	{{/autoForm}}
 </template>
 
 <template name="safebox">
-
+	{{#if unlocked }}
+		<div class="row safebox unlocked">
+			<div class="col-lg-4 col-md-4 col-sm-4">
+				{{ name }}
+			</div>
+			<div class="col-lg-4 col-md-4 col-sm-4">
+				{{ description }}
+			</div>
+			<div class="col-lg-4 col-md-4 col-sm-4">
+				{{ #each contacts }}
+					{{> contact }}
+				{{/each}}
+			</div>
+		</div>
+	{{else}}
+		<div class="row safebox locked">
+			<div class="col-lg-4 col-md-4 col-sm-4">
+				{{ name }}
+			</div>
+			<div class="col-lg-4 col-md-4 col-sm-4">
+				{{ description }}
+			</div>
+			<div class="col-lg-4 col-md-4 col-sm-4">
+				{{ #each contacts }}
+					{{> contact }}
+				{{/each}}
+			</div>
+		</div>
+	{{/if}}
 </template>
+

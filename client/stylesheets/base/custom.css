@@ -6,3 +6,27 @@
 	max-height: 200px;
 	max-width: auto;
 }
+
+.safebox {
+	padding: 20px;
+	margin: 20px 0;
+}
+
+.safebox.locked {
+	background-color: rgba(0, 0, 0, 0.3);
+}
+
+.safebox.unlocked {
+	background-color: green;
+}
+
+.contacts-canvas {
+	background: rgba(0,0,0,0.1);
+	padding: 20px;
+	margin: 20px 0;
+}
+
+/** vendor fix**/
+.btn-toolbar {
+	margin-left: 0 !important;
+}

@@ -73,6 +73,7 @@ Schema.User = new SimpleSchema({
     },
     createdAt: {
         type: Date,
+        optional: true,
         autoform: {
         	omit: true
         }

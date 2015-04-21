@@ -20,7 +20,14 @@ Schema.Safebox = new SimpleSchema({
 		type: String,
 		optional: true,
 		autoform: {
-			rows: 4
+			rows: 4,
+			afFieldInput: {
+        type: 'summernote',
+        class: 'editor', // optional
+        height: 200,
+        minHeight: 100,            
+  			maxHeight: null,             
+      }
 		}
 	},
 	items: {
@@ -34,6 +41,10 @@ Schema.Safebox = new SimpleSchema({
 	allowedContacts: {
 		type: [String],
 		defaultValue: []
+	},
+	allowedAll: { // groups + contacts
+		type: [String],
+		defaultValue: []
 	}
 });
 
@@ -42,6 +53,16 @@ Safeboxes.attachSchema(Schema.Safebox);
 Safeboxes.before.insert(function (userId, doc) {
   doc.createdAt = moment().toDate();
   doc.owner_id = Meteor.userId();
+});
 
-  console.log("safebox before insert", doc);
+Safeboxes.allow({
+  insert: function(fileObj){
+    return true;
+  },
+  update: function(){
+    return true;
+  },
+  remove: function(){
+    return true;
+  },
 });

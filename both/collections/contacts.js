@@ -15,13 +15,14 @@ Schema.ContactProfile = new SimpleSchema({
   tel: {
   	type: String,
   	optional: true,
+    label: "Phone Number*",
   	autoform: {
   		placeholder: "XXX-XXX-XXXX"
   	}
   },
   email: {
    type: String,
-   regEx: SimpleSchema.RegEx.Email,
+   // regEx: SimpleSchema.RegEx.Email,
 // this must be optional if you also use other login services like facebook,
 // but if you use only accounts-password, then it can be required
    optional: true
@@ -29,6 +30,7 @@ Schema.ContactProfile = new SimpleSchema({
 
   createdAt: {
       type: Date,
+      optional: true,
       autoform: {
       	omit: true
       }
@@ -38,7 +40,7 @@ Schema.ContactProfile = new SimpleSchema({
 Schema.Contact = new SimpleSchema({
 	profile: {
     type: Schema.ContactProfile,
-    optional: false
+    optional: true,
   },
 	roles: {
     type: [String],
@@ -52,10 +54,14 @@ Schema.Contact = new SimpleSchema({
   },
   belongedSafeboxes: {
   	type: [String],
+    optional: true,
+    blackbox: true,
   	defaultValue: []
   },
   belongedGroups: {
   	type: [String],
+    optional: true,
+    blackbox: true,
   	defaultValue: []
   	// allowedValues: ['family', 'friends', 'medical', 'legal'],
    //  autoform: {
@@ -74,15 +80,38 @@ Contacts.attachSchema(Schema.Contact);
 Contacts.before.insert(function (userId, doc) {
   doc.createdAt = moment().toDate();
   doc.owner_id = Meteor.userId();
-  doc.fullName = doc.firstName.trim() + " " + doc.lastName.trim();
+  var profile = doc.profile;
+  doc.fullName = profile.firstName.trim() + " " + profile.lastName.trim();
 
-  doc.belongedSafeboxes.forEach(function(safebox_id){
-  	Safeboxes.update(safebox_id, { $addToSet: { allowedContacts: doc._id } });
-  });
+  var safeboxIds = doc.belongedSafeboxes;
+  var groupIds = doc.belongedGroups;
 
-  doc.belongedGroups.forEach(function(group_id){
-  	Groups.update(group_id, { $addToSet: { contactIds: doc._id } });
-  });
 
-  console.log("contactbefore insert", doc);
+  console.log("contactbefore insert", doc._id, doc);
+  
+  Meteor.call('updateSafeboxesAndGroups', safeboxIds, groupIds, doc._id);
+
+  // doc.belongedSafeboxes.forEach(function(safebox_id){
+  // 	Safeboxes.update({_id: safebox_id }, { $addToSet: 
+  //     { allowedContacts: doc._id } 
+  //   }, { multi: true });
+  // });
+  // doc.belongedGroups.forEach(function(group_id){
+  // 	Groups.update({_id: group_id }, { $addToSet: 
+  //     { contactIds: doc._id } 
+  //   });
+  // });
+
+});
+
+Contacts.allow({
+  insert: function(fileObj){
+    return true;
+  },
+  update: function(){
+    return true;
+  },
+  remove: function(){
+    return true;
+  },
 });

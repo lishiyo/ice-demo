@@ -1,0 +1,27 @@
+
+<template name="newSafeboxForm">
+	<h5>Create New Safebox</h5>
+
+	{{#autoForm id="newSafeboxForm" collection="Safeboxes"}}
+	  {{> afQuickField name="name" placeholder="Ex: My Family Files" }}
+	  {{> afQuickField name="unlocked" value="false" type="hidden" }}
+	  {{> afQuickField name="items" options=itemOptions label="Items - IDs, Documents, Important Info"}}
+	  {{> afQuickField name="description" placeholder="(optional) Description"}}
+	  {{> afQuickField name="instructions" placeholder="(optional) Instructions and notes for recipients"}}
+	  {{> ContactsCanvas }}
+	  {{> afQuickField name="allowedGroups" options=groupOptions label="Groups to Allow Access To:"}}
+	  {{> afQuickField name="allowedContacts" options=contactOptions label="Plus Other Contacts (if not in those Groups):"}}
+	  <div class="form-group">
+	    <button type="submit" class="btn btn-primary">Submit</button>
+	    <button type="reset" class="btn btn-default">Reset Form</button>
+	  </div>
+	{{/autoForm}}
+</template>
+
+<template name="ContactsCanvas">
+	<div class="contacts-canvas">
+		{{ #each ids }}
+			<span class="tag">{{ this }}</span>
+		{{ /each }}
+	</div>
+</template>

@@ -2,11 +2,14 @@
 	<div class="page-header">
 	  <h3>My Contacts</h3>
 	</div>
+
 	{{> newContactForm }}
 
-	{{#each contacts}}
-		{{> contact }}
-	{{/each}}
+	<div class="row">
+		{{#each groups}}
+			{{> group }}
+		{{/each}}
+	</div>
 </template>
 
 <template name="newContactForm">
@@ -24,6 +27,7 @@
 
 	{{/autoForm}}
 </template>
+
 
 <template name="contact">
 	<li>{{ fullName }}</li>
