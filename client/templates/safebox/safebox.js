@@ -16,7 +16,11 @@ Template.safeboxes.events({
 
 Template.safebox.helpers({
 	contacts: function(){
-		return Contacts.find({ _id: { $in: this.allowedAll } } );
+		var contacts = Contacts.find({ _id: { $in: this.allowedAll } } );
+		return contacts.fetch();
+	},
+	getSafebox: function(){
+		return { safeboxId: this._id };
 	}
 });
 

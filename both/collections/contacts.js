@@ -44,16 +44,16 @@ Schema.Contact = new SimpleSchema({
     type: Schema.ContactProfile,
     optional: true,
   },
-	roles: {
-    type: [String],
-    optional: false,
-    blackbox: true,
-    autoValue: function(doc) {
-    	if (!this.isSet) {
-    		return ['locked'];
-    	}
-    }
-  },
+	// roles: {
+ //    type: [String],
+ //    optional: false,
+ //    blackbox: true,
+ //    autoValue: function(doc) {
+ //    	if (!this.isSet) {
+ //    		return ['locked'];
+ //    	}
+ //    }
+ //  },
   createdAt: {
     type: Date,
     optional: true,
@@ -62,6 +62,13 @@ Schema.Contact = new SimpleSchema({
     }
   },
   owner_id: {
+    type: String,
+    optional: true,
+    autoform: {
+      omit: true
+    }
+  },
+  fullName: {
     type: String,
     optional: true,
     autoform: {
@@ -87,40 +94,44 @@ Schema.Contact = new SimpleSchema({
    //    }
    //  }
   },
-  secret_id: {
-    type: String,
-    optional: true,
-    autoform: {
-      omit: true
-    }
-  }
+  // secret_id: {
+  //   type: String,
+  //   optional: true,
+  //   autoform: {
+  //     omit: true
+  //   }
+  // }
 });
 
 Contacts.attachSchema(Schema.Contact);
 
+
 // add CreatedAt, owner_id, fullName
 Contacts.before.insert(function (userId, doc) {
+  Contacts.simpleSchema().clean(doc);
   doc.createdAt = moment().toDate();
   doc.owner_id = Meteor.userId();
-  var profile = doc.profile;
-  doc.fullName = profile.firstName.trim() + " " + profile.lastName.trim();
-
-  return doc;
+  var first = doc.profile.firstName.trim(),
+      last = doc.profile.lastName.trim();
+  doc.fullName = first + " " + last;
 });
 
-// add secret_id
 // add to Groups and Safeboxes
 Contacts.after.insert(function (userId, doc) {
-  var safeboxIds = ( doc.belongedSafeboxes || [] );
-  var groupIds = ( doc.belongedGroups || [] );
-  console.log("contacts inside insert, userId, doc, this: ", userId, doc);
+  if (Meteor.isClient) {
+    var safeboxIds = ( doc.belongedSafeboxes || [] );
+    var groupIds = ( doc.belongedGroups || [] );
+    Meteor.call('updateSafeboxesAndGroups', safeboxIds, groupIds, doc._id);
+    Meteor.call('addTagsForContact', doc);
+  }
 
-  Meteor.call('updateSafeboxesAndGroups', safeboxIds, groupIds, doc._id);
-  Meteor.call('updateContactSecret', doc._id);
+  console.log("contacts AFTER insert: doc", doc._id);
+});
 
-  console.log("contacts AFTER insert: doc", doc);
-
-  return doc;
+Contacts.after.remove(function (userId, doc){
+  if (Meteor.isClient) {
+    Meteor.call("removeTagsForContact", doc);
+  }
 });
 
 Contacts.allow({

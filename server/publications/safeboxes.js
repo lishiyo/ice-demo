@@ -7,3 +7,12 @@ Meteor.publish("safeboxesWithEverything", function(userId){
     Files.find({ owner_id: userId })
   ]
 });
+
+Meteor.publish("safebox", function(safeboxId){
+	if (Roles.userIsInRole(this.userId, ['source', 'unlocked'])) {
+		return Safeboxes.find({ _id: safeboxId });
+	} else {
+		this.stop();
+		return;
+	}
+});

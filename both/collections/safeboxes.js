@@ -45,14 +45,30 @@ Schema.Safebox = new SimpleSchema({
 	allowedAll: { // groups + contacts
 		type: [String],
 		defaultValue: []
+	},
+	owner_id: {
+		type: String,
+		optional: true
+	},
+	createdAt: {
+		type: Date,
+		optional: true
 	}
 });
 
 Safeboxes.attachSchema(Schema.Safebox);
 
-Safeboxes.before.insert(function (userId, doc) {
-  doc.createdAt = moment().toDate();
-  doc.owner_id = Meteor.userId();
+Safeboxes.after.insert(function (userId, doc) {
+	if (Meteor.isClient){
+		Meteor.call('mergeGroupContactIds', doc);
+		Meteor.call('createTagsForSafebox', doc);
+	}
+});
+
+Safeboxes.after.remove(function (userId, doc){
+	if (Meteor.isClient) {
+		Meteor.call('removeTagsForSafebox', doc);
+	}
 });
 
 Safeboxes.allow({

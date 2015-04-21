@@ -16,15 +16,14 @@
 </template>
 
 <template name="safebox">
+	<a href="{{urlFor route='safebox.show' data=getSafebox }}">Show </a>
 	{{#if unlocked }}
 		<div class="row safebox unlocked">
 			<div class="col-lg-4 col-md-4 col-sm-4">
 				{{ name }}
-			</div>
-			<div class="col-lg-4 col-md-4 col-sm-4">
+				<br>
 				{{ description }}
-			</div>
-			<div class="col-lg-4 col-md-4 col-sm-4">
+				<br>
 				{{ #each contacts }}
 					{{> contact }}
 				{{/each}}
@@ -34,11 +33,9 @@
 		<div class="row safebox locked">
 			<div class="col-lg-4 col-md-4 col-sm-4">
 				{{ name }}
-			</div>
-			<div class="col-lg-4 col-md-4 col-sm-4">
+				<br>
 				{{ description }}
-			</div>
-			<div class="col-lg-4 col-md-4 col-sm-4">
+				<br>
 				{{ #each contacts }}
 					{{> contact }}
 				{{/each}}

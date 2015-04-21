@@ -1,4 +1,3 @@
-SimpleSchema.debug = true
 
 Template.newSafeboxForm.helpers({
 	safeboxSchema: function() {
@@ -27,53 +26,70 @@ Template.newSafeboxForm.created = function(){
 	this.allIds = [];
 };
 
+var addGroupIds = function(selected, currIds) {
+	console.log("adding group ids", currIds);
+	selected.each(function(idx, elem){
+		var groupId = elem.value;
+		var group = Groups.findOne({ _id: groupId });
+		group.contactIds.forEach(function(id){
+			if (id===null) return;
+			if (currIds.indexOf(id) === -1) {
+				currIds.push(id);
+			}
+		});
+	});
+
+	return currIds;
+};
+
+var addContactIds = function(selected, currIds) {
+	console.log("adding contact ids", currIds);
+	selected.each(function(idx, elem){
+		var cId = elem.value;
+		if (cId===null) return;
+		if (currIds.indexOf(cId) === -1) {
+			currIds.push(cId);
+		}
+	});
+
+	return currIds;
+};
+
 Template.newSafeboxForm.events({
 	'change select[name="allowedGroups"]': function(event, template) {
 		var selectBox = $(event.target);
 		var oldArr = _.clone(template.allIds);
+		var selected = selectBox.find('option:selected');
 
-		selectBox.find('option:selected').each(function(idx, elem){
-			var groupId = elem.value;
-			var group = Groups.findOne({ _id: groupId });
-			console.log("group", group.contactIds);
-			group.contactIds.forEach(function(id){
-				if (id===null) return;
-				if (template.allIds.indexOf(id) === -1) {
-					template.allIds.push(id);
-				}
-			})
-
-		});
+		template.allIds = addGroupIds(selected, template.allIds);
 		// only render template if changed
 		if (!(_.isEqual(oldArr, template.allIds))) {
 			Session.set('allIds', template.allIds);
 		}
 
+		console.log("allIds in groups", template.allIds);
 	},
 	'change select[name="allowedContacts"]': function(event, template) {
 		var selectBox = $(event.target);
 		var oldArr = _.clone(template.allIds);
+		var selected = selectBox.find('option:selected');
 
-		selectBox.find('option:selected').each(function(idx, elem){
-			var cId = elem.value;
-			if (cId===null) return;
-			if (template.allIds.indexOf(cId) === -1) {
-				template.allIds.push(cId);
-			}
-		});
+		template.allids = addContactIds(selected, template.allIds);
 		// only render template if changed
 		if (!(_.isEqual(oldArr, template.allIds))){
 			Session.set('allIds', template.allIds);
 		}
+
+		console.log("allIds in contacts", template.allIds);
 	}
 });
 
 var newSafeboxHook = {
 	onSubmit: function(doc) {
-		var allIds = Session.get('allIds');
 		// add default values and custom values
 		Safeboxes.simpleSchema().clean(doc);
-		doc.allowedAll = allIds;
+		doc.createdAt = moment().toDate();
+  	doc.owner_id = Meteor.userId();
 
 		Safeboxes.insert(doc, function(err, id){
 			if (err) {
@@ -82,6 +98,8 @@ var newSafeboxHook = {
 				this.done();
 			}
 		}.bind(this));
+
+		console.log("onSubmit", doc, doc.allowedAll);
 
 		return false;
 	},

@@ -1,3 +1,5 @@
+
+
 Template.newContactForm.helpers({
 	userSafeboxes: function(){
 		return Safeboxes.find().map(function(safebox){
@@ -23,9 +25,4 @@ Template.contacts.helpers({
 	groups: function(){
 		return Groups.find();
 	}
-});
-
-
-Template.contact.helpers({
-
 });
