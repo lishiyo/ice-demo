@@ -36,3 +36,4 @@ cfs:s3
 cfs:ejson-file
 cfs:ui
 mpowaga:autoform-summernote
+jparker:crypto-base64

@@ -50,6 +50,7 @@ Schema.UserProfile = new SimpleSchema({
     	type: String,
         label: "Primary Phone Number*",
     	optional: false,
+      regEx: /^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]\d{3}[\s.-]\d{4}$/,
     	autoform: {
     		placeholder: "XXX-XXX-XXXX"
     	}

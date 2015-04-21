@@ -2,7 +2,6 @@
 Template.IdItem.helpers({
 	files: function() {
 		var file = Files.findOne({_id: this.fileId });
-		console.log("file in IdItem", this, file);
 		return (file ? [file] : null);
 	},
 });
@@ -29,7 +28,6 @@ Template.DocItemRow.helpers({
 	},
 	documents: function(){
 		var rowDocs = Items.find({ category: "document", type: this.type });
-		console.log("docItemRow docs", rowDocs.count() );
 		return rowDocs;
 	}
 });
@@ -37,7 +35,6 @@ Template.DocItemRow.helpers({
 Template.DocItem.helpers({
 	files: function() {
 		var file = Files.findOne({_id: this.fileId });
-		console.log("file in docItem", this.fileId, file);
 		return (file ? [file] : null);
 	},
 })
@@ -47,7 +44,6 @@ var ItemFormHook = {
   onSuccess: function(formType, itemId){
   	var item = Items.findOne({_id: itemId});
   	Files.files.update(item.fileId, { $set: { owner_id: Meteor.userId() } });
-  	console.log("itemformhook Files", Files);
   	$('.modal').modal('hide');
   }
 };
