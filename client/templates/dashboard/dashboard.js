@@ -9,7 +9,6 @@ Template.dashboard.helpers({
 Template.items.helpers({
 	passport: function(){
 		var passport = Items.findOne({ type: "passport" });
-		console.log("passport ", passport);
 		return passport;
 	},
 	userHasItem: function(itemType) {

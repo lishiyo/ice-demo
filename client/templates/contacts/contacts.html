@@ -1,0 +1,23 @@
+<template name="contacts">
+  <h3>Contact Folio</h3>
+
+</template>
+
+<template name="newContactForm">
+	<div class="page-header">
+	  <h1>Create Contact</h1>
+	</div>
+
+	{{#autoForm id="newContactForm" type="insert" collection="Contacts" }}
+	  {{> afQuickField name="profile" }}
+	  {{> afQuickField name="belongedSafeboxes" options=userSafeboxes }}
+	  {{> afQuickField name="belongedGroups" }}
+
+	  <div class="form-group">
+	    <button type="submit" class="btn btn-primary">Submit</button>
+	    <button type="reset" class="btn btn-default">Reset Form</button>
+	  </div>
+
+	{{/autoForm}}
+
+</template>

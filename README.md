@@ -2,29 +2,45 @@
 
 # Users
 email, password, role = source
-firstName, lastName, birthday, phone, address
+profile - firstName, lastName, birthday, tel, address
 contacts [contact_id, contact_id]
 safeboxes [safebox_id, safebox_id]
 id_items [item_id, item_id]
 
+
 # Contacts (same as user)
 role = locked/unlocked
-belongs_to - source_id 
-email, password - generate random
+belongs_to - source_id
+profile - firstName, lastName, email, tel
 belongedSafeboxes - [ safebox_id, safebox_id ]
-belongedGroups - [ group_id ]
+belongedGroups - [ 'family', 'friends', 'medical', 'legal' ]
 
 # Groups - family, friends, medical, legal, custom
+owner_id
+type - family, friends, medical, legal, custom
+name(if custom)
+contactIds - [contact_id, contact_id]
 
-# Items
-ids [{ type: 'passport', location, file }]
+# Items - ID, Vital Documents, Info Keys (key - value - attachment)
+name, type, category, note (location/description), fileId
+owner_id
 
-# Safebox - check if unlocked, source_id == owner_id, belongedGroups, allowedUsers
+# Safebox
+- check if unlocked, contact.source_id == safebox.owner_id, belongedGroups, allowedUsers [contact_id, contact_id]
+
 items [item_id, item_id]
 owner_id
-locked/unlocked boolean 
+locked/unlocked boolean
 allowedGroups - [group_id, group_id]
 allowedUsers - [user_id, user_id ]
+
+# ActionPlan
+- send text with custom message to these Groups
+- unlock these Safeboxes to these Groups
+  -- triggers unlock on the safebox
+  -- sends text with link to safebox, contact_id
+  -- contact must add a password => Accounts.createUser()
+
 
 
 
@@ -79,7 +95,7 @@ A starting point for MeteorJS applications. Includes iron-router, Bootstrap 3, F
 
 ## <a name="file-structure"></a> File Structure
 
-We have a common file structure we use across all of our Meteor apps. Client-only files are stored in the `client` directory, server-only files are stored in the `server` directory, and shared files are stored in the `both` directory. The `private` and `public` directories are for either private or public assets. 
+We have a common file structure we use across all of our Meteor apps. Client-only files are stored in the `client` directory, server-only files are stored in the `server` directory, and shared files are stored in the `both` directory. The `private` and `public` directories are for either private or public assets.
 
 ## <a name="bootstrap-and-less"></a> Bootstrap and LESS
 

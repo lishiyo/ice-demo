@@ -3,7 +3,7 @@
 <template name="IdItem">
   <h4>{{ type }}</h4>
     <li class="list-group-item">{{ name }}</li>
-    <li class="list-group-item">{{ location }}</li>
+    <li class="list-group-item">{{ note }}</li>
     {{#each files}}
       <img src="{{this.url store='filesStore'}}" />
     {{/each}}
@@ -13,9 +13,9 @@
   <h4>{{ type }}</h4>
     {{#autoForm id="IdItemForm" type="insert" collection="Items"}}
       {{> afQuickField name="category" value="ID" type="hidden"}}
-      {{> afQuickField name="type" value=type type="hidden"}}
-      {{> afQuickField name="name" placeholder="Passport"}}
-      {{> afQuickField name="location" }}
+      {{> afQuickField name="type" value=type type="hidden" }}
+      {{> afQuickField name="name" placeholder="My Passport" }}
+      {{> afQuickField name="note" placeholder="(EX: ID is located in...)" }}
       {{> afQuickField name="fileId" type="cfs-file" collection="files"}}
       <button type="submit">Submit</button>
     {{/autoForm}}
@@ -34,7 +34,7 @@
 <template name="DocItem">
   <tr>
     <td>{{ name }}</td>
-    <td>{{ location }}</td>
+    <td>{{ note }}</td>
     {{#each files}}
       <td><a href="{{ this.url store='filesStore' }}" target="_blank">Link</a></td>
     {{/each}}
@@ -51,9 +51,12 @@
       {{> afQuickField name="category" value="document" type="hidden"}}
       {{> afQuickField name="type" options=docTypeOptions }}
       {{> afQuickField name="name" placeholder="document name" }}
-      {{> afQuickField name="location" }}
+      {{> afQuickField name="note" placeholder="(EX: Description)" }}
       {{> afQuickField name="fileId" type="cfs-file" collection="files"}}
-      <button type="submit">Submit</button>
+      <div class="form-group">
+        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="reset" class="btn btn-default">Reset Form</button>
+      </div>
     {{/autoForm}}
   </div>
 </template>

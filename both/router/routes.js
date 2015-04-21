@@ -18,7 +18,12 @@ Router.route('/dashboard', {
 Router.route('/setup', {
 	name: 'user.setup',
 	controller: 'UserProfileController',
-})
+});
+
+Router.route('/safeboxes', {
+  name: 'safeboxes',
+  controller: 'SafeboxController'
+});
 
 Router.plugin('ensureSignedIn', {
   except: ['home', 'atSignIn', 'atSignUp', 'atForgotPassword']

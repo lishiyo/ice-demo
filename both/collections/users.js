@@ -55,11 +55,11 @@ Schema.UserProfile = new SimpleSchema({
 
 
 Schema.User = new SimpleSchema({
-		emails: {
-			type: [Object],
-    // this must be optional if you also use other login services like facebook,
-    // but if you use only accounts-password, then it can be required
-    	optional: true
+	emails: {
+	   type: [Object],
+// this must be optional if you also use other login services like facebook,
+// but if you use only accounts-password, then it can be required
+	   optional: true
     },
     "emails.$.address": {
         type: String,
