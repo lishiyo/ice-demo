@@ -1,6 +1,6 @@
 DashboardController = AppController.extend({
   waitOn: function() {
-    return [this.subscribe('itemsAndFiles', Meteor.userId())];
+    return [ this.subscribe('dashboardAll', Meteor.userId()) ];
   },
   data: {
     items: Items.find({})
@@ -9,6 +9,11 @@ DashboardController = AppController.extend({
     Meta.setTitle('Dashboard');
   },
   action: function (){
+    if (Groups.find().count() === 0) {
+      console.log("in group action");
+      var defaultTypes = ["family", "friends", "medical", "legal", "custom"];
+      Meteor.call("createDefaultGroups", Meteor.user(), defaultTypes);
+    }
     this.render();
   }
 });

@@ -12,6 +12,7 @@ UserProfileController = UserController.extend({
   },
   action: function () {
     console.log("UserProfileController");
+
     this.render();
   }
 });

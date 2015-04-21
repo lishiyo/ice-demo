@@ -19,19 +19,14 @@ Schema.ContactProfile = new SimpleSchema({
   		placeholder: "XXX-XXX-XXXX"
   	}
   },
-  emails: {
-   type: [Object],
+  email: {
+   type: String,
+   regEx: SimpleSchema.RegEx.Email,
 // this must be optional if you also use other login services like facebook,
 // but if you use only accounts-password, then it can be required
    optional: true
   },
-  "emails.$.address": {
-      type: String,
-      regEx: SimpleSchema.RegEx.Email
-  },
-  "emails.$.verified": {
-      type: Boolean
-  },
+
   createdAt: {
       type: Date,
       autoform: {
@@ -80,5 +75,14 @@ Contacts.before.insert(function (userId, doc) {
   doc.createdAt = moment().toDate();
   doc.owner_id = Meteor.userId();
   doc.fullName = doc.firstName.trim() + " " + doc.lastName.trim();
+
+  doc.belongedSafeboxes.forEach(function(safebox_id){
+  	Safeboxes.update(safebox_id, { $addToSet: { allowedContacts: doc._id } });
+  });
+
+  doc.belongedGroups.forEach(function(group_id){
+  	Groups.update(group_id, { $addToSet: { contactIds: doc._id } });
+  });
+
   console.log("contactbefore insert", doc);
 });

@@ -24,12 +24,14 @@ Schema.UserProfile = new SimpleSchema({
     firstName: {
       type: String,
       regEx: /^[a-zA-Z-]{2,25}$/,
-      optional: false
+      optional: false,
+      label: "First Name*"
     },
     lastName: {
       type: String,
       regEx: /^[a-zA-Z]{2,25}$/,
-      optional: false
+      optional: false,
+      label: "Last Name*"
     },
     dateOfBirth: {
       type: Date,
@@ -46,6 +48,7 @@ Schema.UserProfile = new SimpleSchema({
     },
     tel: {
     	type: String,
+        label: "Primary Phone Number*",
     	optional: false,
     	autoform: {
     		placeholder: "XXX-XXX-XXXX"

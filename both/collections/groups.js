@@ -17,11 +17,12 @@ Schema.Group = new SimpleSchema({
   },
   name: {
     type: String,
-    optional: true
+    optional: true,
   },
   contactIds: {
     type: [String],
-    optional: true
+    optional: true,
+    defaultValue: []
   }
 });
 
@@ -29,7 +30,20 @@ Groups.attachSchema(Schema.Group);
 
 Groups.before.insert(function (userId, doc) {
   doc.createdAt = moment().toDate();
-  doc.owner_id = Meteor.userId();
+  if (!doc.owner_id) doc.owner_id = Meteor.userId();
+  if (!doc.name) doc.name = doc.type;
 
   console.log("group before insert", doc);
+});
+
+Groups.allow({
+  insert: function(fileObj){
+    return true;
+  },
+  update: function(){
+    return true;
+  },
+  remove: function(){
+    return true;
+  },
 });

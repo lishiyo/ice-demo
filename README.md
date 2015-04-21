@@ -10,7 +10,7 @@ id_items [item_id, item_id]
 
 # Contacts (same as user)
 role = locked/unlocked
-belongs_to - source_id
+belongs_to - owner_id
 profile - firstName, lastName, email, tel
 belongedSafeboxes - [ safebox_id, safebox_id ]
 belongedGroups - [ 'family', 'friends', 'medical', 'legal' ]
