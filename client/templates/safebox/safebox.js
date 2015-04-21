@@ -1,6 +1,7 @@
 Template.NewSafeboxForm.helpers({
 	itemOptions: function(){
 		return Items.find().map(function(item){
+			console.log("item", item);
 			var full = [item.category.toUpperCase(), item.type.toUpperCase(), item.name].join(" - ");
 			return { label: full, value: item._id };
 		});
