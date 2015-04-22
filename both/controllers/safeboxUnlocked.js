@@ -17,7 +17,7 @@ SafeboxUnlockedController = AppController.extend({
 
 SafeboxesUnlockedController = AppController.extend({
 	template: 'safeboxesUnlocked',
-	// waitOn: function () {
-
-	// },
+	waitOn: function () {
+		return this.subscribe('safeboxesPublic', Meteor.user());
+	},
 });
