@@ -1,12 +1,11 @@
 Accounts.onCreateUser(function(options, user) {
-  console.log("on create", options, user);
+  console.log("onreateUser", options, user);
   return user;
 });
 
 
 Meteor.methods({
 	// @param user object
-	// add more fields to user
 	'setProfile': function(userData) {
     // user.roles = [ 'source' ]
     if (userData.roles.length > 0) {
@@ -15,9 +14,29 @@ Meteor.methods({
       Roles.addUsersToRoles(id, userData.roles);
     }
   },
+  'addContactIdToUser': function (opts) {
+    console.log("adding contact id to user with opts: ", opts);
+    Users.update({ _id: opts.userId }, { $addToSet: {
+      contactIds: [ opts.contactId ]
+    }});
+  },
+  // ==== Convert Contact to User upon Unlock ====
+  'convertContactToUser': function(docFields, safeboxId, contactId) {
+    newUserId = Accounts.createUser(docFields);
+    console.log("converting contact", newUserId);
+    // add unlocked to roles
+    Roles.addUsersToRoles(newUserId, ['unlocked']);
+    // add safeboxId to unlockedSafeboxes
+    Users.update({_id: newUserId}, {
+      $addToSet: {
+        unlockedSafeboxes: [safeboxId],
+        contactIds: [contactId]
+      }
+    });
 
-  'convertContact': function(docFields) {
-    Accounts.createUser(docFields);
+    // delete tag
+
+    return true;
   },
 
   'createDefaultGroups': function(user, defaultTypes) {

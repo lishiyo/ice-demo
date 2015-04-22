@@ -8,17 +8,25 @@ Meteor.methods({
     var tag = Tags.findOne({
       safebox_id: opts.safebox_id,
       contact_id: opts.contact_id,
-      secret: opts.secret  
+      secret: opts.secret
     });
     if (tag) { // tag for this contact and safebox exists!
       var user = Meteor.users.findOne({ contactId: opts.contact_id });
-      console.log("check valid user", user);
+      console.log("check valid user's user: ", user);
       if (user) {
-        return { account: user, hasAccount: true }
+        return {
+          account: user,
+          hasAccount: true,
+          contact_id: opts.contact_id
+        }
       }
       var contact = Contacts.findOne({_id: opts.contact_id });
       if (contact) {
-        return { account: contact, hasAccount: false }
+        return {
+          account: contact,
+          hasAccount: false,
+          contact_id: opts.contact_id
+        }
       }
     } else {
       return null;

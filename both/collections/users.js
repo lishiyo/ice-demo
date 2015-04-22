@@ -96,18 +96,18 @@ Schema.User = new SimpleSchema({
       	if (!this.isSet) return ['source'];
       }
   },
-  // add to unlocked
+  // == For Contact conversion ===
   unlockedSafeboxes: {
     type: [String],
-    optional: true,
     autoValue: function(){
       if (!this.isSet) return [];
     }
   },
-  contactId: {
-    type: String,
-    optional: true,
-    defaultValue: ""
+  contactIds: {
+    type: [String],
+    autoValue: function(){
+      if (!this.isSet) return [];
+    }
   }
 });
 

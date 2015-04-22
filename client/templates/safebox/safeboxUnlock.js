@@ -11,14 +11,19 @@ Template.safeboxUnlock.events({
 			contact_id: contact_id,
 			secret: secret
 		};
-		
+
 		Meteor.call("checkValidUnlock", opts, function(err, res){
 			if (res) { // either user or contact
 				if (res.hasAccount) {
-					Router.go('signIn'); // a user
+					var opts = {
+						userId: res.account._id,
+						contactId: res.contact_id
+					}
+					Meteor.call('addContactIdToUser', opts);
+					Router.go('signIn'); // already a user
 				} else {
 					Router.current().state.set('contact', res.account);
-					Router.current().render('contactUnlock');	
+					Router.current().render('contactUnlock');
 				}
 			} else {
 				Router.go('unauthorized');
@@ -29,15 +34,17 @@ Template.safeboxUnlock.events({
 
 Template.contactUnlock.helpers({
 	contact: function() {
-		var contact = Router.current().state.get('contact');
-		return contact;
+		return Router.current().state.get('contact');
+	},
+	safeboxId: function() {
+		return Router.current().params.safeboxId;
 	}
 });
 
 Template.contactUnlock.events({
-	"submit form#unlock-contact": function (event) {
-		event.preventDefault();
-	}
+	// "submit form#unlock-contact": function (event) {
+	// 	event.preventDefault();
+	// }
 });
 
 // xiaodong =  "3Pitq7cx8FbonWBRB"
@@ -46,29 +53,23 @@ Template.contactUnlock.events({
 AutoForm.hooks({
   contactConfirm: {
     onSubmit: function (insertDoc, updateDoc, currentDoc) {
-    	
+    	// format doc fields
     	var email = insertDoc.profile.email;
     	delete insertDoc.profile.email;
     	insertDoc.email = email;
+    	var safeboxId = Router.current().params.safeboxId;
+    	var contactId = Router.current().state.get('contact')._id;
 
-    	// var createUser = function(docFields) {
-    	// 	return Accounts.createUser(docFields, function(err){
-    	// 		if (err) {
-    	// 			console.log("err", err);
-    	// 			return false;
-    	// 		}
-    	// 		console.log("created user");
-    	// 		Meteor.call("completeUserConversion", docFields);
-    	// 		return true;
-    	// 	});
-    	// };
-
-      if (Meteor.call("convertContact", insertDoc)) {
+      if (Meteor.call("convertContactToUser", insertDoc, safeboxId, contactId)) {
         this.done();
       } else {
         this.done(new Error("Submission failed"));
       }
       return false;
-    }
+    },
+
+    onSuccess: function () {
+
+    },
   }
-}); 
+});
