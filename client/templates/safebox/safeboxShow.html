@@ -13,24 +13,26 @@
 	      <div class="modal fade" id="add-item-modal" role="dialog" aria-labelledby="add-item-modal" aria-hidden="true">
 	        <div class="modal-dialog">
 	          <div class="modal-content">
-	            {{> addItemForm }}
+	            {{> addItemsForm }}
 	          </div>
 	        </div>
 	      </div>
 
 			{{> itemsPanel }}
 			</div>
+		</div>
 
+		<div class="row">
 			<div class="col-lg-6 col-md-6 col-sm-6">
 				<!-- add item -->
 				<button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#add-contact-modal">
-	        Add Contact
+	        Add Contacts
 	      </button>
 
 	      <div class="modal fade" id="add-contact-modal" role="dialog" aria-labelledby="add-contact-modal" aria-hidden="true">
 	        <div class="modal-dialog">
 	          <div class="modal-content">
-	            {{> addContactForm }}
+	            {{> addContactsForm }}
 	          </div>
 	        </div>
 	      </div>
@@ -49,8 +51,40 @@
 	{{/each}}
 </template>
 
-<template name="addContactForm">
-	add contact
+
+<template name="addContactsForm">
+	<div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      <h4 class="modal-title" id="modalLabel">Add Contacts</h4>
+  </div>
+  <div class="modal-body">
+  	<form data-safebox-id="{{ this._id }}">
+		  <div class="form-group">
+			  <label for="allowedGroups" class="control-label">
+			  	Add More Groups:
+			  </label>
+				<select multiple="multiple" name="allowedGroups" class="form-control">
+					{{#each groups}}
+						<option value="{{ this._id }}">{{ this.name }}</option>
+					{{/each}}	
+		  	</select>
+		  </div>
+		  <div class="form-group">
+		  	<label for="allowedContacts" class="control-label">
+		  		Add More Contacts:
+		  	</label>
+		  	<select multiple="multiple" name="allowedContacts" class="form-control">
+					{{#each contacts}}
+						<option value="{{ this._id }}">{{ this.fullName }}</option>
+					{{/each}}	
+		  	</select>
+		  </div>
+		  <div class="form-group">
+		    <button type="submit" class="btn btn-primary">Submit</button>
+		    <button type="reset" class="btn btn-default">Reset Form</button>
+		  </div>
+		</form>
+  </div>
 </template>
 
 <template name="itemsPanel">
@@ -64,6 +98,6 @@
 	{{ name }}
 </template>
 
-<template name="addItemForm">
+<template name="addItemsForm">
 	add item
 </template>

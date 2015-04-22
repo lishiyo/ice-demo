@@ -11,8 +11,6 @@ UserProfileController = UserController.extend({
     Meta.setTitle('Setup Your Profile');
   },
   action: function () {
-    console.log("UserProfileController");
-
     this.render();
   }
 });

@@ -1,4 +1,3 @@
-
 Template.newSafeboxForm.helpers({
 	safeboxSchema: function() {
 		return Schema.Safebox;
@@ -88,7 +87,7 @@ Template.newSafeboxForm.events({
 });
 
 var newSafeboxHook = {
-	onSubmit: function(doc) {
+	onSubmit: function(doc, updateDoc) {
 		// add default values and custom values
 		Safeboxes.simpleSchema().clean(doc);
 		doc.createdAt = moment().toDate();
@@ -107,7 +106,6 @@ var newSafeboxHook = {
 		return false;
 	},
 	onSuccess: function(formType, safeboxId) {
-		console.log("onSuccess");
   	Router.go('safeboxes');
   },
   onError: function (name, error, template) {

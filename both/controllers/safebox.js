@@ -16,7 +16,7 @@ SafeboxesController = AppController.extend({
 // http://localhost:3000/safeboxes/MiPWKBNQt4bxChtcb
 SafeboxController = AppController.extend({
   waitOn: function() {
-    return Meteor.subscribe('safebox', this.params.safeboxId);
+    return [this.subscribe('safeboxesWithEverything', Meteor.userId())];
   },
   data: function () {
     return Safeboxes.findOne({ _id: this.params.safeboxId });
@@ -34,7 +34,7 @@ SafeboxController = AppController.extend({
     } else if (unlockedAllowedPending) {
       Router.go('safebox.unlock', safebox._id);
     } else {
-      Router.go('/login');
+      Router.go('/unauthorized');
     }
   },
   action: function () {

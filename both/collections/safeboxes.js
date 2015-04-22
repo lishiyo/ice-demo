@@ -44,7 +44,11 @@ Schema.Safebox = new SimpleSchema({
 	},
 	allowedAll: { // groups + contacts
 		type: [String],
-		defaultValue: []
+		autoValue: function() {
+	   	if (!this.isSet) {
+	   		return [];
+	   	}
+	  }
 	},
 	owner_id: {
 		type: String,
@@ -58,6 +62,16 @@ Schema.Safebox = new SimpleSchema({
 
 Safeboxes.attachSchema(Schema.Safebox);
 
+/*
+====== HOOKS =======
+*/
+
+Safeboxes.before.insert(function(userId, doc){
+	if (!doc.allowedGroups.length) doc.allowedGroups = [];
+	if (!doc.allowedContacts.length) doc.allowedContacts = [];
+	return doc;
+});
+
 Safeboxes.after.insert(function (userId, doc) {
 	if (Meteor.isServer){
 		Meteor.call('mergeGroupContactIds', doc);
@@ -66,7 +80,14 @@ Safeboxes.after.insert(function (userId, doc) {
 
 Safeboxes.after.update(function (userId, doc, fieldNames, modifier) {
 	if (Meteor.isServer) {
-		console.log('after update', doc, fieldNames, modifier);
+		
+		var allowedChange = (fieldNames.indexOf('allowedContacts') !== -1 || fieldNames.indexOf('allowedGroups') !== -1);
+
+		if (allowedChange) {
+			console.log("allowedChange");
+			Meteor.call('mergeGroupContactIds', doc);
+		}
+
 		if (fieldNames.indexOf('allowedAll') !== -1) {
 			Meteor.call('createTagsForSafebox', doc);
 		}

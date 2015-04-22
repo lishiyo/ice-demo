@@ -69,11 +69,8 @@ Files.allow({
 });
 
 Items.before.insert(function (userId, doc) {
-  var pathUrl = '/cfs/files/file/';
   doc.createdAt = moment().toDate();
   doc.owner_id = Meteor.userId();
-  if (doc.fileId) {
-    doc.fileUrls = [ pathUrl + doc.fileId];
-  }
   console.log("before insert item", doc);
+  return doc;
 });

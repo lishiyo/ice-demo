@@ -16,9 +16,11 @@ Router.configure({
   layoutTemplate: 'appLayout',
   loadingTemplate: 'loading',
   notFoundTemplate: 'notFound',
-  // waitOn: function() {
-  //   return [Meteor.subscribe('notifications')]
-  // }
+});
+
+Router.route('/unauthorized', {
+  name: 'unauthorized',
+  template: 'unauthorized'
 });
 
 Router.route('/', {
