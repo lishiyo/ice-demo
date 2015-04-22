@@ -33,7 +33,6 @@ Template.addContactsForm.events({
 		var $form = $(event.target);
 		var groups = $form.find("select[name='allowedGroups'] option:selected");
 		var contacts = $form.find("select[name='allowedContacts'] option:selected");
-
 		var groupIds = [];
 		var contactIds = [];
 		var safeboxId = $form.data('safebox-id');

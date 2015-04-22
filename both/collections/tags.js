@@ -5,9 +5,9 @@ When the safebox is unlocked, the passcode is released to each of its contacts.
 The contact inputs client_id && passcode -> search for safebox in Tags.
 If the safebox_id matches this.params.safeboxId and safebox.unlocked, then:
 	1) redirect to contact setup page to become a full user
-	2) upon full user-ship, Roles.addUsersToRoles(id, ['unlocked']);
-	3) delete tag doc from Tags
-
+	2) note that role does NOT have to be set - just check tag
+	3) insert safebox into new user's unlockedSafeboxes
+	4) delete tag doc from Tags
  */
 
 Schema = {};

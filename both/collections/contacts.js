@@ -30,13 +30,6 @@ Schema.ContactProfile = new SimpleSchema({
 // but if you use only accounts-password, then it can be required
    optional: true
   },
-  relation: {
-    type: String,
-    optional: true,
-    autoform: {
-      placeholder: "father, daughter, co-worker, etc.",
-    }
-  },
 });
 
 Schema.Contact = new SimpleSchema({
@@ -44,16 +37,13 @@ Schema.Contact = new SimpleSchema({
     type: Schema.ContactProfile,
     optional: true,
   },
-	// roles: {
- //    type: [String],
- //    optional: false,
- //    blackbox: true,
- //    autoValue: function(doc) {
- //    	if (!this.isSet) {
- //    		return ['locked'];
- //    	}
- //    }
- //  },
+  relation: {
+    type: String,
+    optional: true,
+    autoform: {
+      placeholder: "father, daughter, co-worker, etc.",
+    }
+  },
   createdAt: {
     type: Date,
     optional: true,
@@ -94,13 +84,14 @@ Schema.Contact = new SimpleSchema({
    //    }
    //  }
   },
-  // secret_id: {
-  //   type: String,
-  //   optional: true,
-  //   autoform: {
-  //     omit: true
-  //   }
-  // }
+  password: {
+    type: String,
+    optional: true
+  },
+  email: {
+    type: String,
+    optional: true
+  }
 });
 
 Contacts.attachSchema(Schema.Contact);

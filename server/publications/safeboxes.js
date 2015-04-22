@@ -1,4 +1,4 @@
-Meteor.publish("safeboxesWithEverything", function(userId){
+Meteor.publish("safeboxesWithEverything", function (userId){
   return [
     Safeboxes.find({ owner_id: userId }),
     Items.find({ owner_id: userId }),
@@ -8,7 +8,7 @@ Meteor.publish("safeboxesWithEverything", function(userId){
   ]
 });
 
-Meteor.publish("safebox", function(safeboxId){
+Meteor.publish("safebox", function (safeboxId){
 	if (Roles.userIsInRole(this.userId, ['source', 'unlocked'])) {
 		return Safeboxes.find({ _id: safeboxId });
 	} else {
@@ -16,3 +16,7 @@ Meteor.publish("safebox", function(safeboxId){
 		return;
 	}
 });
+
+// Meteor.publish("safeboxIds", function () {
+//   return Safeboxes.find({}, { fields: { _id: 1, unlocked: 1} } );
+// });

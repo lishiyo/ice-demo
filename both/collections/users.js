@@ -49,7 +49,7 @@ Schema.UserProfile = new SimpleSchema({
     tel: {
     	type: String,
         label: "Primary Phone Number*",
-    	optional: false,
+    	optional: true,
       regEx: /^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]\d{3}[\s.-]\d{4}$/,
     	autoform: {
     		placeholder: "XXX-XXX-XXXX"
@@ -60,44 +60,55 @@ Schema.UserProfile = new SimpleSchema({
 
 Schema.User = new SimpleSchema({
 	emails: {
-	   type: [Object],
+   type: [Object],
 // this must be optional if you also use other login services like facebook,
 // but if you use only accounts-password, then it can be required
-	   optional: true
-    },
-    "emails.$.address": {
-        type: String,
-        regEx: SimpleSchema.RegEx.Email
-    },
-    "emails.$.verified": {
-        type: Boolean
-    },
-    createdAt: {
-        type: Date,
-        optional: true,
-        autoform: {
-        	omit: true
-        }
-    },
-    profile: {
-        type: Schema.UserProfile,
-        optional: true
-    },
-    services: {
-        type: Object,
-        optional: true,
-        blackbox: true
-    },
-    roles: {
-        type: [String],
-        optional: false,
-        blackbox: true,
-        autoValue: function(doc) {
-        	if (!this.isSet) {
-        		return ['source'];
-        	}
-        }
-    },
+   optional: true
+  },
+  "emails.$.address": {
+      type: String,
+      regEx: SimpleSchema.RegEx.Email
+  },
+  "emails.$.verified": {
+      type: Boolean
+  },
+  createdAt: {
+      type: Date,
+      optional: true,
+      autoform: {
+      	omit: true
+      }
+  },
+  profile: {
+      type: Schema.UserProfile,
+      optional: true
+  },
+  services: {
+      type: Object,
+      optional: true,
+      blackbox: true
+  },
+  roles: {
+      type: [String],
+      optional: false,
+      blackbox: true,
+      autoValue: function(doc) {
+      	if (!this.isSet) return ['source'];
+      }
+  },
+  // add to unlocked
+  unlockedSafeboxes: {
+    type: [String],
+    optional: true,
+    autoValue: function(){
+      if (!this.isSet) return [];
+    }
+  },
+  contactId: {
+    type: String,
+    optional: true,
+    defaultValue: ""
+  }
 });
 
 Meteor.users.attachSchema(Schema.User);

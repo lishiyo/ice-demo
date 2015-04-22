@@ -1,3 +1,45 @@
 <template name="safeboxUnlock">
-	safebox unlock
+	Please input the ID and passcode you were given.
+	<form id="unlock-safebox">
+		<input type="text" name="key" placeholder="key">
+		<input type="text" name="secret" placeholder="passcode">
+		<button type="submit">Submit</button>
+	</form>
+</template>
+
+
+<!-- unlock from Contact to User -->
+<template name="contactUnlock">
+	<div class="row">
+		Here is the info we have on you. Please check and update for accuracy:
+		{{#with contact}}
+		{{ #autoForm id="contactConfirm" collection="Contacts" doc=contact }}
+      {{> afQuickField name="profile"}}
+    
+	    If accurate, set a password for your account to proceed:
+	    {{> afQuickField name="password" }}
+
+      <div class="form-group">
+        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="reset" class="btn btn-default">Reset Form</button>
+      </div>
+    {{/autoForm}}
+    {{/with}}
+		<!-- <form id="unlock-contact">
+			
+				<label for="firstName">First Name
+					<input class="form-control" name="profile.firstName" value="{{profile.firstName}}">
+				</label>
+				<label for="firstName">Last Name
+					<input class="form-control" name="profile.lastName" value="{{profile.lastName}}">
+				</label>
+			
+		
+			If accurate, set a password for your account to proceed:
+			<input class="form-control" type="hidden" name="_id" value="{{ contact._id }}">
+			<input class="form-control" type="password" name="password">
+			<button type="submit">Submit</button>
+	
+	</form> -->
+	</div>
 </template>

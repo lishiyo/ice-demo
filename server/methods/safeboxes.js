@@ -1,5 +1,31 @@
 Meteor.methods({
-  'createTagsForSafebox': function(param) {
+  "checkSafeboxUnlocked": function (safeboxId) {
+    var safebox = Safeboxes.findOne({_id: safeboxId});
+    return (safebox && safebox.unlocked);
+  },
+
+  "checkValidUnlock": function (opts) {
+    var tag = Tags.findOne({
+      safebox_id: opts.safebox_id,
+      contact_id: opts.contact_id,
+      secret: opts.secret  
+    });
+    if (tag) { // tag for this contact and safebox exists!
+      var user = Meteor.users.findOne({ contactId: opts.contact_id });
+      console.log("check valid user", user);
+      if (user) {
+        return { account: user, hasAccount: true }
+      }
+      var contact = Contacts.findOne({_id: opts.contact_id });
+      if (contact) {
+        return { account: contact, hasAccount: false }
+      }
+    } else {
+      return null;
+    }
+  },
+
+  'createTagsForSafebox': function (param) {
   	var safebox;
   	if (typeof param === String) {
   		safebox = Safeboxes.find({_id: params});

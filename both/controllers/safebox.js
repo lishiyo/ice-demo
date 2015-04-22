@@ -15,21 +15,20 @@ SafeboxesController = AppController.extend({
 
 // http://localhost:3000/safeboxes/MiPWKBNQt4bxChtcb
 SafeboxController = AppController.extend({
-  waitOn: function() {
+  waitOn: function () {
     return [this.subscribe('safeboxesWithEverything', Meteor.userId())];
   },
   data: function () {
     return Safeboxes.findOne({ _id: this.params.safeboxId });
   },
   onBeforeAction: function () {
-    // check if safebox owner or allowedId && unlocked
+    // check if safebox owner or allowed && unlocked (both wath)
     var safebox = this.data();
     var id = Meteor.userId();
-    var unlockedAllowedFull = (safebox.unlocked && safebox.allowedAll.indexOf(id) !== -1 && Roles.userIsInRole(id, ['unlocked']) );
+    var unlockedAllowedBoth = (safebox.unlocked && safebox.allowedAll.indexOf(id) !== -1 && Roles.userIsInRole(id, ['unlocked']) );
     var unlockedAllowedPending = (safebox.unlocked && safebox.allowedAll.indexOf(id) !== -1 && !Roles.userIsInRole(id, ['unlocked']) );
 
-
-    if (safebox.owner_id === id || unlockedAllowedFull) {
+    if (safebox.owner_id === id || unlockedAllowedBoth) {
       this.next();
     } else if (unlockedAllowedPending) {
       Router.go('safebox.unlock', safebox._id);
@@ -41,3 +40,4 @@ SafeboxController = AppController.extend({
     this.render();
   }
 });
+

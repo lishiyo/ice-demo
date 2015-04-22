@@ -44,11 +44,21 @@ Router.route('/safeboxes/new', {
   controller: 'SafeboxesController',
 });
 
+// UNLOCKED (not mine)
+Router.route('/safeboxes/unlocked/:safeboxId', {
+  name: 'safeboxes.unlocked.show'
+});
+
+// UNLOCKED - index of all that have been unlocked for me
+Router.route('/safeboxes/unlocked', {
+  name: 'safeboxes.unlocked'
+})
+
 // UNLOCK
 Router.route('/safeboxes/:safeboxId/unlock', {
   name: 'safebox.unlock',
   template: 'safeboxUnlock',
-  controller: 'SafeboxController'
+  controller: 'SafeboxUnlockController'
 });
 
 // SHOW

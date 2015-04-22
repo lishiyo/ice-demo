@@ -1,4 +1,5 @@
 Accounts.onCreateUser(function(options, user) {
+  console.log("on create", options, user);
   return user;
 });
 
@@ -13,11 +14,10 @@ Meteor.methods({
       // after `Accounts.createUser` or `Accounts.onCreate`
       Roles.addUsersToRoles(id, userData.roles);
     }
+  },
 
-    // user.roles = {
-		//   'userId': ['source', 'unlocked/locked'],
-		// }
-
+  'convertContact': function(docFields) {
+    Accounts.createUser(docFields);
   },
 
   'createDefaultGroups': function(user, defaultTypes) {
