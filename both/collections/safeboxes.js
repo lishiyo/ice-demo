@@ -59,14 +59,22 @@ Schema.Safebox = new SimpleSchema({
 Safeboxes.attachSchema(Schema.Safebox);
 
 Safeboxes.after.insert(function (userId, doc) {
-	if (Meteor.isClient){
+	if (Meteor.isServer){
 		Meteor.call('mergeGroupContactIds', doc);
-		Meteor.call('createTagsForSafebox', doc);
 	}
 });
 
+Safeboxes.after.update(function (userId, doc, fieldNames, modifier) {
+	if (Meteor.isServer) {
+		console.log('after update', doc, fieldNames, modifier);
+		if (fieldNames.indexOf('allowedAll') !== -1) {
+			Meteor.call('createTagsForSafebox', doc);
+		}
+	}
+}, {fetchPrevious: false});
+
 Safeboxes.after.remove(function (userId, doc){
-	if (Meteor.isClient) {
+	if (Meteor.isServer) {
 		Meteor.call('removeTagsForSafebox', doc);
 	}
 });

@@ -1,5 +1,5 @@
 Schema = {};
-Contacts = new Mongo.Collection('contacts');
+Contacts = new Mongo.Collection('contacts', {idGeneration: 'STRING'});
 
 Schema.ContactProfile = new SimpleSchema({
 	firstName: {
@@ -108,16 +108,21 @@ Contacts.attachSchema(Schema.Contact);
 
 // add CreatedAt, owner_id, fullName
 Contacts.before.insert(function (userId, doc) {
-  Contacts.simpleSchema().clean(doc);
-  doc.createdAt = moment().toDate();
-  doc.owner_id = Meteor.userId();
-  var first = doc.profile.firstName.trim(),
-      last = doc.profile.lastName.trim();
-  doc.fullName = first + " " + last;
+  if (Meteor.isClient) {
+    Contacts.simpleSchema().clean(doc);
+    doc.createdAt = moment().toDate();
+    doc.owner_id = Meteor.userId();
+    var first = doc.profile.firstName.trim(),
+        last = doc.profile.lastName.trim();
+    doc.fullName = first + " " + last;
+
+    return doc;
+  }
 });
 
 // add to Groups and Safeboxes
 Contacts.after.insert(function (userId, doc) {
+  console.log("after insert start", doc);
   if (Meteor.isClient) {
     var safeboxIds = ( doc.belongedSafeboxes || [] );
     var groupIds = ( doc.belongedGroups || [] );

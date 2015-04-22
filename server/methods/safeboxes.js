@@ -1,18 +1,25 @@
 Meteor.methods({
-  'createTagsForSafebox': function(safebox) {
-  	var secret = Random.secret(12);
+  'createTagsForSafebox': function(param) {
+  	var safebox;
+  	if (typeof param === String) {
+  		safebox = Safeboxes.find({_id: params});
+  	} else {
+  		safebox = param;
+  	}
 
+  	console.log("createTagsForSafebox", safebox, safebox.allowedAll);
+
+  	var secret = Random.secret(12);
   	safebox.allowedAll.forEach(function(id) {
   		var fields = {
-	  		secret: secret,
 	  		safebox_id: safebox._id,
 	  		contact_id: id
 	  	};
 
-	  	Tags.insert(fields, function(err, tagId){
-	  		console.log("inserted tag for contact_id: ", id, tagId);
+	  	Tags.upsert(fields, { $set: { secret: secret} }, function(err, res){
+	  		console.log("inserted tag for contact_id: ", id, res);
 	  	});
-  	});
+  	}.bind(this));
   },
 
   'removeTagsForSafebox': function(safebox) {
@@ -51,7 +58,7 @@ Meteor.methods({
   	Safeboxes.update({ _id: safebox._id }, { $addToSet: {
   		allowedAll: { $each: ids }
   	} }, function(err, numDocs){
-  		console.log("successful update", numDocs);
+  		console.log("successful update with:", numDocs);
   	});
   },
 

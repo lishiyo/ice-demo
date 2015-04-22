@@ -26,8 +26,9 @@ Template.newSafeboxForm.created = function(){
 	this.allIds = [];
 };
 
-var addGroupIds = function(selected, currIds) {
-	console.log("adding group ids", currIds);
+var addOrRemoveGroupIds = function(selected) {
+	var currIds = [];
+
 	selected.each(function(idx, elem){
 		var groupId = elem.value;
 		var group = Groups.findOne({ _id: groupId });
@@ -42,8 +43,9 @@ var addGroupIds = function(selected, currIds) {
 	return currIds;
 };
 
-var addContactIds = function(selected, currIds) {
-	console.log("adding contact ids", currIds);
+var addOrRemoveContactIds = function(selected) {
+	var currIds = [];
+
 	selected.each(function(idx, elem){
 		var cId = elem.value;
 		if (cId===null) return;
@@ -52,6 +54,7 @@ var addContactIds = function(selected, currIds) {
 		}
 	});
 
+	console.log("elem in contac", currIds);
 	return currIds;
 };
 
@@ -61,7 +64,7 @@ Template.newSafeboxForm.events({
 		var oldArr = _.clone(template.allIds);
 		var selected = selectBox.find('option:selected');
 
-		template.allIds = addGroupIds(selected, template.allIds);
+		template.allIds = addOrRemoveGroupIds(selected);
 		// only render template if changed
 		if (!(_.isEqual(oldArr, template.allIds))) {
 			Session.set('allIds', template.allIds);
@@ -74,13 +77,13 @@ Template.newSafeboxForm.events({
 		var oldArr = _.clone(template.allIds);
 		var selected = selectBox.find('option:selected');
 
-		template.allids = addContactIds(selected, template.allIds);
+		template.allIds = addOrRemoveContactIds(selected);
 		// only render template if changed
 		if (!(_.isEqual(oldArr, template.allIds))){
 			Session.set('allIds', template.allIds);
 		}
 
-		console.log("allIds in contacts", template.allIds);
+		console.log("allIds in contacts", selected, template.allIds);
 	}
 });
 
