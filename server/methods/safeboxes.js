@@ -10,9 +10,10 @@ Meteor.methods({
       contact_id: opts.contact_id,
       secret: opts.secret
     });
+
     if (tag) { // tag for this contact and safebox exists!
-      var user = Meteor.users.findOne({ contactId: opts.contact_id });
-      console.log("check valid user's user: ", user);
+      var user = Meteor.users.findOne({ contactIds: opts.contact_id });
+      console.log("check valid user's user: ", opts.contact_id, user);
       if (user) {
         return {
           account: user,

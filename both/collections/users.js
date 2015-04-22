@@ -99,15 +99,17 @@ Schema.User = new SimpleSchema({
   // == For Contact conversion ===
   unlockedSafeboxes: {
     type: [String],
-    autoValue: function(){
-      if (!this.isSet) return [];
-    }
+    defaultValue: []
+    // autoValue: function(){
+    //   if (!this.isSet) return [];
+    // }
   },
   contactIds: {
     type: [String],
-    autoValue: function(){
-      if (!this.isSet) return [];
-    }
+    defaultValue: []
+    // autoValue: function(){
+    //   if (!this.isSet) return [];
+    // }
   }
 });
 

@@ -17,6 +17,21 @@ Meteor.publish("safebox", function (safeboxId){
 	}
 });
 
+Meteor.publish("safeboxPublic", function (safeboxId){
+  if (Roles.userIsInRole(this.userId, ['source', 'unlocked'])) {
+    return Safeboxes.find({ _id: safeboxId }, { fields:
+      {
+        allowedContacts: 0,
+        allowedAll: 0,
+        allowedGroups: 0
+      }
+    });
+  } else {
+    this.stop();
+    return;
+  }
+});
+
 // Meteor.publish("safeboxIds", function () {
 //   return Safeboxes.find({}, { fields: { _id: 1, unlocked: 1} } );
 // });

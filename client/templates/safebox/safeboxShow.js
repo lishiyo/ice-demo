@@ -20,8 +20,8 @@ Template.addContactsForm.helpers({
 		return Groups.find({ _id: { $nin: ids }});
 	},
 	contacts: function(){
-		var ids = (this.allowedContacts || []);
-		return Contacts.find({ 
+		var ids = (this.allowedAll || []);
+		return Contacts.find({
 			_id: { $nin: ids }
 		});
 	}
@@ -48,9 +48,9 @@ Template.addContactsForm.events({
 		});
 
 		Safeboxes.update({_id: safeboxId }, {
-			$addToSet: { 
+			$addToSet: {
 				allowedGroups: { $each: groupIds },
-				allowedContacts: { $each: contactIds } 
+				allowedContacts: { $each: contactIds }
 			},
 		}, function(err, numDocs){
 			$('.modal').modal('hide');

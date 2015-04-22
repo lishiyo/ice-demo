@@ -1,42 +1,49 @@
-Accounts.onCreateUser(function(options, user) {
-  console.log("onreateUser", options, user);
-  return user;
-});
+// Accounts.onCreateUser(function(options, user) {
+//   console.log("onreateUser", options, user);
+//   return user;
+// });
 
 
 Meteor.methods({
-	// @param user object
-	'setProfile': function(userData) {
-    // user.roles = [ 'source' ]
-    if (userData.roles.length > 0) {
-      // Need _id of existing user record so this call must come
-      // after `Accounts.createUser` or `Accounts.onCreate`
-      Roles.addUsersToRoles(id, userData.roles);
-    }
-  },
+	// // @param user object
+	// 'setProfile': function(userData) {
+ //    // user.roles = [ 'source' ]
+ //    if (userData.roles.length > 0) {
+ //      // Need _id of existing user record so this call must come
+ //      // after `Accounts.createUser` or `Accounts.onCreate`
+ //      Roles.addUsersToRoles(id, userData.roles);
+ //    }
+ //  },
   'addContactIdToUser': function (opts) {
     console.log("adding contact id to user with opts: ", opts);
-    Users.update({ _id: opts.userId }, { $addToSet: {
-      contactIds: [ opts.contactId ]
+    Meteor.users.update(opts.userId, { $addToSet: {
+      contactIds: opts.contactId
     }});
   },
   // ==== Convert Contact to User upon Unlock ====
   'convertContactToUser': function(docFields, safeboxId, contactId) {
     newUserId = Accounts.createUser(docFields);
-    console.log("converting contact", newUserId);
     // add unlocked to roles
     Roles.addUsersToRoles(newUserId, ['unlocked']);
+
     // add safeboxId to unlockedSafeboxes
-    Users.update({_id: newUserId}, {
+    Meteor.users.update(newUserId, {
       $addToSet: {
-        unlockedSafeboxes: [safeboxId],
-        contactIds: [contactId]
+        unlockedSafeboxes: safeboxId,
+      }
+    });
+    Meteor.users.update(newUserId, {
+      $addToSet: {
+        contactIds: contactId
       }
     });
 
     // delete tag
 
-    return true;
+    return {
+      user: Meteor.users.findOne(newUserId),
+      safeboxId: safeboxId
+    };
   },
 
   'createDefaultGroups': function(user, defaultTypes) {
