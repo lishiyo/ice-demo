@@ -50,34 +50,3 @@ AccountsTemplates.configureRoute('signUp', {
 AccountsTemplates.configureRoute('ensureSignedIn', {
 	layoutTemplate: 'appLayout'
 });
-
-// AccountsTemplates.addField({
-//     _id: "gender",
-//     type: "select",
-//     displayName: "Gender",
-//     select: [
-//         {
-//             text: "Male",
-//             value: "male",
-//         },
-//         {
-//             text: "Female",
-//             value: "female",
-//         },
-//     ],
-// });
-
-// AccountsTemplates.addField({
-//     _id: 'phone',
-//     type: 'tel',
-//     displayName: "Phone",
-//     required: true,
-//     func: function (number) {
-//         if (Meteor.isServer){
-//           if (isValidPhone(number))
-//               return false; // meaning no error!
-//           return true; // Validation error!
-//         }
-//     },
-//     errStr: 'Invalid Phone number!',
-// });

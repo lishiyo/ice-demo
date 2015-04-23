@@ -1,7 +1,7 @@
-// Accounts.onCreateUser(function(options, user) {
-//   console.log("onreateUser", options, user);
-//   return user;
-// });
+Accounts.onCreateUser(function(options, user) {
+  console.log("onreateUser", options, user);
+  return user;
+});
 
 
 Meteor.methods({
