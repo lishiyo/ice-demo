@@ -21,7 +21,8 @@ Schema.Item = new SimpleSchema({
     category: {
       type: String,
       regEx: /^[a-zA-Z-]{2,25}$/,
-      optional: false
+      optional: false,
+      allowedValues: App.GLOBALS.Items.defaultCategories,
     },
     note: {
       type: String,

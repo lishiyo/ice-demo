@@ -7,9 +7,20 @@ Template.dashboard.helpers({
 });
 
 Template.items.helpers({
-	passport: function(){
-		var passport = Items.findOne({ type: "passport" });
-		return passport;
+	// passport: function(){
+	// 	return Items.findOne({ type: "passport" });
+	// },
+	// driversLicense: function(){
+	// 	return Items.findOne({ type: "driversLicense"});
+	// },
+	// socialSecurity: function(){
+	// 	return Items.findOne({ type: "socialSecurity"});
+	// },
+	allTypes: function(){
+		return App.GLOBALS.Items.defaultTypesId;
+	},
+	getModelFromType: function (str) {
+		return Items.findOne({ type: str });
 	},
 	userHasItem: function(itemType) {
 		var itemsCount = Items.find({ type: itemType }).count();
@@ -20,11 +31,5 @@ Template.items.helpers({
 		return arr.map(function(type){
 			return { type: type };
 		});
-		// return only _id and type fields
-		// var docTypes = Items.find({ category: 'document' }, { type: 1 });
-		// var arr = docTypes.map(function(elem) {
-		// 	return elem.type;
-		// });
-		// console.log("doctypes", docTypes, arr);
 	}
 })

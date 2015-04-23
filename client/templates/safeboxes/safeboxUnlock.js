@@ -1,12 +1,12 @@
 Template.safeboxUnlock.events({
 	"submit form#unlock-safebox": function(event){
 		event.preventDefault();
-		var $form = $(event.target);
+		var $form      = $(event.target);
 		var contact_id = $form.find('input[name="key"]').val();
-		var secret = $form.find('input[name="secret"]').val();
-		var params = Iron.controller().getParams();
+		var secret     = $form.find('input[name="secret"]').val();
+		var params     = Iron.controller().getParams();
 
-		var opts = {
+		var opts       = {
 			safebox_id: params.safeboxId,
 			contact_id: contact_id,
 			secret: secret
@@ -42,9 +42,6 @@ Template.contactUnlock.helpers({
 });
 
 Template.contactUnlock.events({
-	// "submit form#unlock-contact": function (event) {
-	// 	event.preventDefault();
-	// }
 });
 
 AutoForm.hooks({

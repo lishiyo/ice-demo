@@ -7,12 +7,10 @@ Schema.Group = new SimpleSchema({
   	optional: false,
   	allowedValues: App.GLOBALS.Groups.defaultTypes,
     autoform: {
-      options: {
-        family: "Family",
-        friends: "Friends",
-        medical: "Medical",
-        legal: "Financial/Legal",
-        custom: "Custom"
+      options: function () {
+        return App.GLOBALS.Groups.defaultTypes.map(function(type){
+          return { label: type, value: type };
+        });
       }
     }
   },

@@ -34,7 +34,15 @@ Meteor.publishComposite("safeboxPublic", function (safeboxId) {
       {
         find: function(safebox) {
             return Items.find({ _id: { $in: safebox.items } });
-        }
+        },
+        children: [
+          {
+            find: function(item) {
+              console.log("found item", item);
+              return Files.find({ _id: item.fileId });
+            }
+          }
+        ]
       },
     ]
   }
@@ -58,7 +66,14 @@ Meteor.publishComposite("safeboxesPublic", function (user) {
       {
         find: function(safebox) {
             return Items.find({ _id: { $in: safebox.items } });
-        }
+        },
+        children: [
+          {
+            find: function(item) {
+              return Files.find({ _id: item.fileId });
+            }
+          }
+        ]
       },
     ]
   }

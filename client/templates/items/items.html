@@ -1,7 +1,7 @@
 <!-- IDs - passport, social security card, drivers license with images -->
 
 <template name="IdItem">
-  <h4>{{ type }}</h4>
+  <h4>{{ nameify type }}</h4>
     <li class="list-group-item">{{ name }}</li>
     <li class="list-group-item">{{ note }}</li>
     {{#each files}}
@@ -10,15 +10,15 @@
 </template>
 
 <template name="IdItemForm">
-  <h4>{{ type }}</h4>
-    {{#autoForm id="IdItemForm" type="insert" collection="Items"}}
-      {{> afQuickField name="category" value="ID" type="hidden"}}
-      {{> afQuickField name="type" value=type type="hidden" }}
-      {{> afQuickField name="name" placeholder="My Passport" }}
-      {{> afQuickField name="note" placeholder="(EX: ID is located in...)" }}
-      {{> afQuickField name="fileId" type="cfs-file" collection="files"}}
-      <button type="submit">Submit</button>
-    {{/autoForm}}
+  <h4>{{ nameify type }}</h4>
+  {{#autoForm id="IdItemForm" type="insert" collection="Items"}}
+    {{> afQuickField name="category" value="ID" type="hidden"}}
+    {{> afQuickField name="type" value=type type="hidden" }}
+    {{> afQuickField name="name" placeholder="U.S. Passport" }}
+    {{> afQuickField name="note" placeholder="(this is located in...)" }}
+    {{> afQuickField name="fileId" type="cfs-file" collection="files"}}
+    <button type="submit">Submit</button>
+  {{/autoForm}}
 </template>
 
 <!-- ==== Documents - Personal, Medical, Legal ==== -->
@@ -48,9 +48,9 @@
       <h4 class="modal-title" id="modalLabel">New Document</h4>
   </div>
   <div class="modal-body">
-    {{#autoForm id="DocItemForm" type="insert" collection="Items"}}
+    {{#autoForm id="DocItemForm" type="insert" collection="Items" schema=Schema.Item }}
       {{> afQuickField name="category" value="document" type="hidden"}}
-      {{> afQuickField name="type" options=docTypeOptions }}
+      {{> afQuickField name="type" }}
       {{> afQuickField name="name" placeholder="document name" }}
       {{> afQuickField name="note" placeholder="(EX: Description)" }}
       {{> afQuickField name="fileId" type="cfs-file" collection="files"}}
@@ -76,9 +76,9 @@
   <tr>
     <td>{{ name }}</td>
     <td>{{ note }}</td>
-    {{#each files}}
-      <td><a href="{{ this.url store='filesStore' }}" target="_blank">Link</a></td>
-    {{/each}}
+    {{#with file}}
+    <td><a href="{{ this.url store='filesStore' }}" target="_blank"> Link </a></td>
+    {{/with}}
   </tr>
 </template>
 

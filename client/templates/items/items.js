@@ -15,9 +15,8 @@ Template.IdItemForm.helpers({
 // documents
 Template.DocItemForm.helpers({
 	docTypeOptions: function(){
-		var arr = ["personal", "medical", "legal", "other"];
-		return arr.map(function(type){
-			return {label: type, value: type};
+		return App.GLOBALS.Groups.defaultTypesDoc.map(function(type){
+			return { label: type, value: type };
 		});
 	}
 });
@@ -51,8 +50,9 @@ var ItemFormHook = {
 // Pass an array of form IDs for multiple forms
 AutoForm.addHooks(['IdItemForm', 'DocItemForm'], ItemFormHook);
 
-// AutoForm.hooks({
-//   IdItemForm: ItemFormHook,
-//   DocItemForm: ItemFormHook
-// });
+Template.item.helpers({
+	file: function () {
+		return Files.findOne();
+	}
+})
 

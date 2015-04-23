@@ -2,34 +2,35 @@
   <div class="template-dashboard">
     <div class="page-header">
       <h1>Dashboard</h1>
-      <h3>Welcome {{ currentUser.fullName }}</h3>
+      <h3>Welcome {{ fullNameify currentUser.profile }}</h3>
     </div>
-
+    {{> actionPlans }}
     {{> items }}
-
     {{> contacts }}
   </div>
 </template>
 
 <template name="items">
-    <h3>Vital IDs (Passport, Drivers License, Social Security Card)</h3>
+    <h3>Key Identification</h3>
     <div class="container-fluid">
       <div class="row">
+        {{#each allTypes}}
         <div class="col-md-4 col-xs-4 col-lg-4">
-            {{#if userHasItem "passport" }}
-              {{#with passport}}
+            {{#if userHasItem this }}
+              {{#with getModelFromType this }}
                 {{> IdItem }}
               {{/with}}
             {{else}}
-              {{> IdItemForm type="passport"}}
+              {{> IdItemForm type=this }}
             {{/if}}
         </div>
+        {{/each}}
       </div>
     </div>
 
   <hr>
 
-  <h3>Vital Documents</h3>
+  <h3>Key Documents</h3>
   <div class="container-fluid">
     <div class="row">
       <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#new-doc-modal">
@@ -51,6 +52,9 @@
       {{/each }}
     </div>
   </div>
+
+  <h3>Key Info</h3>
+  <h5>Critical numbers, dates, account names + passwords</h5>
 
 </template>
 

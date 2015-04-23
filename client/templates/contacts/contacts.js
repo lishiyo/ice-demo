@@ -7,11 +7,6 @@ Template.newContactForm.helpers({
 		});
 	},
 	userGroups: function(){
-		// var customGroups = Groups.find({ type: 'custom' }).map(function(group){
-		// 	return group.name;
-		// });
-		// var allGroups = defaultGroups.concat(customGroups);
-
 		return Groups.find().map(function(group){
 			return { label: group.name, value: group._id }
 		});
