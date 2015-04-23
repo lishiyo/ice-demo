@@ -7,7 +7,6 @@ contacts [contact_id, contact_id]
 safeboxes [safebox_id, safebox_id]
 id_items [item_id, item_id]
 
-
 # Contacts (same as user)
 role = locked/unlocked
 belongs_to - owner_id

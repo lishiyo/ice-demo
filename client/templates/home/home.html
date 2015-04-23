@@ -3,8 +3,44 @@
     <div class="page-header">
       <h1>ICEPlan</h1>
     </div>
-    <p>
-      Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-    </p>
+		<h5>Database Models</h5>
+    <ul>
+    	<li>Users</li>
+    	<li>Groups of Contacts
+    		<ul>
+    			<li>Contacts - when their safebox is triggered and they 'unlock' it, they become Users</li>
+    		</ul>
+    	</li>
+    	<li>Items - each can have an attachment (photos, docx, pdf, video, audio, etc)
+    		<ul>
+	    		<li>IDs (passport, driver's, social security card)</li>
+	    		<li>Important Documents </li>
+	    		<li>**Todo** - Key Info (key numbers, account username/password) </li>
+    		</ul>
+    	</li>
+    	<li>Safeboxes - store Items and instructions, as well as Contacts and/or Groups of Contacts to allow access to when triggered
+    	</li>
+    	<li>**Todo** - "Action Plans" - workflows when the user triggers a button on their app
+    		<ul>
+    			<li>send prepared text message to certain contacts</li>
+    			<li>send texts to all allowed contacts for a safebox or group of safeboxes with the passcode to open those safeboxes</li>
+    		</ul>
+    	</li>
+    </ul>
+
+    <h5>Features</h5>
+		<ul>
+			<li>User registration and profile setup, file uploads, creation of Safeboxes with files and allowed users and/or groups of users
+			</li>
+			<li>All pages are protected - if the User has not yet triggered a Safebox's release, no one (including allowed Contacts) can view it. User info is always private. Safeboxes have private vs public view (when unlocked, what the Contact can see). </li>
+			<li>When a safebox is triggered (see: Action Plan), a link with encrypted id + passcode combination is sent to their Contacts to unlock it. After unlocking it, the Contact must enter in a new password, which converts them to a full User who can see then public view of their unlocked safebox. (This automatic conversion is useful for expanding our customer base...)</li>
+		</ul>
+    <h5>Major Todos</h5>
+    <ul>
+    	<li>All the UI - layout, styles, animations/transitions etc </li>
+    	<li>Integrate with Twilio SDK to actually implement action plans like sending texts upon triggers</li>
+    	<li>Finish CRUD - i.e. editing and removal functionalities for most models </li>
+    	<li>Move to Amazon AWS for file storage in production</li>
+    </ul>
   </div>
 </template>
