@@ -1,0 +1,30 @@
+<template name="safeboxUnlocked">
+	<h5>Unlocked Safebox: {{ name }}</h5>
+	<div class="row">Description:
+		{{#if description }}
+			{{ description }}
+		{{else}}
+			No description.
+		{{/if}}
+	</div>
+	<div class="row"> Instructions:
+		{{#if instruction }}
+			{{ instruction }}
+		{{else}}
+			No instructions.
+		{{/if}}
+	</div>
+	<div class="row">
+		<div class="col-lg-6 col-md-6 col-sm-6">
+			{{> itemsPanel }}
+		</div>
+	</div>
+
+</template>
+
+<template name="safeboxesUnlocked">
+	<h3>All Unlocked Safeboxes</h3>
+	{{#each safeboxesUnlocked }}
+		{{> safeboxUnlocked }}
+	{{/each}}
+</template>

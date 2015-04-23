@@ -21,7 +21,8 @@
     {{/autoForm}}
 </template>
 
-<!-- Documents - Personal, Medical, Legal -->
+<!-- ==== Documents - Personal, Medical, Legal ==== -->
+
 <template name="DocItemRow">
   <table class="table table-striped">
   <th>{{ docType }}</th>
@@ -59,4 +60,28 @@
       </div>
     {{/autoForm}}
   </div>
+</template>
+
+
+<!-- ==== Show Items ==== -->
+
+<template name="itemsPanel">
+  <h5>Items</h5>
+  {{#each items}}
+    {{> item}}
+  {{/each}}
+</template>
+
+<template name="item">
+  <tr>
+    <td>{{ name }}</td>
+    <td>{{ note }}</td>
+    {{#each files}}
+      <td><a href="{{ this.url store='filesStore' }}" target="_blank">Link</a></td>
+    {{/each}}
+  </tr>
+</template>
+
+<template name="addItemsForm">
+  add item
 </template>

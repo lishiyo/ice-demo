@@ -17,34 +17,50 @@ Meteor.publish("safebox", function (safeboxId) {
 	}
 });
 
-Meteor.publish("safeboxPublic", function (safeboxId) {
-  if (Roles.userIsInRole(this.userId, ['source', 'unlocked'])) {
-    return Safeboxes.find({ _id: safeboxId }, { fields:
-      {
-        allowedContacts: 0,
-        allowedAll: 0,
-        allowedGroups: 0
+Meteor.publishComposite("safeboxPublic", function (safeboxId) {
+  return {
+    find: function () {
+      if (Roles.userIsInRole(this.userId, ['source', 'unlocked'])) {
+        return Safeboxes.find({ _id: safeboxId }, { fields:
+            { allowedContacts: 0,
+              allowedAll: 0,
+              allowedGroups: 0 }});
+      } else {
+        this.stop();
+        return;
       }
-    });
-  } else {
-    this.stop();
-    return;
+    },
+    children: [
+      {
+        find: function(safebox) {
+            return Items.find({ _id: { $in: safebox.items } });
+        }
+      },
+    ]
   }
 });
 
-Meteor.publish("safeboxesPublic", function (user) {
-  console.log("user unlocked", user, user.unlockedSafeboxes);
-  if (Roles.userIsInRole(this.userId, ['source', 'unlocked'])) {
-    return Safeboxes.find({ _id: { $in: user.unlockedSafeboxes } }, { fields:
-      {
-        allowedContacts: 0,
-        allowedAll: 0,
-        allowedGroups: 0
+Meteor.publishComposite("safeboxesPublic", function (user) {
+  return {
+    find: function () {
+      if (Roles.userIsInRole(user._id, ['source', 'unlocked'])) {
+        return Safeboxes.find({ _id: { $in: user.unlockedSafeboxes } }, { fields:
+            { allowedContacts: 0,
+              allowedAll: 0,
+              allowedGroups: 0 }
+            });
+      } else {
+        this.stop();
+        return;
       }
-    });
-  } else {
-    this.stop();
-    return;
+    },
+    children: [
+      {
+        find: function(safebox) {
+            return Items.find({ _id: { $in: safebox.items } });
+        }
+      },
+    ]
   }
 });
 

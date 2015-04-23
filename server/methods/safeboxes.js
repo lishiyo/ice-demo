@@ -13,7 +13,6 @@ Meteor.methods({
 
     if (tag) { // tag for this contact and safebox exists!
       var user = Meteor.users.findOne({ contactIds: opts.contact_id });
-      console.log("check valid user's user: ", opts.contact_id, user);
       if (user) {
         return {
           account: user,

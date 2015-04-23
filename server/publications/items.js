@@ -3,14 +3,6 @@ Meteor.publishComposite("items", function() {
     find: function() {
       return Items.find({ owner_id: this.userId });
     }
-    // ,
-    // children: [
-    //   {
-    //     find: function(item) {
-    //       return [];
-    //     }
-    //   }
-    // ]
   }
 });
 
