@@ -2,17 +2,16 @@ Meteor.methods({
 
   "updateSafeboxesAndGroups" : function (safeboxIds, groupIds, contactId) {
   	if (contactId === null) return;
-
+  	// note that allowedAll is auto-updated via mergeGroupContactIds
     Safeboxes.update( {_id: { $in: safeboxIds } }, { $addToSet:
 	    {
 	    	allowedContacts: contactId,
-	    	allowedAll: contactId
 	    },
 	  }, { multi: true });
 
 	  Groups.update( {_id: { $in: groupIds } }, { $addToSet:
-	    { contactIds: contactId }
-	  }, { multi: true });
+		    { contactIds: contactId }
+		}, { multi: true });
 
   },
 

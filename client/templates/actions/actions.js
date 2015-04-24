@@ -27,7 +27,7 @@ var handleText = function(actionStep) {
 var _generateTextForContact = function (tag, url) {
 	var key = tag.contact_id,
 			passcode = tag.secret,
-			url = url;
+			url = "http:" + url;
 	var content = Meteor.user().profile.firstName + " has unlocked a safebox for you at " + url + ". Key: " + key + " & passcode: " + passcode;
 
 	return content;

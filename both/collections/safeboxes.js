@@ -80,14 +80,14 @@ Safeboxes.after.insert(function (userId, doc) {
 
 Safeboxes.after.update(function (userId, doc, fieldNames, modifier) {
 	if (Meteor.isServer) {
-		
-		var allowedChange = (fieldNames.indexOf('allowedContacts') !== -1 || fieldNames.indexOf('allowedGroups') !== -1);
 
+		var allowedChange = (fieldNames.indexOf('allowedContacts') !== -1 || fieldNames.indexOf('allowedGroups') !== -1);
+		// create tags if allowedContacts or allowedGroups updated
 		if (allowedChange) {
-			console.log("allowedChange");
+			console.log("allowedChange", fieldNames);
 			Meteor.call('mergeGroupContactIds', doc);
 		}
-
+		// create tags if allowedAll updated
 		if (fieldNames.indexOf('allowedAll') !== -1) {
 			Meteor.call('createTagsForSafebox', doc);
 		}

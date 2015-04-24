@@ -96,14 +96,4 @@ Meteor.methods({
   	});
   },
 
-	// check if secret matches decoded safeboxId.client_id
-  'checkSecret': function (safeboxId, secret) {
-
-  },
-
-  'unlockSafebox': function () {
-  	// give secret to all allowed contacts
-  },
-
-
 });
