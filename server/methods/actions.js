@@ -1,14 +1,14 @@
 Meteor.methods({
 	'sendMessage': function (message, target) {
-		var sid = Meteor.settings.development.twilio.SID,
-				auth_token = Meteor.settings.development.twilio.AUTH_TOKEN,
-				num = Meteor.settings.development.twilio.NUM;
+		var sid = "ACf5775b0227315669a611fcbb99c1b5b1",
+				auth_token = "02b4bff5e22c900511b67b22ae8f8f61",
+				num = "17573948513";
 		
 		var twilio = Twilio(sid, auth_token);
-		var targetNum = target.tel.replace("-", "");
+		var targetNum = target.profile.tel.replace("-", "");
 		console.log("targetNum", targetNum);
 		// ====== delete after testing ==========
-		targetNum = "7575772157";
+		//targetNum = "7575772157";
 
 	  twilio.sendSms({
 	    to: targetNum, // Any number Twilio can deliver to
@@ -17,10 +17,8 @@ Meteor.methods({
 	  }, function(err, responseData) { 
 	  	if (err) {
 	  		console.log("err", err);
-	  		return false;
 	  	} else {
 	    	console.log("success body", responseData.body); 
-	    	return true;
 	    }
 		});
 	}, 

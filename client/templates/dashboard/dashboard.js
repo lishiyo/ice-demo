@@ -18,7 +18,7 @@ Template.items.helpers({
 		return (itemsCount > 0 ? true : false);
 	},
 	docTypes: function(){
-		var arr = ["personal", "medical", "legal", "other"];
+		var arr = App.GLOBALS.Items.defaultTypesDoc;
 		return arr.map(function(type){
 			return { type: type };
 		});

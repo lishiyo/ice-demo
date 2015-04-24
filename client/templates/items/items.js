@@ -1,4 +1,4 @@
-// ID items
+// ============ IDENTIFICATION ==============
 Template.IdItem.helpers({
 	files: function() {
 		var file = Files.findOne({_id: this.fileId });
@@ -12,10 +12,10 @@ Template.IdItemForm.helpers({
 	},
 });
 
-// documents
+// ============== DOCUMENTS ==============
 Template.DocItemForm.helpers({
 	docTypeOptions: function(){
-		return App.GLOBALS.Groups.defaultTypesDoc.map(function(type){
+		return App.GLOBALS.Items.defaultTypesDoc.map(function(type){
 			return { label: type, value: type };
 		});
 	}

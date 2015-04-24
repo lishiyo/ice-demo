@@ -8,7 +8,7 @@ App.GLOBALS = {
 	Items: {
 		defaultCategories: ['ID', 'document', 'infoKey'],
 		defaultTypesId: ['passport', 'driversLicense', 'socialSecurity'],
-		defaultTypesDoc: ['personal', 'medical', 'financial', 'legal']
+		defaultTypesDoc: ['personal', 'medical', 'financial', 'legal', 'other']
 	},
 	Actions: {
 		defaultStepTypes: ['message', 'triggerSafebox'],

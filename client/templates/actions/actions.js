@@ -1,6 +1,10 @@
 Template.actions.helpers({
-	actions: function(){
+	stubActions: function () {
 		return ["readOnly", "expectResponse", "triggerSafebox"];
+	},
+	actions: function () {
+		console.log(ActionSteps.find())
+		return ActionSteps.find();
 	}
 });
 
@@ -17,20 +21,23 @@ var generateSafeboxText = function (doc) {
 			var key = tags[j].contact_id;
 			var passcode = tags[j].secret;
 	  	var content = "URGENT: " + Meteor.user().fullName + " has unlocked a digital safebox for you at " + url + ". Access it with key: " + key + " and passcode: " + passcode;
-	  	console.log("content", content);
+	  		console.log("content", content);
 	  	_.defer(Meteor.call('sendMessage', content, tags[j].contact_id));
 		}
-	});
+	}
 };
 
 Template.action.events({
-	'click button#readOnly': function(event) {
+	'click button.0': function(event) {
 		event.preventDefault();
-		var message = "yoooo this is connie";
-
-		Meteor.user().contactIds.map(function(id){
-			var contact = Contacts.find({_id: id});
-			Meteor.call("sendMessage", message, contact);
+		var actionStep = this;
+		
+		actionStep.targets.forEach(function(id){
+			var contact = Contacts.findOne({_id: id});
+			console.log("clicked! target, tel", id, contact.profile.tel);
+			_.defer(function(){
+				Meteor.call("sendMessage", actionStep.content, contact);
+			});
 		});
 	} 
 });

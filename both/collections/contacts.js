@@ -17,7 +17,7 @@ Schema.ContactProfile = new SimpleSchema({
   tel: {
   	type: String,
   	optional: true,
-    regEx: /^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]\d{3}[\s.-]\d{4}$/,
+    regEx: /^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/,
     label: "Phone Number*",
   	autoform: {
   		placeholder: "XXX-XXX-XXXX"
@@ -113,12 +113,15 @@ Contacts.before.insert(function (userId, doc) {
 
 // add to Groups and Safeboxes
 Contacts.after.insert(function (userId, doc) {
-  console.log("after insert start", doc);
+  
   if (Meteor.isClient) {
     var safeboxIds = ( doc.belongedSafeboxes || [] );
     var groupIds = ( doc.belongedGroups || [] );
     Meteor.call('updateSafeboxesAndGroups', safeboxIds, groupIds, doc._id);
+    Meteor.call('addContactIdToUser', { contactId: doc._id });
     Meteor.call('addTagsForContact', doc);
+    // push into user's contactIds list
+    //Meteor.users.update({_id: userId }, { $addToSet: { contactIds: doc._id }});
   }
 
   console.log("contacts AFTER insert: doc", doc._id);

@@ -14,6 +14,7 @@ Schema.ActionStep = new SimpleSchema({
 	},
 	safeboxIds: {
 		type: [String],
+		optional: true,
 		autoform: {
 			options: function() {
 				return Safeboxes.find().map(function(safebox){
@@ -38,7 +39,6 @@ Schema.ActionStep = new SimpleSchema({
 	},
 	type: {
 		type: String,
-		allowedValues: App.GLOBALS.Actions.defaultStepTypes,
 		autoform: {
       options: function () {
         return App.GLOBALS.Actions.defaultStepTypes.map(function(type, idx){
@@ -50,6 +50,13 @@ Schema.ActionStep = new SimpleSchema({
 	order: { // order in step
 		type: Number,
 		optional: true
+	},
+	owner_id: {
+		type: String,
+		optional: true,
+		autoValue: function(){
+			return Meteor.userId();
+		}
 	}
 });
 
@@ -66,13 +73,34 @@ Schema.Action = new SimpleSchema({
 ActionSteps.attachSchema(Schema.ActionStep);
 Actions.attachSchema(Schema.Action);
 
+ActionSteps.before.insert(function (userId, doc) {
+  doc.createdAt = moment().toDate();
+  doc.owner_id = Meteor.userId();
+  console.log("action step doc", doc);
+  return doc;
+});
+
+ActionSteps.allow({
+  insert: function(){
+    return true;
+  },
+  update: function(){
+    return true;
+  },
+  remove: function(){
+    return true;
+  },
+});
 
 
-
-if (Meteor.isClient) {	
-	ActionSteps.before.insert(function (userId, doc) {
-	  doc.createdAt = moment().toDate();
-	  doc.owner_id = Meteor.userId();
-	  return doc;
-	});
-}
+Actions.allow({
+  insert: function(){
+    return true;
+  },
+  update: function(){
+    return true;
+  },
+  remove: function(){
+    return true;
+  },
+});

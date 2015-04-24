@@ -50,7 +50,7 @@
   <div class="modal-body">
     {{#autoForm id="DocItemForm" type="insert" collection="Items" schema=Schema.Item }}
       {{> afQuickField name="category" value="document" type="hidden"}}
-      {{> afQuickField name="type" }}
+      {{> afQuickField name="type" options=docTypeOptions noselect=true}}
       {{> afQuickField name="name" placeholder="document name" }}
       {{> afQuickField name="note" placeholder="(EX: Description)" }}
       {{> afQuickField name="fileId" type="cfs-file" collection="files"}}

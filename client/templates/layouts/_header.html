@@ -21,7 +21,10 @@
                 <i class="fa fa-user"></i> {{ currentUser.profile.name }} <i class="fa fa-caret-down"></i>
               </a>
               <ul class="dropdown-menu" role="menu">
-                <li><a href="#" data-action="logout"><i class="fa fa-lock"></i> Sign Out</a></li>
+                <li><a href="/setup"><i class="fa fa-edit"></i> Profile </a>
+                </li>
+                <li><a href="#" data-action="logout"><i class="fa fa-lock"></i> Sign Out</a>
+                </li>
               </ul>
             </li>
           </ul>
@@ -37,7 +40,7 @@
           {{#if currentUser }}
             <li class="{{ isActiveRoute regex='dashboard' }}"><a href="{{ pathFor 'dashboard' }}"><i class="fa fa-gear"></i> Dashboard</a></li>
             <li class="{{ isActiveRoute regex='safeboxes$' }}"><a href="{{ pathFor 'safeboxes' }}"><i class="fa fa-lock"></i> My Safeboxes </a></li>
-            <li class="{{ isActiveRoute regex='safeboxes.unlocked' }}"><a href="{{ pathFor 'safeboxes.unlocked' }}"><i class="fa fa-lock"></i> Unlocked Safeboxes </a></li>
+            <li class="{{ isActiveRoute regex='safeboxes.unlocked' }}"><a href="{{ pathFor 'safeboxes.unlocked' }}"><i class="fa fa-unlock"></i> Unlocked Safeboxes </a></li>
           {{/if}}
         </ul>
       </div>

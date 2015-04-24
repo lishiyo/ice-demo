@@ -16,7 +16,7 @@ Meteor.methods({
  //  },
   'addContactIdToUser': function (opts) {
     console.log("adding contact id to user with opts: ", opts);
-    Meteor.users.update(opts.userId, { $addToSet: {
+    Meteor.users.update(this.userId, { $addToSet: {
       contactIds: opts.contactId
     }});
   },
