@@ -1,3 +1,4 @@
+accolver:twilio-meteor@1.10.1
 accounts-base@1.2.0
 accounts-facebook@1.0.4
 accounts-google@1.0.4
@@ -87,7 +88,6 @@ mongo@1.1.0
 mongo-livedata@1.0.8
 mpowaga:autoform-summernote@0.3.2
 mrt:moment@2.8.1
-mrt:twilio-meteor@1.1.0
 mrt:underscore-string-latest@2.3.3
 npm-bcrypt@0.7.8_2
 oauth@1.1.4

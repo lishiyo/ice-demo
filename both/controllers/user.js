@@ -1,11 +1,10 @@
 UserController = AppController.extend({
-
-});
-
-UserProfileController = UserController.extend({
   // waitOn: function() {
   //   return Meteor.user();
   // },
+});
+
+UserProfileController = UserController.extend({
   template: 'profileSetup',
   onAfterAction: function () {
     Meta.setTitle('Setup Your Profile');

@@ -26,7 +26,6 @@ accounts-facebook
 accounts-google
 service-configuration
 accounts-ui
-mrt:twilio-meteor
 mrt:moment
 aldeed:autoform-bs-datepicker
 cfs:autoform
@@ -39,3 +38,6 @@ mpowaga:autoform-summernote
 jparker:crypto-base64
 random
 globals
+accolver:twilio-meteor
+tracker
+underscore

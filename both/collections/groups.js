@@ -31,8 +31,6 @@ Groups.before.insert(function (userId, doc) {
   doc.createdAt = moment().toDate();
   if (!doc.owner_id) doc.owner_id = Meteor.userId();
   if (!doc.name) doc.name = doc.type;
-
-  console.log("group before insert", doc);
 });
 
 Groups.allow({

@@ -53,7 +53,6 @@ var addOrRemoveContactIds = function(selected) {
 		}
 	});
 
-	console.log("elem in contac", currIds);
 	return currIds;
 };
 

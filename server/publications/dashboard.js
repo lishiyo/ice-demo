@@ -4,6 +4,7 @@ Meteor.publish("dashboardAll", function(userId){
     Items.find({ owner_id: userId }),
     Files.find({ owner_id: userId }),
     Groups.find({ owner_id: userId }),
-    Contacts.find({ owner_id: userId })
+    Contacts.find({ owner_id: userId }),
+    Tags.find({ contact_id: { $in: userId.contactIds }})
   ]
 });

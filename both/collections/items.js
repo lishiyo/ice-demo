@@ -72,6 +72,5 @@ Files.allow({
 Items.before.insert(function (userId, doc) {
   doc.createdAt = moment().toDate();
   doc.owner_id = Meteor.userId();
-  console.log("before insert item", doc);
   return doc;
 });

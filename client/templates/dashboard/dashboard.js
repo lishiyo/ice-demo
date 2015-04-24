@@ -7,15 +7,6 @@ Template.dashboard.helpers({
 });
 
 Template.items.helpers({
-	// passport: function(){
-	// 	return Items.findOne({ type: "passport" });
-	// },
-	// driversLicense: function(){
-	// 	return Items.findOne({ type: "driversLicense"});
-	// },
-	// socialSecurity: function(){
-	// 	return Items.findOne({ type: "socialSecurity"});
-	// },
 	allTypes: function(){
 		return App.GLOBALS.Items.defaultTypesId;
 	},
