@@ -1,7 +1,7 @@
 Meteor.startup(function() {
 
   Meteor.Mailgun.config({
-    username: 'postmaster@domain.com',
+    username: 'c.ziye.li@gmail.com',
     password: 'password-goes-here'
   });
 
