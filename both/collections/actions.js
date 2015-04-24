@@ -60,7 +60,7 @@ Schema.ActionStep = new SimpleSchema({
 	}
 });
 
-// build actions with one or more steps 
+// build actions with one or more steps
 Schema.Action = new SimpleSchema({
 	label: {
 		type: String, // 'find babysitter', 'trigger family safebox'
@@ -76,7 +76,7 @@ Actions.attachSchema(Schema.Action);
 ActionSteps.before.insert(function (userId, doc) {
   doc.createdAt = moment().toDate();
   doc.owner_id = Meteor.userId();
-  console.log("action step doc", doc);
+
   return doc;
 });
 

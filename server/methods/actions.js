@@ -21,6 +21,9 @@ Meteor.methods({
 	    }
 		});
 	},
+	'sendTriggerMessage': function () {
+
+	},
 	// replied back 'yes' or 'no'
 	'handleMsgResponse': function (message, target) {
 
