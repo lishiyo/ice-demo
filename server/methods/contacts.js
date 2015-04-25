@@ -15,16 +15,16 @@ Meteor.methods({
 
   },
 
-  "updateContactSecret" : function(contactId) {
-  	var secret = CryptoJS.enc.Base64.stringify(CryptoJS.enc.Utf8.parse(contactId));
-  	var contact = Contacts.find({ _id: contactId });
+  // "updateContactSecret" : function(contactId) {
+  // 	var secret = CryptoJS.enc.Base64.stringify(CryptoJS.enc.Utf8.parse(contactId));
+  // 	var contact = Contacts.find({ _id: contactId });
 
-	  Contacts.update({ _id: contactId }, { $set:
-	  	{
-	      secret_id: secret
-	    }
-	  });
-  },
+	 //  Contacts.update({ _id: contactId }, { $set:
+	 //  	{
+	 //      secret_id: secret
+	 //    }
+	 //  });
+  // },
 
   'addTagsForContact': function(contact) {
   	var safeboxes = contact.belongedSafeboxes;

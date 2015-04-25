@@ -1,9 +1,12 @@
 Meteor.methods({
+  "unlockSafebox": function (safeboxId) {
+    Safeboxes.update({_id: safeboxId}, { $set: { unlocked: true } });
+    console.log("unlocked safebox", safeboxId);
+  },
   "checkSafeboxUnlocked": function (safeboxId) {
     var safebox = Safeboxes.findOne({_id: safeboxId});
     return (safebox && safebox.unlocked);
   },
-
   "checkValidUnlock": function (opts) {
     var tag = Tags.findOne({
       safebox_id: opts.safebox_id,

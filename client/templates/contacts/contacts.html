@@ -1,3 +1,7 @@
+<template name="contactsCreate">
+	{{> contacts }}
+</template>
+
 <template name="contacts">
 	<div class="page-header">
 	  <h3>My Contacts</h3>
@@ -20,8 +24,9 @@
 
 	{{#autoForm id="newContactForm" type="insert" collection="Contacts" }}
 	  {{> afQuickField name="profile" }}
-	  {{> afQuickField name="belongedSafeboxes" options=userSafeboxes }}
-	  {{> afQuickField name="belongedGroups" options=userGroups }}
+	  <!-- {{> afQuickField name="belongedSafeboxes" options=userSafeboxes }} -->
+	  {{> afQuickField name="belongedGroups" options=userGroups label="Groups"}}
+	  {{> afQuickField name="type" type="hidden" value="contact"}}
 
 	  <div class="form-group">
 	    <button type="submit" class="btn btn-primary">Submit</button>

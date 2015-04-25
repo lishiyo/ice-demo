@@ -22,14 +22,18 @@ Schema.Group = new SimpleSchema({
     type: [String],
     optional: true,
     defaultValue: []
+  },
+  owner_id: {
+    type: String,
   }
 });
 
 Groups.attachSchema(Schema.Group);
 
-Groups.before.insert(function (userId, doc) {
+Groups.after.insert(function (userId, doc) {
   doc.createdAt = moment().toDate();
-  if (!doc.owner_id) doc.owner_id = Meteor.userId();
+  console.log("group after insert", doc);
+  //if (!doc.owner_id) doc.owner_id = Meteor.userId();
   if (!doc.name) doc.name = doc.type;
 });
 

@@ -1,3 +1,19 @@
+/* ==== RESET ==== */
+
+ul, li {
+	list-style: none;
+}
+
+li.card {
+	float: left;
+}
+
+.group:after {
+	content: "";
+	clear: both;
+	display: block;
+}
+
 /* ==== LAYOUT ==== */
 footer {
 	margin-top: 50px;

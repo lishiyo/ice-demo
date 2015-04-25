@@ -46,18 +46,27 @@ Schema.UserProfile = new SimpleSchema({
       type: Schema.UserAddress,
       optional: true
     },
+    // telHome: {
+    // 	type: String,
+    //   label: "Home Number",
+    // 	optional: true,
+    //   regEx: /^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/,
+    // 	autoform: {
+    // 		placeholder: "XXX-XXX-XXXX",
+    // 	}
+    // },
     tel: {
-    	type: String,
-        label: "Primary Phone Number*",
-    	optional: true,
+      type: String,
+      label: "Primary Phone Number*",
+      optional: true,
       regEx: /^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/,
-    	autoform: {
-    		placeholder: "XXX-XXX-XXXX"
-    	}
+      autoform: {
+        placeholder: "XXX-XXX-XXXX",
+      }
     }
 });
 
-
+// also has defaultSafebox && infoset
 Schema.User = new SimpleSchema({
 	emails: {
    type: [Object],
@@ -83,7 +92,7 @@ Schema.User = new SimpleSchema({
       type: Schema.UserProfile,
       optional: true
   },
-  services: {
+  services: { // for facebook/google login
       type: Object,
       optional: true,
       blackbox: true
@@ -95,6 +104,14 @@ Schema.User = new SimpleSchema({
       autoValue: function(doc) {
       	if (!this.isSet) return ['source'];
       }
+  },
+  infoset: {
+    type: String, // infoset id
+    optional: true,
+  },
+  defaultSafebox: {
+    type: String,
+    optional: true,
   },
   // == For Contact conversion ===
   unlockedSafeboxes: {

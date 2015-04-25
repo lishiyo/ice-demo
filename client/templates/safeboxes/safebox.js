@@ -1,5 +1,5 @@
 
-Template.safeboxes.helpers({
+Template['tabs.safeboxes'].helpers({
 	safeboxesCount: function(){
 		return Safeboxes.find().count();
 	},
@@ -8,7 +8,7 @@ Template.safeboxes.helpers({
 	}
 })
 
-Template.safeboxes.events({
+Template['tabs.safeboxes'].events({
 	'click #create-safebox': function(){
 		Router.go('safeboxes.new');
 	}

@@ -1,19 +1,13 @@
 Accounts.onCreateUser(function(options, user) {
-  console.log("onreateUser", options, user);
+  console.log("onCreateUser", options, user);
+
+  Meteor.call('createDefaultGroups', user, App.GLOBALS.Groups.defaultTypes);
+  Meteor.call('createDefaultSafebox', user);
+  Meteor.call('createDefaultInfoset', user);
   return user;
 });
 
-
 Meteor.methods({
-	// // @param user object
-	// 'setProfile': function(userData) {
- //    // user.roles = [ 'source' ]
- //    if (userData.roles.length > 0) {
- //      // Need _id of existing user record so this call must come
- //      // after `Accounts.createUser` or `Accounts.onCreate`
- //      Roles.addUsersToRoles(id, userData.roles);
- //    }
- //  },
   'addContactIdToUser': function (opts) {
     console.log("adding contact id to user with opts: ", opts);
     Meteor.users.update(this.userId, { $addToSet: {
@@ -38,7 +32,7 @@ Meteor.methods({
       }
     });
 
-    // delete tag
+    // DELETE TAG
 
     return {
       user: Meteor.users.findOne(newUserId),
@@ -47,44 +41,61 @@ Meteor.methods({
   },
 
   'createDefaultGroups': function(user, defaultTypes) {
-    defaultTypes.forEach(function(type){
-      Groups.insert(
-        {
-          owner_id: user._id,
-          type: type,
-          name: type,
-          contactIds: []
-        }
-      );
+    console.log("creating default groups with userId", user._id);
+    if (Groups.find({ owner_id: user._id}).count() > 0) return;
+
+    for (var i = 0; i < defaultTypes.length; i++) {
+      (function(){
+        console.log("creating group", user._id, i);
+        Groups.insert(
+          {
+            owner_id: user._id,
+            type: defaultTypes[i],
+            name: defaultTypes[i],
+            contactIds: []
+          }
+        ); // insert
+      })();
+    }
+
+  },
+
+  'createDefaultSafebox': function(user) {
+    console.log("creating default safebox with user", user._id);
+    if (user.defaultSafebox) return;
+
+    Safeboxes.insert({
+      owner_id: user._id,
+      infoset_type: 7,
+      unlocked: false
+    }, function(err, id){
+      if (err) {
+        console.log("err default safebox", err);
+      } else {
+        console.log("success safebox", id);
+        Meteor.users.update({ _id: user._id }, { $set: {
+          defaultSafebox: id,
+        }});
+      }
     });
-  }
+  },
+
+  'createDefaultInfoset': function(user){
+    console.log("creating default infoset with user", user._id);
+    if (user.infoset) return;
+
+    Infosets.insert({
+      owner_id: user._id,
+    }, function(err, id) {
+      if (err) {
+        console.log("err infoset", err);
+      } else {
+        console.log("success infoset", id);
+        Meteor.users.update({ _id: user._id }, { $set: {
+          infoset: id,
+        }});
+      }
+    });
+  },
+
 });
-
-
-
-
-// Accounts.createUser = _.wrap(Accounts.createUser, function(createUser){
-//   // Store the original arguments
-//   var args = _.toArray(arguments).slice(1),
-//       user = args[0];
-//       origCallback = args[1];
-
-//   var newCallback = function(error) {
-//       // create default groups for user upon registration
-//     if (!Groups.find({owner_id: user._id}).count()) {
-//       var defaultTypes = ["family", "friends", "medical", "legal", "custom"];
-//       defaultTypes.forEach(function(type){
-//         Groups.insert({
-//           owner_id: user._id,
-//           type: type,
-//           name: type,
-//           contactIds: []
-//         });
-//       });
-//     }
-
-//     origCallback.call(this, error);
-//   };
-
-//   createUser(user, newCallback);
-// });

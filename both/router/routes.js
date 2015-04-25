@@ -1,3 +1,7 @@
+// Before hooks for specific routes
+// Must be equal to the route names of the Iron Router route map
+// Router.before(beforeHooks.isLoggedIn, {only: ['userAreaA', 'userAreaB']});
+
 var beforeHooks = {
   isLoggedIn: function(pause) {
     if (!(Meteor.loggingIn() || Meteor.user())) {
@@ -8,15 +12,17 @@ var beforeHooks = {
   },
 }
 
-// Before hooks for specific routes
-// Must be equal to the route names of the Iron Router route map
-// Router.before(beforeHooks.isLoggedIn, {only: ['userAreaA', 'userAreaB']});
+Router.plugin('ensureSignedIn', {
+  except: ['home', 'atSignIn', 'atSignUp', 'atForgotPassword', 'safebox.unlock']
+});
 
 Router.configure({
   layoutTemplate: 'appLayout',
   loadingTemplate: 'loading',
   notFoundTemplate: 'notFound',
 });
+
+// Basic routes
 
 Router.route('/unauthorized', {
   name: 'unauthorized',
@@ -31,9 +37,46 @@ Router.route('/dashboard', {
   name: 'dashboard'
 });
 
-Router.route('/setup', {
-	name: 'user.setup',
-	controller: 'UserProfileController',
+// Router.route('/setup', {
+// 	name: 'user.setup',
+// 	controller: 'UserProfileController',
+// });
+
+// ===== ONBOARDING =====
+
+Router.route('/steps', {
+  name: 'steps',
+  controller: StepsController,
+  template: 'steps'
+});
+
+// ===== PROFILES - CONTACTS are in Infosets =====
+
+Router.route('/profiles', {
+  name: 'profiles',
+  template: 'profiles',
+  controller: 'UserProfileController'
+});
+
+// Step One
+Router.route('/profiles/create', {
+  name: 'profiles.create',
+  template: 'profilesCreate',
+  controller: 'UserProfileController'
+});
+
+// Step Two
+Router.route('/contacts/create', {
+  name: 'contacts.create',
+  template: 'contactsCreate',
+  controller: 'ContactsController'
+});
+
+// Step Three
+Router.route('/actions/create', {
+  name: 'actions.create',
+  template: 'actionsCreate',
+  controller: 'ActionsController'
 });
 
 // ===== SAFEBOXES =====
@@ -71,14 +114,4 @@ Router.route('/safeboxes/:safeboxId', {
   controller: 'SafeboxController'
 });
 
-// index
-Router.route('/safeboxes', {
-  name: 'safeboxes',
-  template: 'safeboxes',
-  controller: 'SafeboxesController',
-});
 
-
-Router.plugin('ensureSignedIn', {
-  except: ['home', 'atSignIn', 'atSignUp', 'atForgotPassword', 'safebox.unlock']
-});

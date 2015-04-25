@@ -4,7 +4,9 @@ Template.registerHelper('truncate', function(string, length) {
 });
 
 Template.registerHelper('fullNameify', function(profile) {
-	return profile.firstName.trim() + " " + profile.lastName.trim();
+	if (profile.lastName) {
+		return profile.firstName.trim() + " " + profile.lastName.trim();
+	}
 });
 
 // Takes camelcase `socialSecurity` => Social Security

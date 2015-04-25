@@ -1,0 +1,84 @@
+<template name="profilesCreate">
+  <div class="profile">
+    <div class="page-header">
+      <h5>
+        Create Profiles
+        {{> crumbsStepOne }}
+      </h5>
+    </div>
+    <p> Profiles are people that ICEPlan will protect. This includes yourself and may also include family and pets. </p>
+
+    {{> yield region="content"}}
+  </div>
+
+  <ul class="profiles-recommended">
+    {{#each relations}}
+      {{> profileCard }}
+    {{/each}}
+  </ul>
+
+  <div class="row">
+    <button class="next-step">I'm done - take me to the next step</button>
+  </div>
+</template>
+
+<template name="profileCard">
+  <li class="card">
+    <p>{{ this.label }}</p>
+    <img src="{{imgUrl}}" />
+    <button class="add-profile" data-relation-id="{{this.relationKey}}">+ Add</button>
+  </li>
+</template>
+
+<template name="crumbsStepOne">
+nav crumbs
+</template>
+
+<template name="profile-user">
+<p>Required</p>
+<div class="row">
+  <div class="col-lg-4 col-md-4 col-sm-4">
+    <figure>
+      <img src="/images/icons/me.png">
+      <figcaption>You (Account Owner)</figcaption>
+    </figure>
+  </div>
+  <div class="col-lg-8 col-md-8 col-sm-8">
+    {{#autoForm id="userProfile" type="update" collection="Meteor.users" doc=currentUser}}
+      {{> afQuickField name="profile"}}
+      <div class="form-group">
+        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="reset" class="btn btn-default">Reset Form</button>
+      </div>
+    {{/autoForm}}
+  </div>
+</div>
+</template>
+
+<template name="newProfileForm">
+  <div class="col-lg-4 col-md-4 col-sm-4">
+    <figure>
+      <figcaption>{{ relationLabel }}</figcaption>
+      <img src="/images/icons/me.png">
+    </figure>
+  </div>
+  <div class="col-lg-8 col-md-8 col-sm-8">
+    {{#autoForm id="newProfileForm" type="insert" collection="Contacts" }}
+      {{> afQuickField name="profile" }}
+      <!-- {{> afQuickField name="belongedSafeboxes" options=userSafeboxes }} -->
+      <!-- {{> afQuickField name="belongedGroups" options=userGroups }} -->
+      {{> afQuickField name="type" type="hidden" value="profile" }}
+      {{> afQuickField name="relation" type="hidden" value=relation }}
+
+      <div class="form-group">
+        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="reset" class="btn btn-default">Reset Form</button>
+      </div>
+    {{/autoForm}}
+  </div>
+</template>
+
+
+<template name="profile-success">
+Successfully Created :)
+</template>

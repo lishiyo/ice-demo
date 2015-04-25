@@ -1,0 +1,3 @@
+ActionsController = AppController.extend({
+
+});

@@ -1,4 +1,3 @@
-
 AccountsTemplates.configure({
 	confirmPassword: true,
 	enablePasswordChange: true,
@@ -36,6 +35,8 @@ AccountsTemplates.configure({
     },
 });
 
+
+
 // The simplest way is to make the call passing just the route code (available codes are: changePwd, enrollAccount, forgotPwd, resetPwd, atSignIn, atSignUp):
 
 // default route name => atSignIn
@@ -45,7 +46,7 @@ AccountsTemplates.configureRoute('signIn', {
 });
 AccountsTemplates.configureRoute('signUp', {
 	layoutTemplate: 'appLayout',
-  redirect: '/setup'
+  redirect: '/steps' // onboarding
 });
 AccountsTemplates.configureRoute('ensureSignedIn', {
 	layoutTemplate: 'appLayout'

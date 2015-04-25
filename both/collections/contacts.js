@@ -11,14 +11,14 @@ Schema.ContactProfile = new SimpleSchema({
   lastName: {
     type: String,
     regEx: /^[a-zA-Z]{2,25}$/,
-    optional: false,
-    label: "Last Name*"
+    optional: true,
+    label: "Last Name"
   },
   tel: {
   	type: String,
   	optional: true,
     regEx: /^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/,
-    label: "Phone Number*",
+    label: "Primary Phone Number",
   	autoform: {
   		placeholder: "XXX-XXX-XXXX"
   	}
@@ -30,6 +30,11 @@ Schema.ContactProfile = new SimpleSchema({
 // but if you use only accounts-password, then it can be required
    optional: true
   },
+  notes: {
+    type: String,
+    optional: true,
+    label: "personal notes"
+  }
 });
 
 Schema.Contact = new SimpleSchema({
@@ -39,9 +44,9 @@ Schema.Contact = new SimpleSchema({
   },
   relation: {
     type: String,
-    optional: true,
+    allowedValues: App.GLOBALS.Profiles.defaultRelations,
     autoform: {
-      placeholder: "father, daughter, co-worker, etc.",
+      options: App.GLOBALS.Profiles.defaultRelations
     }
   },
   createdAt: {
@@ -68,30 +73,40 @@ Schema.Contact = new SimpleSchema({
   belongedSafeboxes: {
   	type: [String],
     blackbox: true,
+    optional: true,
   	defaultValue: []
   },
   belongedGroups: {
   	type: [String],
     blackbox: true,
+    optional: true,
   	defaultValue: []
-  	// allowedValues: ['family', 'friends', 'medical', 'legal'],
-   //  autoform: {
-   //    options: {
-   //      family: "Family",
-   //      friends: "Friends",
-   //      medical: "Medical",
-   //      legal: "Legal"
-   //    }
-   //  }
   },
-  password: {
+  allowedInfosetTabs: {
+    type: [Number], // [ 0, 2, 3 ]
+    optional: true,
+    defaultValue: []
+  },
+  allowedInfoset: {
+    type: String, // infoset_id
+    optional: true,
+    autoValue: function(){
+      return Meteor.user().infoset;
+    }
+  },
+  password: { // extraneous - in case upgrade to user
     type: String,
     optional: true
   },
   email: {
     type: String,
     optional: true
+  },
+  type: {
+    type: String,
+    allowedValues: ["contact", "profile"]
   }
+
 });
 
 Contacts.attachSchema(Schema.Contact);
@@ -103,9 +118,13 @@ Contacts.before.insert(function (userId, doc) {
     Contacts.simpleSchema().clean(doc);
     doc.createdAt = moment().toDate();
     doc.owner_id = Meteor.userId();
-    var first = doc.profile.firstName.trim(),
-        last = doc.profile.lastName.trim();
-    doc.fullName = first + " " + last;
+    if (doc.profile.lastName) {
+      var first = doc.profile.firstName.trim(),
+          last = doc.profile.lastName.trim();
+      doc.fullName = first + " " + last;
+    } else {
+      doc.fullName = doc.profile.firstName;
+    }
 
     return doc;
   }
@@ -113,8 +132,10 @@ Contacts.before.insert(function (userId, doc) {
 
 // add to Groups and Safeboxes
 Contacts.after.insert(function (userId, doc) {
-  
   if (Meteor.isClient) {
+    // attach infoset to contact/profile
+    doc.allowedInfoset = Meteor.user().infoset;
+
     var safeboxIds = ( doc.belongedSafeboxes || [] );
     var groupIds = ( doc.belongedGroups || [] );
     Meteor.call('updateSafeboxesAndGroups', safeboxIds, groupIds, doc._id);

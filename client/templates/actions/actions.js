@@ -1,9 +1,8 @@
 Template.actions.helpers({
-	stubActions: function () {
-		return ["readOnly", "expectResponse", "triggerSafebox"];
-	},
+	// stubActions: function () {
+	// 	return ["readOnly", "expectResponse", "triggerSafebox"];
+	// },
 	actions: function () {
-		console.log(ActionSteps.find())
 		return ActionSteps.find();
 	}
 });
@@ -37,6 +36,7 @@ var handleTrigger = function(doc) {
 	var sbs = doc.safeboxIds;
 	for (var i = 0; i < doc.safeboxIds.length; i++) {
 		var url = window.location.host + "/safeboxes/" + sbs[i];
+		Meteor.call('unlockSafebox', sbs[i]);
 		var tags = Tags.find({ safebox_id: sbs[i] }).fetch();
 
 		for (var j = 0; j < tags.length; j++) {

@@ -3,7 +3,14 @@ Schema = {};
 
 Schema.Safebox = new SimpleSchema({
 	name: {
-		type: String
+		type: String,
+		optional: true,
+		defaultValue: "Default"
+	},
+	infoset_type: { // corresponds to
+		type: Number,
+		optional: false,
+		defaultValue: 7
 	},
 	unlocked: {
 		type: Boolean,

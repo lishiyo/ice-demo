@@ -5,9 +5,8 @@ UserController = AppController.extend({
 });
 
 UserProfileController = UserController.extend({
-  template: 'profileSetup',
   onAfterAction: function () {
-    Meta.setTitle('Setup Your Profile');
+    Meta.setTitle('Setup Profile');
   },
   action: function () {
     this.render();
