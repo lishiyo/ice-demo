@@ -1,4 +1,6 @@
-
+Template.contactsCreate.onCreated(function(){
+  Router.current().render('newContactForm', {to: 'form'});
+});
 
 Template.newContactForm.helpers({
 	userSafeboxes: function(){
@@ -11,13 +13,24 @@ Template.newContactForm.helpers({
 			return { label: group.name, value: group._id }
 		});
 	},
-});
+	defaultRelations: function(){
 
-Template.contacts.helpers({
-	contacts: function(){
-		return Contacts.find();
-	},
-	groups: function(){
-		return Groups.find();
 	}
 });
+
+Template.contactsCreate.helpers({
+
+});
+
+Template.contactsCreate.events({
+
+});
+
+// Template.contacts.helpers({
+// 	contacts: function(){
+// 		return Contacts.find();
+// 	},
+// 	groups: function(){
+// 		return Groups.find();
+// 	}
+// });

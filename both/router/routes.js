@@ -69,14 +69,14 @@ Router.route('/profiles/create', {
 Router.route('/contacts/create', {
   name: 'contacts.create',
   template: 'contactsCreate',
-  controller: 'ContactsController'
+  controller: 'StepsController'
 });
 
 // Step Three
 Router.route('/actions/create', {
   name: 'actions.create',
   template: 'actionsCreate',
-  controller: 'ActionsController'
+  controller: 'StepsController'
 });
 
 // ===== SAFEBOXES =====

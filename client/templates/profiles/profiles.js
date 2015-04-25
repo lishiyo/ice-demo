@@ -42,6 +42,9 @@ Template.profilesCreate.events({
     console.log($(event.target).data("relation-id"));
 
     Router.current().render('newProfileForm', {to: 'content'});
+  },
+  'click .next-step': function(event) {
+    Router.go('contacts.create');
   }
 });
 

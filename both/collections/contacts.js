@@ -46,7 +46,11 @@ Schema.Contact = new SimpleSchema({
     type: String,
     allowedValues: App.GLOBALS.Profiles.defaultRelations,
     autoform: {
-      options: App.GLOBALS.Profiles.defaultRelations
+      options: function () {
+        return App.GLOBALS.Profiles.defaultRelations.map(function(type){
+          return { label: type, value: type };
+        });
+      }
     }
   },
   createdAt: {

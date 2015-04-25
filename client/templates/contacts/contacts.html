@@ -2,38 +2,69 @@
 	{{> contacts }}
 </template>
 
+<template name="crumbsStepTwo">
+crumbs step two
+</template>
+
 <template name="contacts">
 	<div class="page-header">
-	  <h3>My Contacts</h3>
-	</div>
+    <h5>
+      Create Profiles
+      {{> crumbsStepTwo }}
+    </h5>
+  </div>
+  <p>Contacts are people...</p>
+  <p>Required</p>
+  <p>You are required...</p>
 
-	{{> newContactForm }}
+	{{> newContactOrProfileForm }}
 
+</template>
+
+<template name="notifications-success">
+</template>
+
+<template name="newContactOrProfileForm">
 	<div class="row">
-		<h3>My Groups</h3>
-		<!-- {{> newGroupForm }} -->
-
-		{{#each groups}}
-			{{> group }}
-		{{/each}}
-	</div>
+  <div class="col-lg-4 col-md-4 col-sm-4">
+    <figure>
+      <img src="/images/icons/me.png">
+      <figcaption>New Contact</figcaption>
+    </figure>
+  </div>
+  <div class="col-lg-8 col-md-8 col-sm-8">
+  	{{> existingProfiles }}
+  	{{> yield region="form"}}
+  </div>
+</div>
 </template>
 
 <template name="newContactForm">
-	<h5>Add Contact</h5>
+  	<p>Or, Create a New Contact </p>
 
-	{{#autoForm id="newContactForm" type="insert" collection="Contacts" }}
-	  {{> afQuickField name="profile" }}
-	  <!-- {{> afQuickField name="belongedSafeboxes" options=userSafeboxes }} -->
-	  {{> afQuickField name="belongedGroups" options=userGroups label="Groups"}}
-	  {{> afQuickField name="type" type="hidden" value="contact"}}
+    {{#autoForm id="newContactForm" type="insert" collection="Contacts" }}
+		  {{> afQuickField name="profile" }}
+		  <!-- {{> afQuickField name="belongedSafeboxes" options=userSafeboxes }} -->
+		  <!-- {{> afQuickField name="belongedGroups" options=userGroups label="Groups"}} -->
+		  {{> afQuickField name="relation" }}
+		  {{> afQuickField name="type" type="hidden" value="contact" }}
 
-	  <div class="form-group">
-	    <button type="submit" class="btn btn-primary">Submit</button>
-	    <button type="reset" class="btn btn-default">Reset Form</button>
-	  </div>
+		  <div class="form-group">
+		    <button type="submit" class="btn btn-primary">Save Profile</button>
+		    <button type="reset" class="btn btn-default">Reset Form</button>
+		  </div>
+		{{/autoForm}}
 
-	{{/autoForm}}
+</template>
+
+<template name="existingProfiles">
+	<p>Select an Existing Profile.</p>
+	<p>If you have already created a Profile for this Contact, select them below.</p>
+	{{#each profiles}}
+		<div class="profile-card">
+			<img url="{{}}">
+		</div>
+	{{/each}}
 </template>
 
 
