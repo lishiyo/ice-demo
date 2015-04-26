@@ -39,20 +39,33 @@
   }
 .container{background-color:white;}
 
-.header-button1{
+.header-button1 {
   color:white;
   background-color:#FFCA2F;
   border-radius: 30px;
   /*height:50px;*/
-
 }
 
-.header-button2{
+.header-button2 {
     color: gray;
     /*height:20px;*/
     background-color:white;
     border-radius: 30px;
     border:2px solid #e7f5e7;
+}
+
+.header-button2:hover, .header-button3:hover {
+  background-color: gray;
+  color: white;
+}
+
+.header-button3 {
+  /*color: white;*/
+  /*height:20px;*/
+  background-color: #e7f5e7;
+  border-radius: 30px;
+  border:2px solid #e7f5e7;
+  color: gray;
 }
 
 .navbar {
