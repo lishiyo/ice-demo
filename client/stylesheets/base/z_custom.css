@@ -129,6 +129,7 @@ button.next-step {
 
 .steps-row {
 	margin: 0 auto;
+	text-align: center;
 }
 
 .step {

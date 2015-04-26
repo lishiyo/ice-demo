@@ -37,7 +37,7 @@ App.GLOBALS = {
 			},
 			"Sibling": {
 				label: "A Brother or Sister",
-				imgPath: "/images/icons/siblings.svg",
+				imgPath: "/images/icons/siblings.png",
 			},
 			"Pet": {
 				label: "A Pet",
