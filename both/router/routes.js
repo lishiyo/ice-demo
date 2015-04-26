@@ -13,7 +13,7 @@ var beforeHooks = {
 }
 
 Router.plugin('ensureSignedIn', {
-  except: ['home', 'atSignIn', 'atSignUp', 'atForgotPassword', 'safebox.unlock']
+  except: ['atSignIn', 'atSignUp', 'atForgotPassword', 'safebox.unlock']
 });
 
 Router.configure({

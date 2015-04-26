@@ -42,6 +42,7 @@ Schema.Contact = new SimpleSchema({
 	profile: {
     type: Schema.ContactProfile,
     optional: true,
+    label: "Basic Information"
   },
   relation: {
     type: String,

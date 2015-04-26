@@ -5,6 +5,10 @@
 	margin-left: 0 !important;
 }
 
+.panel-heading {
+	display: none;
+}
+
 figcaption {
 	font-size: 2.5rem;
 	font-weight: 700;
@@ -25,7 +29,28 @@ ul, li {
 	text-align: center;
 }
 
+button {
+	appearance: none;
+	outline: none;
+}
+
+form .form-control {
+	border-radius: 0 !important;
+	box-shadow: none !important;
+}
+
 /* ==== LAYOUT ==== */
+
+body: {
+	background: ##e7f5e7;
+}
+
+.main-content {
+	margin: 0 auto;
+	width: 90%;
+	background: white;
+}
+
 footer {
 	margin-top: 50px;
 }
@@ -104,6 +129,17 @@ li.card:hover, li.card.active {
 	margin: 20px 0;
 }
 
+/** userProfile form */
+form#userProfile .form-group:first-child{
+	float: left;
+	width: 45%;
+	margin-right: 15px;
+}
+
+form#userProfile .form-group:nth-child(2){
+	float: left;
+	width: 45%;
+}
 
 /** actions */
 .wrap-form-half .form-group:first-child {
@@ -123,11 +159,6 @@ li.card:hover, li.card.active {
 
 #actionStepForm .form-group {
 	margin-bottom: 0;
-}
-
-#actionStepForm input {
-	border-radius: 0;
-	box-shadow: none;
 }
 
 #actionStepForm label {

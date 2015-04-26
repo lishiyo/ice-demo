@@ -25,9 +25,13 @@
 	<ul class="group row">
 		{{#each profiles }}
 			<li class="card profile-card-wide">
-				<div class="pull-left">{{ this.fullName }}</div>
-				<div class="pull-right">
-					Plans
+
+				<div class="col-xs-4 col-md-4 col-lg-4 pull-left">{{ this.fullName }}</div>
+				<div class="col-xs-4 col-md-4 col-lg-4 pull-right">
+					<li>Plans (1)</li>
+					<li><a>Plan</a></li>
+					<li>Contacts(2)</li>
+					<li><a>Contact</a></li>
 				</div>
 			</li>
 		{{/each}}

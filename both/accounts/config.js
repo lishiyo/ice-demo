@@ -42,7 +42,7 @@ AccountsTemplates.configure({
 // default route name => atSignIn
 AccountsTemplates.configureRoute('signIn', {
 	layoutTemplate: 'appLayout',
-  redirect: 'dashboard'
+  redirect: '/steps'
 });
 AccountsTemplates.configureRoute('signUp', {
 	layoutTemplate: 'appLayout',
