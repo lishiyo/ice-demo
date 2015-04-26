@@ -32,10 +32,13 @@ crumbs step two
 
 		<div class="profile-container">
 		  <p>Contacts are people who we'll reach out to, in case of a crisis.</p>
-		  <p>Required</p>
+		  <br>
+		  <br>
+		  <h5>Required</h5>
 		  <p>You are required to add at least <strong>one contact</strong>.</p>
-
-			{{> newContactOrProfileForm }}
+		  <div class="row form-content">
+				{{> newContactOrProfileForm }}
+			</div>
 		</div>
 
 	</div>
@@ -43,7 +46,7 @@ crumbs step two
 
 <template name="newContactOrProfileForm">
 	<div class="row">
-	  <div class="col-lg-4 col-md-4 col-sm-4">
+	   <div class="col-lg-3 col-md-3 col-sm-3 profile-wrap">
 	    <figure>
 	      <img src="/images/icons/me.png">
 	      <figcaption>New Contact</figcaption>
@@ -71,7 +74,7 @@ crumbs step two
 		  {{> afQuickField name="relation" }}
 		  {{> afQuickField name="type" type="hidden" value="contact" }}
 
-		  <div class="form-group">
+		  <div class="form-group group button-group" style="width: 100%; text-align: right;">
 		    <button type="submit" class="btn">Save Contact</button>
 		    <button type="reset" class="btn btn-reset">Reset Form</button>
 		  </div>
@@ -85,7 +88,7 @@ crumbs step two
 		  {{> afQuickField name="profile" }}
 		  <!-- {{> afQuickField name="belongedSafeboxes" options=userSafeboxes }} -->
 		  <!-- {{> afQuickField name="belongedGroups" options=userGroups label="Groups"}} -->
-		  {{> afQuickField name="relation" }}
+		  {{> afQuickField name="relation" class="relation-group" }}
 
 		  <div class="form-group">
 		    <button type="submit" class="btn">Update Profile</button>
