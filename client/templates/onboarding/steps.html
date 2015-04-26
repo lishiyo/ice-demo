@@ -1,15 +1,17 @@
 <template name="steps">
 	<h3>Getting Started</h3>
-	<div class="row">
-	{{#each steps}}
-		<div class="col-lg-4 col-xs-4 col-md-4 step" data-route="{{route}}">
-			{{ label }}
-			<img src="{{imgUrl}}" >
-			{{ description}}
+	<div class="profile">
+		<div class="row steps-row">
+		{{#each steps}}
+			<div class="step group" data-route="{{route}}">
+				<h5>{{ label }}</h5>
+				<img src="{{imgUrl}}" >
+				<p>{{ description}}</p>
+			</div>
+		{{/each}}
 		</div>
-	{{/each}}
-	</div>
-	<div class="row">
-		<button class="btn next-step">Get Started</button>
+		<div class="row">
+			<button class="btn next-step">Get Started</button>
+		</div>
 	</div>
 </template>

@@ -127,6 +127,22 @@ button.next-step {
 	padding-right: 40px;
 }
 
+.steps-row {
+	margin: 0 auto;
+}
+
+.step {
+	text-align: center;
+	border: 1px solid #e7f5e7;
+	padding: 25px 20px;
+	max-width: 25%;
+	display: inline-block;
+}
+
+.step img {
+	max-height: 100px;
+}
+
 /** Profile and Contacts */
 
 .profile-wrap {

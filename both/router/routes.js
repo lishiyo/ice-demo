@@ -30,7 +30,9 @@ Router.route('/unauthorized', {
 });
 
 Router.route('/', {
-  name: 'home'
+  name: 'steps',
+  controller: StepsController,
+  template: 'steps'
 });
 
 Router.route('/dashboard', {
@@ -46,11 +48,11 @@ Router.route('/dashboard', {
 
 // ===== ONBOARDING =====
 
-Router.route('/steps', {
-  name: 'steps',
-  controller: StepsController,
-  template: 'steps'
-});
+// Router.route('/steps', {
+//   name: 'steps',
+//   controller: StepsController,
+//   template: 'steps'
+// });
 
 // ===== PROFILES - CONTACTS are in Infosets =====
 
