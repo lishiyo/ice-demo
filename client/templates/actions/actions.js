@@ -29,8 +29,10 @@ Template.contactsList.helpers({
 		$('.contact-card').removeClass('active');
 
 		if (typeof Session.get("currContactIds") === 'undefined') {
-			contacts = [Contacts.findOne({ type: "contact" })];
-			Session.set("currContactIds", JSON.stringify([contacts[0]._id]));
+			// contacts = [Contacts.findOne({ type: "contact" })];
+			// Session.set("currContactIds", JSON.stringify([contacts[0]._id]));
+			contacts = [];
+			Session.set("currContactIds", JSON.stringify([]));
 		} else {
 			var currIds = JSON.parse(Session.get("currContactIds"));
 			contacts = Contacts.find({ _id: {$in: currIds }}).fetch();

@@ -118,7 +118,7 @@ button.btn {
 	color: white;
 }
 
-button.btn:hover {
+button.btn:hover, button.btn:active, button.btn:focus {
 	color: #7ac144;
 	background-color: white;
 	border: 1px solid #7ac144;
@@ -137,7 +137,7 @@ button.next-step {
 
 .next-step.get-started {
 	margin: 20px auto;
-	width: 70%;
+	width: 80%;
 	float: none;
 }
 
@@ -221,7 +221,7 @@ li.card button {
 	transform: translateX(-50%);
 }
 
-li.card:hover, li.card.active {
+li.card:hover, li.card.active, li.card:active, li.card:focus {
 	/*background: #fffcf4; */
 	background: #eba100;
 	color: white;
@@ -370,4 +370,15 @@ div.action-row {
 
 button.action-row {
 	min-width: 80%;
+}
+
+.modal-content .container-fluid {
+	margin-bottom: 0;
+	margin-top: 0;
+	padding-top: 20px;
+}
+
+.modal-content .action-row {
+	margin-top: 10px;
+	margin-bottom: 10px;
 }

@@ -46,9 +46,10 @@ crumbs step three
 
 <!-- right col -->
 <template name="existingContactsWrapper">
-	<p><strong>Who should we contact in case a crisis happens to {{ profile.fullName }}?</strong></p>
-	<p>Select one or more <strong>Contacts</strong> below.</p>
-
+	<div class="row">
+		<h5>Who should we contact in case a crisis happens to {{ profile.fullName }}?</h5>
+		<p>Select one or more <strong>Contacts</strong> below.</p>
+	</div>
 	{{> contactsList }}
 </template>
 
@@ -56,10 +57,10 @@ crumbs step three
 	{{> contactsRow }}
 	<div class="row">
 	{{#if currContacts.length}}
-		<p>We will contact {{ showFirstNames currContacts }} to verify that they accept responsibility. <a href="#">Learn more.</a>
+		<p>We will contact <strong>{{ showFirstNames currContacts }}</strong> to verify that they accept responsibility. <a href="#">Learn more.</a>
 		</p>
+		<p>How should we contact <strong>{{ showFirstNames currContacts }}</strong>?</p>
 	{{/if}}
-	<p>How should we contact {{ showFirstNames currContacts }}?</p>
 	</div>
 
 	{{> yield region="notifications" }}
