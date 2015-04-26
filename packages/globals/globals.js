@@ -12,19 +12,41 @@ App.GLOBALS = {
 	},
 	Actions: {
 		defaultStepTypes: ['message', 'triggerSafebox'],
-		defaultStepCodes: {
-			'message': 0,
-			'triggerSafebox': 1
+		defaultStepMap: {
+			"message": {
+				label: "Send a text message"
+			},
+			"triggerSafebox": {
+				label: "Trigger their safebox"
+			}
 		}
 	},
 	Profiles: {
 		relationsMap: {
-			"Spouse": "Your Spouse or Significant Other",
-			"Child": "A Child",
-			"Parent": "An Elderly Parent",
-			"Sibling": "A Brother or Sister",
-			"Pet": "A Pet",
-			"Friend": "A Friend"
+			"Spouse": {
+				label: "Your Spouse or Significant Other",
+				imgPath: "/images/icons/spouse.png"
+			},
+			"Child": {
+				label:  "A Child",
+				imgPath: "/images/icons/child.png"
+			},
+			"Parent": {
+				label: "An Elderly Parent",
+				imgPath: "/images/icons/mom_small.png"
+			},
+			"Sibling": {
+				label: "A Brother or Sister",
+				imgPath: "/images/icons/siblings.svg",
+			},
+			"Pet": {
+				label: "A Pet",
+				imgPath: "/images/icons/dog_small.png",
+			},
+			"Friend": {
+				label: "A Friend",
+				imgPath:  "/images/icons/me.png"
+			}
 		},
 		defaultRelations: ["Spouse", "Child", "Parent", "Sibling", "Pet", "Friend"]
 	},

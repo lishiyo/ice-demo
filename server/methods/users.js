@@ -9,7 +9,7 @@ Accounts.onCreateUser(function(options, user) {
 
 Meteor.methods({
   'addContactIdToUser': function (opts) {
-    console.log("adding contact id to user with opts: ", opts);
+    //console.log("adding contact id to user with opts: ", opts);
     Meteor.users.update(this.userId, { $addToSet: {
       contactIds: opts.contactId
     }});

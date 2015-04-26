@@ -2,7 +2,7 @@
 	{{> contacts }}
 
 	<div class="row">
-    <button class="next-step">Go to the last step</button>
+    <button class="btn next-step">Go to the last step</button>
   </div>
 </template>
 
@@ -27,16 +27,16 @@ crumbs step two
 
 <template name="newContactOrProfileForm">
 	<div class="row">
-  <div class="col-lg-4 col-md-4 col-sm-4">
-    <figure>
-      <img src="/images/icons/me.png">
-      <figcaption>New Contact</figcaption>
-    </figure>
-  </div>
-  <div class="col-lg-8 col-md-8 col-sm-8">
-  	{{> yield region="formWrapper"}} <!-- right column -->
-  </div>
-</div>
+	  <div class="col-lg-4 col-md-4 col-sm-4">
+	    <figure>
+	      <img src="/images/icons/me.png">
+	      <figcaption>New Contact</figcaption>
+	    </figure>
+	  </div>
+	  <div class="col-lg-8 col-md-8 col-sm-8">
+	  	{{> yield region="formWrapper"}} <!-- right column -->
+	  </div>
+	</div>
 </template>
 
 <template name="formWrapper">
@@ -56,8 +56,8 @@ crumbs step two
 		  {{> afQuickField name="type" type="hidden" value="contact" }}
 
 		  <div class="form-group">
-		    <button type="submit" class="btn btn-primary">Save Contact</button>
-		    <button type="reset" class="btn btn-default">Reset Form</button>
+		    <button type="submit" class="btn">Save Contact</button>
+		    <button type="reset" class="btn">Reset Form</button>
 		  </div>
 		{{/autoForm}}
 
@@ -72,35 +72,35 @@ crumbs step two
 		  {{> afQuickField name="relation" }}
 
 		  <div class="form-group">
-		    <button type="submit" class="btn btn-primary">Update Profile</button>
-		    <button type="reset" class="btn btn-default">Reset Form</button>
+		    <button type="submit" class="btn">Update Profile</button>
+		    <button type="reset" class="btn">Reset Form</button>
 		  </div>
 		{{/autoForm}}
 </template>
 
 <template name="existingProfiles">
-	<p>Select an Existing Profile.</p>
+	<h5>Select an Existing Profile.</h5>
 	<p>If you have already created a Profile for this Contact, select them below.</p>
+	<ul class="cards group">
 	{{#each profiles}}
-		<div class="profile-card">
+		<li class="profile-card card">
 			<img src="/images/icons/me.png">
 			<p> {{ this.fullName }} </p>
-		</div>
+		</li>
 	{{/each}}
+	</ul>
 </template>
-
-
+<!--
 <template name="contact">
 	<li>{{ fullName }}</li>
-</template>
-
+</template> -->
 
 <template name="contactSuccess">
-<div class="row">
-	<p>Awesome! You currently have {{ contactsCount }} contacts.</p>
-	<p>Recommended</p>
-	<p>We highly recommend adding at least <strong>three contacts</strong> for different crisis levels.</p>
+	<div class="row">
+		<p>Awesome! You currently have {{ contactsCount }} contacts.</p>
+		<h5>Recommended</h5>
+		<p>We highly recommend adding at least <strong>three contacts</strong> for different crisis levels.</p>
 
-	<button id="add-more">Add another</button>
-</div>
+		<button class="btn" id="add-more">Add another contact</button>
+	</div>
 </template>

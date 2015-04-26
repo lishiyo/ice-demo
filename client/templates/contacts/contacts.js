@@ -39,14 +39,30 @@ Template.contactSuccess.events({
 Template.existingProfiles.helpers({
 	profiles: function(){
 		return Contacts.find({ type: "profile" });
-	}
+	},
+
 });
 
 Template.existingProfiles.events({
 	'click .profile-card': function(event) {
-		event.preventDefault();
-		Session.set('profileId', this._id);
-		Router.current().render('newContactProfileForm', {to: 'form'});
+		// $('.card').removeClass('active');
+		var activeCards = $('.profile-card.active').length;
+		var card = $(event.currentTarget);
+
+		if (activeCards === 0) {
+			Session.set('profileId', this._id);
+			card.addClass('active');
+			Router.current().render('newContactProfileForm', {to: 'form'});
+		} else if (!card.hasClass('active')) { // I am NOT the active card
+			$('.card').removeClass('active');
+			Session.set('profileId', this._id);
+			card.addClass('active');
+			Router.current().render('newContactProfileForm', {to: 'form'});
+		} else { // I am the active card
+			$('.card').removeClass('active');
+			Session.set('profileId', null);
+			Router.current().render('newContactForm', { to: 'form' });
+		}
 	}
 });
 

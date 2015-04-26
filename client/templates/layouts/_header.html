@@ -39,7 +39,7 @@
          <!--  <li class="{{ isActiveRoute regex='home' }}"><a href="{{ pathFor 'home' }}"><i class="fa fa-home"></i> Home</a>
           </li> -->
           {{#if currentUser }}
-            <li class="{{ isActiveRoute regex='dashboard' }}"><a id="active-iceplan"><i class="fa fa-gear"></i> Activate IcePlan</a>
+            <li class="{{ isActiveRoute regex='dashboard' }}"><a id="activate-iceplan" data-toggle="modal" data-target="#activate-action-modal"><i class="fa fa-gear"></i> Activate IcePlan</a>
             </li>
             <li><a href="#" data-action="logout"><i class="fa fa-lock"></i> Log Out</a>
             </li>
@@ -53,4 +53,30 @@
     </div>
   </nav>
 
+  {{> activateActionModal }}
+</template>
+
+
+<!-- can activate Action on any page -->
+<template name="activateActionModal">
+ <div class="modal fade" id="activate-action-modal" role="dialog" aria-labelledby="new-action-modal" aria-hidden="true">
+   <div class="modal-dialog">
+     <div class="modal-content">
+       <div class="container-fluid">
+       <h5>Activate an Action</h5>
+         <!-- {{#each profiles}} -->
+           {{#each actions }}
+            {{>action }}
+           {{/each}}
+          <!-- {{/each}} -->
+         </div>
+     </div>
+   </div>
+ </div>
+</template>
+
+<template name="action">
+  <div class="row action-row">
+    <button class="btn action-row {{this.type}}">{{ this.label }}</button>
+  </div>
 </template>

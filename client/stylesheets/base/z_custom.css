@@ -1,17 +1,23 @@
 /* ==== RESET ==== */
 
-ul, li {
-	list-style: none;
+/** vendor fix**/
+.btn-toolbar {
+	margin-left: 0 !important;
 }
 
-li.card {
-	float: left;
+ul, li {
+	list-style: none;
 }
 
 .group:after {
 	content: "";
 	clear: both;
 	display: block;
+}
+
+.modal-content {
+	padding: 10px;
+	text-align: center;
 }
 
 /* ==== LAYOUT ==== */
@@ -28,6 +34,52 @@ footer {
 	max-width: auto;
 }
 
+button.btn {
+	background-color: #7ac144;
+	color: white;
+}
+
+button.btn:hover {
+	color: #7ac144;
+	background-color: white;
+	border: 1px solid #7ac144;
+}
+
+/** Profile and Contacts */
+
+ul.cards {
+	padding-left: 0;
+}
+
+.active {
+	background: yellow;
+}
+
+li.card {
+	float: left;
+	margin: 10px 10px 10px 0;
+	background: white;
+	border: 1px solid #fdc958;
+	text-align: center;
+	border-radius: 7px;
+	width: 140px;
+	height: 110px;
+	cursor: pointer;
+}
+
+li.card img {
+	display: block;
+	max-height: 50px;
+	margin: 0 auto;
+	margin-top: 17px;
+}
+
+li.card:hover, li.card.active {
+	background: #fffcf4; /** light orange **/
+}
+
+
+/** safeboxes */
 .safebox {
 	padding: 20px;
 	margin: 20px 0;
@@ -47,7 +99,51 @@ footer {
 	margin: 20px 0;
 }
 
-/** vendor fix**/
-.btn-toolbar {
-	margin-left: 0 !important;
+
+/** actions */
+.wrap-form-half .form-group:first-child {
+	float: left;
+	width: 35%;
+	margin-right: 20px;
+}
+
+.wrap-form-half .form-group:last-child {
+	float: left;
+	width: 62%;
+}
+
+#actionStepForm #wrap-text {
+	margin-bottom: -5px;
+}
+
+#actionStepForm .form-group {
+	margin-bottom: 0;
+}
+
+#actionStepForm input {
+	border-radius: 0;
+	box-shadow: none;
+}
+
+#actionStepForm label {
+	display: none;
+}
+
+#actionStepForm button {
+	float: right;
+	width: 30%;
+}
+
+/** === actions modal  */
+
+#activate-iceplan:hover {
+	cursor: pointer;
+}
+
+div.action-row {
+	margin-top: 10px;
+}
+
+button.action-row {
+	min-width: 80%;
 }

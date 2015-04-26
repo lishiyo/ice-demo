@@ -12,21 +12,11 @@ Template.profilesCreate.helpers({
     var cards = [],
         card = {};
 
-    // var labels = ["Your Spouse or Significant Other", "A Child", "A Parent", "A Sibling", "A Pet", "A Friend"];
-    var imgUrls = [
-      "/images/icons/spouse.png",
-      "/images/icons/child.png",
-      "/images/icons/mom_small.png",
-      "/images/icons/siblings.svg",
-      "/images/icons/dog_small.png",
-      "/images/icons/me.png"
-    ];
-
     App.GLOBALS.Profiles.defaultRelations.forEach(function(type, idx){
       card = {};
       card.relationKey = type;
-      card.label = App.GLOBALS.Profiles.relationsMap[type];
-      card.imgUrl = imgUrls[idx];
+      card.label = App.GLOBALS.Profiles.relationsMap[type].label;
+      card.imgUrl = App.GLOBALS.Profiles.relationsMap[type].imgPath;
       cards.push(card);
     });
     return cards; // array of objects
@@ -38,7 +28,7 @@ Template.profilesCreate.events({
     event.preventDefault();
     var relation = $(event.target).data("relation-id");
     Session.set("relation", relation);
-    Session.set("relationLabel", App.GLOBALS.Profiles.relationsMap[relation]);
+    Session.set("relationLabel", App.GLOBALS.Profiles.relationsMap[relation].label);
     console.log($(event.target).data("relation-id"));
 
     Router.current().render('newProfileForm', {to: 'content'});

@@ -1,15 +1,27 @@
-<template name="actionsCreate">
-	{{> actions }}
+<template name="crumbsStepThree">
+crumbs step three
 </template>
 
-<template name="actions">
-	<h3> My Actions
-	<button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#new-action-modal">
-    Create New Action
-  </button>
-  </h3>
+<template name="actionsCreate">
+	<h3> Design Your ICEPlan
+		{{> crumbsStepThree }}
+	</h3>
 
-  <div class="modal fade" id="new-action-modal" role="dialog" aria-labelledby="new-action-modal" aria-hidden="true">
+	<div class="row">
+	  <div class="col-lg-4 col-md-4 col-sm-4">
+	    <figure>
+	      <img src="/images/icons/me.png">
+	      <figcaption>{{ profile.fullName }}</figcaption>
+	    </figure>
+	  </div>
+	  <div class="col-lg-8 col-md-8 col-sm-8">
+	  	{{> existingContactsWrapper }} <!-- right column -->
+	  </div>
+	</div>
+
+	{{> chooseProfile }}
+
+ <!--  <div class="modal fade" id="new-action-modal" role="dialog" aria-labelledby="new-action-modal" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         {{> ActionStepForm }}
@@ -21,13 +33,108 @@
 	{{#each actions }}
 		{{>action }}
 	{{/each}}
+	</div> -->
+</template>
+
+<!-- right col -->
+<template name="existingContactsWrapper">
+	<p><strong>Who should we contact in case a crisis happens to {{ profile.fullName }}?</strong></p>
+	<p>Select one or more <strong>Contacts</strong> below.</p>
+
+	{{> contactsList }}
+</template>
+
+<template name="contactsList"> <!-- loop through each -->
+	<div class="row">
+		<ul class="group cards">
+			{{#each contacts}}
+				{{> contactCard }}
+			{{/each}}
+		</ul>
+	</div>
+	<div class="row">
+	{{#if currContacts.length}}
+		<p>We will contact {{ showFirstNames currContacts }} to verify that they accept responsibility. <a href="#">Learn more.</a>
+		</p>
+	{{/if}}
+	<p>How should we contact {{ showFirstNames currContacts }}?</p>
+	</div>
+
+	{{> yield region="notifications" }}
+	{{> addNewAction }}
+
+
+</template>
+
+<template name="contactCard">
+	<li class="card contact-card" id="{{this._id}}">
+		<img src="{{imgUrl}}">
+		{{ this.fullName }}
+	</li>
+</template>
+
+<!-- actions -->
+
+<template name="addNewAction">
+<p>I want this to happen...</p>
+
+{{#autoForm id="actionStepForm" type="insert" collection="ActionSteps" }}
+  {{> afQuickField name="targets" type="hidden" value=currTargets }}
+  <div class="group wrap-form-half">
+  	{{> afQuickField name="type" firstOption=false class="inline-form"}}
+  	{{> afQuickField name="label" placeholder="Action Name" class="inline-form"}}
+  	{{> afQuickField name="profile_id" type="hidden" value=profile }}
+  </div>
+  <div id="wrap-text">
+  	{{> afQuickField name="content" label="" placeholder="Type your message here..." }}
+  	<small>(160 characters max)</small>
+  </div>
+  <!-- <div id="wrap-safeboxes" class="hidden">
+  	{{> afQuickField name="safeboxIds" label="select safeboxes"}}
+  </div> -->
+
+  <button type="submit" class="btn">Save Plan</button>
+
+{{/autoForm}}
+</template>
+
+<template name="actionSuccess">
+	<p>successfully added!</p>
+</template>
+
+<template name="actionError">
+	<p>oops, something went wrong</p>
+</template>
+
+<!-- recommended -->
+<template name="chooseProfile">
+	<div class="container-fluid">
+		<h5>Recommended</h5>
+		<p>We highly recommend designing plans for all of your Profiles as well.</p>
+		<div class="row">
+			<ul class="group cards">
+				{{#each profiles }}
+					{{> profileShow }}
+				{{/each}}
+			</ul>
+		</div>
 	</div>
 </template>
 
-<template name="action">
-	<button class="{{this.type}}">{{ this.label }}</button>
+<template name="profileShow">
+	<li class="profile-card card" id="{{this._id}}">
+			<img src="{{imgUrl}}">
+			{{ this.fullName }}
+	</li>
 </template>
 
+<!-- <template>
+	<button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#new-action-modal">
+    Create New Action
+  </button>
+</template> -->
+
+<!--
 <template name="ActionStepForm">
 <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -50,4 +157,4 @@
 	    </div>
 	  {{/autoForm}}
 	</div>
-</template>
+</template> -->

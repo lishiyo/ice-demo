@@ -17,3 +17,13 @@ Meteor.publishComposite("userActions", function () {
     ]
   }
 });
+
+Meteor.publish("allActionSteps", function(){
+  return ActionSteps.find({ owner_id: this.userId });
+});
+
+Meteor.publish("contacts", function(){
+  return [
+    Contacts.find({ owner_id: this.userId }),
+  ];
+})

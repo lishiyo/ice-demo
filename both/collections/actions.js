@@ -41,10 +41,14 @@ Schema.ActionStep = new SimpleSchema({
 		type: String,
 		autoform: {
       options: function () {
-        return App.GLOBALS.Actions.defaultStepTypes.map(function(type, idx){
-          return { label: type, value: idx };
-        });
-      }
+      	// stub out for now
+      	var arr = [];
+      	var steps = App.GLOBALS.Actions.defaultStepMap;
+      	for (var code in steps) {
+      		arr.push({ label: steps[code].label, value: code})
+      	};
+        return arr;
+      },
     }
 	},
 	order: { // order in step
@@ -53,10 +57,13 @@ Schema.ActionStep = new SimpleSchema({
 	},
 	owner_id: {
 		type: String,
-		optional: true,
 		autoValue: function(){
 			return Meteor.userId();
 		}
+	},
+	profile_id: {
+		type: String,
+		optional: true,
 	}
 });
 

@@ -76,7 +76,7 @@ Router.route('/contacts/create', {
 Router.route('/actions/create', {
   name: 'actions.create',
   template: 'actionsCreate',
-  controller: 'StepsController'
+  controller: 'ActionsController'
 });
 
 // ===== SAFEBOXES =====

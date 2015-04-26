@@ -105,6 +105,10 @@ Schema.User = new SimpleSchema({
       	if (!this.isSet) return ['source'];
       }
   },
+  fullName: {
+    type: String,
+    optional: true
+  },
   infoset: {
     type: String, // infoset id
     optional: true,
@@ -131,3 +135,9 @@ Schema.User = new SimpleSchema({
 });
 
 Meteor.users.attachSchema(Schema.User);
+
+Meteor.users.allow({
+  update: function(){
+    return true;
+  },
+})
