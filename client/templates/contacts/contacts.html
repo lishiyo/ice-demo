@@ -11,18 +11,34 @@ crumbs step two
 </template>
 
 <template name="contacts">
-	<div class="page-header">
-    <h5>
-      Create Profiles
-      {{> crumbsStepTwo }}
-    </h5>
-  </div>
-  <p>Contacts are people who we'll reach out to, in case of a crisis.</p>
-  <p>Required</p>
-  <p>You are required to add at least <strong>one contact</strong>.</p>
 
-	{{> newContactOrProfileForm }}
+	<div class="profile">
+    <div class="row">
+        <!-- <h5> -->
+          <div class="title col-md-6 col-lg-6 col-sm-6">
+            <h3>Create Contacts</h3>
+          </div>
+          <div class="crumbs-wrapper">
+            <div class="col-lg-2 col-sm-2 col-md-2 crumb-word">
+              <p>Step Two</p>
+              <p class="sub-text">Create contacts</p>
+            </div>
+            <div class="crumb col-md-4 col-sm-4 col-lg-4 col-xs-4">
+              {{> crumbsStepOne }}
+            </div>
+          </div>
+        <!-- </h5> -->
+      </div>
 
+		<div class="profile-container">
+		  <p>Contacts are people who we'll reach out to, in case of a crisis.</p>
+		  <p>Required</p>
+		  <p>You are required to add at least <strong>one contact</strong>.</p>
+
+			{{> newContactOrProfileForm }}
+		</div>
+
+	</div>
 </template>
 
 <template name="newContactOrProfileForm">

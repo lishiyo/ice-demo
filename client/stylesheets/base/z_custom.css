@@ -75,14 +75,15 @@ form .form-control {
 
 /* ==== LAYOUT ==== */
 
-body: {
-	background: ##e7f5e7;
+body {
+	background-color: #e7f5e7 !important;
 }
 
 .main-content {
 	margin: 0 auto;
 	width: 90%;
 	background: white;
+	margin-bottom: 40px;
 }
 
 .form-content {
@@ -112,6 +113,16 @@ button.btn:hover {
 	color: #7ac144;
 	background-color: white;
 	border: 1px solid #7ac144;
+}
+
+div.next-step-row {
+	padding-right: 40px;
+	padding-bottom: 20px;
+}
+
+button.next-step {
+	float: right;
+	padding-right: 40px;
 }
 
 /** Profile and Contacts */
