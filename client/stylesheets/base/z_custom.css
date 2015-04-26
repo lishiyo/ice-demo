@@ -30,6 +30,7 @@ figcaption {
 	font-size: 1.5rem;
 	font-weight: 700;
 	color: #224821;
+	margin-top: 10px;
 }
 
 ul, li {
@@ -47,9 +48,10 @@ ul, li {
 	text-align: center;
 }
 
-button {
+button, input, button:active, input:active, button:focus, input:focus {
+	-webkit-appearance: none;
 	appearance: none;
-	outline: none;
+	outline: 0 !important;
 }
 
 form .form-control {
@@ -106,6 +108,11 @@ footer {
 	max-width: auto;
 }
 
+.recommended-panel {
+	padding-left: 50px;
+	padding-bottom: 30px;
+}
+
 button.btn {
 	background-color: #7ac144;
 	color: white;
@@ -120,11 +127,23 @@ button.btn:hover {
 div.next-step-row {
 	padding-right: 40px;
 	padding-bottom: 20px;
+	margin-top: 20px;
 }
 
 button.next-step {
 	float: right;
 	padding-right: 40px;
+}
+
+.next-step.get-started {
+	margin: 20px auto;
+	width: 70%;
+	float: none;
+}
+
+.steps-wrapper {
+	padding-top: 30px;
+	text-align: center;
 }
 
 .steps-row {
@@ -136,12 +155,19 @@ button.next-step {
 	text-align: center;
 	border: 1px solid #e7f5e7;
 	padding: 25px 20px;
-	max-width: 25%;
+	max-width: 220px;
+	width: 220px;
 	display: inline-block;
+	border-radius: 7px;
+	margin-right: 20px;
 }
 
 .step img {
 	max-height: 100px;
+}
+
+.step p{
+	margin-top: 15px;
 }
 
 /** Profile and Contacts */
@@ -158,10 +184,10 @@ button.next-step {
 ul.cards {
 	padding-left: 0;
 }
-
+/*
 .active {
 	background: yellow;
-}
+}*/
 
 li.card {
 	float: left;
@@ -196,7 +222,9 @@ li.card button {
 }
 
 li.card:hover, li.card.active {
-	background: #fffcf4; /** light orange **/
+	/*background: #fffcf4; */
+	background: #eba100;
+	color: white;
 }
 
 li.card.profile-card {
@@ -295,6 +323,10 @@ form#newContactForm .form-group, form#newProfileForm .form-group, form#newContac
 form .form-group.relation-group {
 	margin-top: -20px;
 	margin-bottom: 20px;
+}
+
+#wrap-text .form-group {
+	width: 98.5% !important;
 }
 
 /** actions */

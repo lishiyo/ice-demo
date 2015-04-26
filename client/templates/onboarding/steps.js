@@ -18,7 +18,7 @@ Template.steps.helpers({
 			label: "Step Three",
 			tagline: "Design Your ICEPlan",
 			imgUrl: "/images/icons/design.png",
-			description: "Set up what happens in a crisis.",
+			description: "Set up what happens in a crisis.<br>&nbsp;",
 			route: "actions"
 		};
 		return [ stepOne, stepTwo, stepThree ];

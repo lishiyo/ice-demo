@@ -12,7 +12,7 @@ Template.actionsCreate.helpers({
 
 Template.actionsCreate.events({
 	'click .next-step': function(){
-		Router.go('dashboard');
+		Router.go('/');
 	}
 });
 

@@ -39,9 +39,26 @@
          <!--  <li class="{{ isActiveRoute regex='home' }}"><a href="{{ pathFor 'home' }}"><i class="fa fa-home"></i> Home</a>
           </li> -->
           {{#if currentUser }}
-            <li class="{{ isActiveRoute regex='dashboard' }}"><a id="activate-iceplan" data-toggle="modal" data-target="#activate-action-modal"><i class="fa fa-gear"></i> Activate IcePlan</a>
-            </li>
-            <li><a href="/" data-action="logout"><i class="fa fa-lock"></i> Log Out</a>
+          <li class="{{ isActiveRoute regex='dashboard' }}">
+            <button class="btn header-button1" id="activate-iceplan" data-toggle="modal" data-target="#activate-action-modal"><svg version="1.1" id="Your_Icon" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+            width="100px" height="100px" viewBox="0 0 100 100" enable-background="new 00 100 100" xml:space="preserve">
+            <g>
+              <path d="M50.304,99.651C24.221,99.651,3,78.431,3,52.348c0-13.036,5.459-25.621,14.979-34.534c2.42-2.256,6.201-2.13,8.463,0.278
+                c2.256,2.414,2.133,6.201-0.281,8.46c-7.218,6.756-11.192,15.917-11.192,25.797c0,19.485,15.85,35.335,35.335,35.335
+                s35.335-15.85,35.335-35.335c0-9.658-3.828-18.681-10.777-25.402c-2.373-2.297-2.437-6.087-0.14-8.463
+                c2.297-2.367,6.084-2.443,8.463-0.14c9.298,8.997,14.424,21.075,14.424,34.005C97.608,78.431,76.387,99.651,50.304,99.651z"/>
+            </g>
+            <path d="M50.304,51.19c-3.308,0-5.985-2.68-5.985-5.985V5.985C44.319,2.68,46.996,0,50.304,0s5.985,2.68,5.985,5.985v39.221
+              C56.288,48.511,53.612,51.19,50.304,51.19z"/>
+            </svg>
+            Activate IcePlan
+            </button>
+          </li>
+            <!-- <li class="{{ isActiveRoute regex='dashboard' }}"><a id="activate-iceplan" data-toggle="modal" data-target="#activate-action-modal"><i class="fa fa-gear"></i> Activate IcePlan</a>
+            </li> -->
+            <li>
+            <button class="btn header-button2" data-action="logout">Log out</button>
+              <!-- <a href="/" data-action="logout"><i class="fa fa-lock"></i> Log Out</a> -->
             </li>
 
             <!-- <li class="{{ isActiveRoute regex='tabs.safeboxes$' }}"><a href="{{ pathFor 'tabs.safeboxes' }}"><i class="fa fa-lock"></i> My Safeboxes </a></li>
@@ -64,6 +81,7 @@
      <div class="modal-content">
        <div class="container-fluid">
        <h5>Activate an Action</h5>
+          {{> yield region="notifications" }}
          <!-- {{#each profiles}} -->
           <!-- <h5>{{ this.fullName }}</h5> -->
            {{#each actions }}
@@ -79,5 +97,11 @@
 <template name="action">
   <div class="row action-row">
     <button class="btn action-row {{this.type}}">{{ this.label }}</button>
+  </div>
+</template>
+
+<template name="triggerSuccess">
+  <div class="notifications">
+    Great! You've sent a message to {{ contactName }}.
   </div>
 </template>

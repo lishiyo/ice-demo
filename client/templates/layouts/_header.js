@@ -9,11 +9,19 @@ Template.activateActionModal.helpers({
 	}
 });
 
+Template.triggerSuccess.helpers({
+	contactName: function(){
+		return Session.get('contactName');
+	}
+})
+
 // ==== SEND TEXT MESSAGE =====
 
 var handleText = function(actionStep) {
 	actionStep.targets.forEach(function(id){
 		var contact = Contacts.findOne({_id: id});
+		Session.set('contactName', contact.fullName);
+		Router.current().render('triggerSuccess', {to: 'notifications'});
 		console.log("clicked! target, tel", id, contact.profile.tel);
 
 		_.defer(function(){

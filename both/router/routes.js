@@ -31,7 +31,7 @@ Router.route('/unauthorized', {
 
 Router.route('/', {
   name: 'steps',
-  controller: StepsController,
+  controller: 'StepsController',
   template: 'steps'
 });
 

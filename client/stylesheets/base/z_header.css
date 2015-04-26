@@ -1,0 +1,72 @@
+/* HEADER-RELATED */
+
+.navbar .buttons {
+	border: none;
+	background-color: none;
+	padding-top: .5em;
+}
+
+.navbar button.btn {
+	text-transform: none;
+}
+
+.navbar button.header-button1{
+  color:white;
+  background-color:#FFCA2F;
+  border-radius: 30px;
+  border-color: #FFCA2F;
+  padding-top: .5em;
+  padding-bottom: .5em;
+}
+
+.navbar button.header-button1:hover {
+	cursor: pointer;
+	color: #fff;
+	background-color: #eeb945;
+	border-color: #eeb945;
+}
+
+.navbar button.header-button2{
+	margin-left:1em;
+  color: gray;
+  background-color: white;
+  border: 1px solid #e7f5e7;
+  border-radius: 30px;
+  padding-top: .5em;
+  padding-bottom: .5em;
+}
+
+.navbar button.header-button2:hover {
+	color: grey;
+	cursor: pointer;
+	background-color: #e7f5e7;
+	border-color: #e7f5e7;
+}
+
+nav.navbar {
+  background-color:white;
+  border-color:white;
+}
+
+.container-fluid {
+  background-color:#e7f5e7;
+  margin-top: 40px;
+}
+
+.navbar-brand img {
+	margin-top: -.4em;
+	height: 2em;
+	vertical-align: middle;
+}
+
+.header-button1 svg {
+	vertical-align: middle;
+	padding-bottom: .1em;
+	margin-right: .5em;
+  width: 1em;
+  height: 1em;
+}
+
+.header-button1 path {
+	fill: #fff;
+}
