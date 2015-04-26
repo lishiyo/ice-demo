@@ -55,6 +55,7 @@ button {
 form .form-control {
 	border-radius: 0 !important;
 	box-shadow: none !important;
+	font-size: 10px;
 }
 
 .button-group {
@@ -217,11 +218,26 @@ div.notifications {
 	text-align: center;
 }
 
+.actions-new-wrapper {
+	margin-top: 15px;
+}
+
 /** userProfile form */
 
 form#userProfile .panel {
 	border: none;
 	background: transparent;
+}
+
+form#actionStepForm .form-group:nth-child(odd){
+	float: left;
+	width: 48%;
+	margin-right: 15px;
+}
+
+form#actionStepForm .form-group:nth-child(even) {
+	float: left;
+	width: 48%;
 }
 
 form#newProfileForm .panel, form#newContactForm .panel, #newContactProfileForm .panel {

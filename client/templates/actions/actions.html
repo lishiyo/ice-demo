@@ -3,41 +3,45 @@ crumbs step three
 </template>
 
 <template name="actionsCreate">
-	<h3> Design Your ICEPlan
-		{{> crumbsStepThree }}
-	</h3>
-
+<div class="profile">
 	<div class="row">
-	  <div class="col-lg-4 col-md-4 col-sm-4">
+    <!-- <h5> -->
+      <div class="title col-md-6 col-lg-6 col-sm-6">
+        <h3>Design Your ICEPlan</h3>
+      </div>
+      <div class="crumbs-wrapper">
+        <div class="col-lg-2 col-sm-2 col-md-2 crumb-word">
+          <p>Step Three</p>
+          <p class="sub-text">Create Actions</p>
+        </div>
+        <div class="crumb col-md-4 col-sm-4 col-lg-4 col-xs-4">
+          {{> crumbsStepOne }}
+        </div>
+      </div>
+    <!-- </h5> -->
+  </div>
+
+
+	<div class="profile-container group">
+	  <div class="col-lg-3 col-md-3 col-sm-3 profile-wrap">
 	    <figure>
 	      <figcaption>{{ profile.fullName }}</figcaption>
 	      <img src="/images/icons/me.png">
 	    </figure>
 	  </div>
-	  <div class="col-lg-8 col-md-8 col-sm-8">
+	  <div class="col-lg-8 col-md-8 col-sm-8" style="padding-bottom: 30px">
 	  	{{> existingContactsWrapper }} <!-- right column -->
 	  </div>
+
 	</div>
 
 	{{> chooseProfile }}
 
-	<div class="row">
+	<div class="row row-next-step">
 	  <button class="btn next-step">I'm finished! Take me to my dashboard</button>
 	</div>
 
- <!--  <div class="modal fade" id="new-action-modal" role="dialog" aria-labelledby="new-action-modal" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        {{> ActionStepForm }}
-      </div>
-    </div>
-  </div>
-
-	<div class="container-fluid">
-	{{#each actions }}
-		{{>action }}
-	{{/each}}
-	</div> -->
+	</div>
 </template>
 
 <!-- right col -->
@@ -64,7 +68,7 @@ crumbs step three
 </template>
 
 <template name="contactCard">
-	<li class="card contact-card" id="{{this._id}}">
+	<li class="card contact-card profile-card" id="{{this._id}}">
 		<img src="{{imgUrl}}">
 		{{ this.fullName }}
 	</li>
@@ -73,26 +77,29 @@ crumbs step three
 <!-- actions -->
 
 <template name="addNewAction">
-<p>I want this to happen...</p>
+<div class="row actions-new-wrapper">
+	<p>I want this to happen...</p>
 
-{{#autoForm id="actionStepForm" type="insert" collection="ActionSteps" }}
-  {{> afQuickField name="targets" type="hidden" value=currTargets }}
-  <div class="group wrap-form-half">
-  	{{> afQuickField name="type" firstOption=false class="inline-form"}}
-  	{{> afQuickField name="label" placeholder="Action Name" class="inline-form"}}
-  	{{> afQuickField name="profile_id" type="hidden" value=profile }}
-  </div>
-  <div id="wrap-text">
-  	{{> afQuickField name="content" label="" placeholder="Type your message here..." }}
-  	<small>(160 characters max)</small>
-  </div>
-  <!-- <div id="wrap-safeboxes" class="hidden">
-  	{{> afQuickField name="safeboxIds" label="select safeboxes"}}
-  </div> -->
+	{{#autoForm id="actionStepForm" type="insert" collection="ActionSteps" }}
+	  {{> afQuickField name="targets" type="hidden" value=currTargets }}
+	  <div class="group wrap-form-half">
+	  	{{> afQuickField name="type" firstOption=false class="inline-form"}}
+	  	{{> afQuickField name="label" placeholder="Action Name" class="inline-form"}}
+	  	{{> afQuickField name="profile_id" type="hidden" value=profile }}
+	  </div>
+	  <div id="wrap-text">
+	  	{{> afQuickField name="content" label="" placeholder="Type your message here..." }}
+	  	<small>(160 characters max)</small>
+	  </div>
+	  <!-- <div id="wrap-safeboxes" class="hidden">
+	  	{{> afQuickField name="safeboxIds" label="select safeboxes"}}
+	  </div> -->
+		<div class="form-group group button-group" style="width: 100%; text-align: right; margin-right: -40px; margin-top: 10px;">
+	  	<button type="submit" class="btn">Save Plan</button>
+	  </div>
 
-  <button type="submit" class="btn">Save Plan</button>
-
-{{/autoForm}}
+	{{/autoForm}}
+</div>
 </template>
 
 <template name="actionSuccess">
