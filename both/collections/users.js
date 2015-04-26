@@ -44,7 +44,10 @@ Schema.UserProfile = new SimpleSchema({
     },
     address: {
       type: Schema.UserAddress,
-      optional: true
+      optional: true,
+      autoform: {
+        omit: true
+      }
     },
     // telHome: {
     // 	type: String,

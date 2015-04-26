@@ -5,13 +5,31 @@
 	margin-left: 0 !important;
 }
 
+body {
+	font-family: 'Open Sans', 'Lato', sans-serif;
+	font-size: 11px;
+	font-color: #7e927e;
+}
+
+h1, h2, h3, h4, h5 {
+	font-family: 'Lato', 'Open Sans', sans-serif;
+	color: #7ac144 !important;
+	margin-top: 0;
+}
+
+label {
+	font-weight: 300 !important;
+	color: #7e927e !important;
+}
+
 .panel-heading {
 	display: none;
 }
 
 figcaption {
-	font-size: 2.5rem;
+	font-size: 1.5rem;
 	font-weight: 700;
+	color: #224821;
 }
 
 ul, li {
@@ -39,6 +57,22 @@ form .form-control {
 	box-shadow: none !important;
 }
 
+.button-group {
+	float: right !important;
+}
+
+.btn-reset {
+	color: #ccc !important;
+	background-color: white !important;
+	border: 1px solid #ccc;
+}
+
+.btn.btn-reset:hover {
+	color: white !important;
+	background-color: #ccc !important;
+	border: 1px solid #ccc !important;
+}
+
 /* ==== LAYOUT ==== */
 
 body: {
@@ -49,6 +83,11 @@ body: {
 	margin: 0 auto;
 	width: 90%;
 	background: white;
+}
+
+.form-content {
+	background: #fffcf4;
+	padding-top: 20px;
 }
 
 footer {
@@ -77,6 +116,15 @@ button.btn:hover {
 
 /** Profile and Contacts */
 
+.profile-wrap {
+	text-align: center;
+	padding-top: 30px;
+}
+
+.profile-wrap img {
+	max-height: 60px;
+}
+
 ul.cards {
 	padding-left: 0;
 }
@@ -93,8 +141,10 @@ li.card {
 	text-align: center;
 	border-radius: 7px;
 	width: 140px;
-	height: 110px;
+	min-height: 180px;
+	padding: 20px;
 	cursor: pointer;
+	position: relative;
 }
 
 li.card img {
@@ -102,6 +152,17 @@ li.card img {
 	max-height: 50px;
 	margin: 0 auto;
 	margin-top: 17px;
+	position: absolute;
+	left: 50%;
+	transform: translateX(-50%);
+	top: 40px;
+}
+
+li.card button {
+	position: absolute;
+	bottom: 20px;
+	left: 50%;
+	transform: translateX(-50%);
 }
 
 li.card:hover, li.card.active {
@@ -130,15 +191,25 @@ li.card:hover, li.card.active {
 }
 
 /** userProfile form */
-form#userProfile .form-group:first-child{
+
+form#userProfile .panel{
+	border: none;
+	background: transparent;
+}
+
+form#userProfile p {
+
+}
+
+form#userProfile .form-group:nth-child(odd){
 	float: left;
-	width: 45%;
+	width: 48%;
 	margin-right: 15px;
 }
 
-form#userProfile .form-group:nth-child(2){
+form#userProfile .form-group:nth-child(even){
 	float: left;
-	width: 45%;
+	width: 48%;
 }
 
 /** actions */

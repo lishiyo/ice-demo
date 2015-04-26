@@ -1,0 +1,66 @@
+/*this is for profile.html*/
+
+.crumb{  display: inline-block; float:right; color:#FFFDF3 }
+
+.title{  display: inline-block; color:#7ac144}
+.page-header{height:70px;}
+
+.profile-container{
+  /*background-color: #fffcf4;*/
+  padding: 30px;
+  border: 1px solid #e7f5e7;
+  border-radius: 10px;
+  background: transparent;
+  margin-top: 20px;
+}
+
+.crumb-word{
+	color:#7ac144;
+	text-align: right;
+	padding-top: 3px;
+}
+.sub-text{
+	color:#7e927e;
+	margin-top: -8px;
+}
+
+.profile{
+  /*border-radius: 10px;*/
+  padding: 20px 20px 20px 20px;
+  /*border: 2px solid gray;*/
+  background-color:white;
+}
+
+/*this css is for _header.html*/
+
+.navbar-header{
+  /*height:100px;*/
+  /*background-color:white;  */
+  }
+.container{background-color:white;}
+.header-button1{
+  color:white;
+  background-color:#FFCA2F;
+  border-radius: 30px;
+  /*height:50px;*/
+
+}
+
+.header-button2{
+    color: gray;
+    /*height:20px;*/
+    background-color:white;
+    border-radius: 30px;
+    border:2px solid #e7f5e7;
+}
+
+.navbar{
+  background-color:white;
+  border-color:white;
+  margin-bottom: 0 !important;
+}
+
+.container-fluid{
+  background-color:#e7f5e7;
+  padding-top: 40px;
+}
