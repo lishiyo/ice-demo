@@ -1,5 +1,9 @@
 <template name="contactsCreate">
 	{{> contacts }}
+
+	<div class="row">
+    <button class="next-step">Go to the last step</button>
+  </div>
 </template>
 
 <template name="crumbsStepTwo">
@@ -13,15 +17,12 @@ crumbs step two
       {{> crumbsStepTwo }}
     </h5>
   </div>
-  <p>Contacts are people...</p>
+  <p>Contacts are people who we'll reach out to, in case of a crisis.</p>
   <p>Required</p>
-  <p>You are required...</p>
+  <p>You are required to add at least <strong>one contact</strong>.</p>
 
 	{{> newContactOrProfileForm }}
 
-</template>
-
-<template name="notifications-success">
 </template>
 
 <template name="newContactOrProfileForm">
@@ -33,13 +34,18 @@ crumbs step two
     </figure>
   </div>
   <div class="col-lg-8 col-md-8 col-sm-8">
-  	{{> existingProfiles }}
-  	{{> yield region="form"}}
+  	{{> yield region="formWrapper"}} <!-- right column -->
   </div>
 </div>
 </template>
 
+<template name="formWrapper">
+	{{> existingProfiles }}
+	{{> yield region="form" }}
+</template>
+
 <template name="newContactForm">
+
   	<p>Or, Create a New Contact </p>
 
     {{#autoForm id="newContactForm" type="insert" collection="Contacts" }}
@@ -50,11 +56,26 @@ crumbs step two
 		  {{> afQuickField name="type" type="hidden" value="contact" }}
 
 		  <div class="form-group">
-		    <button type="submit" class="btn btn-primary">Save Profile</button>
+		    <button type="submit" class="btn btn-primary">Save Contact</button>
 		    <button type="reset" class="btn btn-default">Reset Form</button>
 		  </div>
 		{{/autoForm}}
 
+</template>
+
+<template name="newContactProfileForm">
+	<p> {{ profile.fullName }} </p>
+    {{#autoForm id="newContactProfileForm" type="update" collection="Contacts" doc=profile }}
+		  {{> afQuickField name="profile" }}
+		  <!-- {{> afQuickField name="belongedSafeboxes" options=userSafeboxes }} -->
+		  <!-- {{> afQuickField name="belongedGroups" options=userGroups label="Groups"}} -->
+		  {{> afQuickField name="relation" }}
+
+		  <div class="form-group">
+		    <button type="submit" class="btn btn-primary">Update Profile</button>
+		    <button type="reset" class="btn btn-default">Reset Form</button>
+		  </div>
+		{{/autoForm}}
 </template>
 
 <template name="existingProfiles">
@@ -63,6 +84,7 @@ crumbs step two
 	{{#each profiles}}
 		<div class="profile-card">
 			<img src="/images/icons/me.png">
+			<p> {{ this.fullName }} </p>
 		</div>
 	{{/each}}
 </template>
@@ -70,4 +92,15 @@ crumbs step two
 
 <template name="contact">
 	<li>{{ fullName }}</li>
+</template>
+
+
+<template name="contactSuccess">
+<div class="row">
+	<p>Awesome! You currently have {{ contactsCount }} contacts.</p>
+	<p>Recommended</p>
+	<p>We highly recommend adding at least <strong>three contacts</strong> for different crisis levels.</p>
+
+	<button id="add-more">Add another</button>
+</div>
 </template>

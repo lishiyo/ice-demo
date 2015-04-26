@@ -28,12 +28,13 @@ Schema.ContactProfile = new SimpleSchema({
    // regEx: SimpleSchema.RegEx.Email,
 // this must be optional if you also use other login services like facebook,
 // but if you use only accounts-password, then it can be required
-   optional: true
+   optional: true,
+   label: "Contact Email"
   },
   notes: {
     type: String,
     optional: true,
-    label: "personal notes"
+    label: "Personal Notes"
   }
 });
 
@@ -131,6 +132,16 @@ Contacts.before.insert(function (userId, doc) {
     }
 
     return doc;
+  }
+});
+
+Contacts.before.update(function (userId, doc, fieldNames, modifier) {
+  if (Meteor.isClient) {
+    modifier.$set = modifier.$set || {};
+    doc.profile.lastName = doc.profile.lastName || "";
+    var fullName = doc.profile.firstName + " " + doc.profile.lastName;
+    console.log("doc fieldNames", doc, fieldNames, fullName);
+    modifier.$set.fullName = fullName;
   }
 });
 

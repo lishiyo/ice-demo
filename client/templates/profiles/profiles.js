@@ -17,7 +17,7 @@ Template.profilesCreate.helpers({
       "/images/icons/spouse.png",
       "/images/icons/child.png",
       "/images/icons/mom_small.png",
-      "/images/icons/me.png",
+      "/images/icons/siblings.svg",
       "/images/icons/dog_small.png",
       "/images/icons/me.png"
     ];
@@ -64,7 +64,7 @@ Template.newProfileForm.helpers({
 
 var newProfileHooks = {
   onSuccess: function(formType, result) {
-    Router.current().render('profile-success', {to: 'content'});
+    Router.current().render('profileSuccess', {to: 'content'});
   },
 }
 
@@ -74,7 +74,7 @@ var userProfileHooks = {
     var profile = Meteor.user().profile;
     var fullName = [profile.firstName.trim(), profile.lastName.trim()].join(" ");
     Meteor.users.update(Meteor.userId(), {$set: { fullName: fullName }});
-    Router.current().render('profile-success', {to: 'content'});
+    Router.current().render('profileSuccess', {to: 'content'});
   },
 
   // Called when any submit operation fails
