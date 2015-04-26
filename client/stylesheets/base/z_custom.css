@@ -206,6 +206,17 @@ li.card.profile-card {
 	margin: 20px 0;
 }
 
+input[name="profile.notes"] {
+	width: 206%;
+}
+
+div.notifications {
+	background-color: #e7f5e7 !important;
+	margin-bottom: 20px;
+	padding: 20px;
+	text-align: center;
+}
+
 /** userProfile form */
 
 form#userProfile .panel {
@@ -213,7 +224,7 @@ form#userProfile .panel {
 	background: transparent;
 }
 
-form#newProfileForm .panel, form#newContactForm .panel {
+form#newProfileForm .panel, form#newContactForm .panel, #newContactProfileForm .panel {
 	border: none;
 	background: transparent;
 }
@@ -224,7 +235,7 @@ form#userProfile .form-group:nth-child(odd){
 	margin-right: 15px;
 }
 
-form#newContactForm .form-group:nth-child(odd), form#newProfileForm .form-group:nth-child(odd) {
+form#newContactForm .form-group:nth-child(odd), form#newProfileForm .form-group:nth-child(odd), form#newContactProfileForm .form-group:nth-child(odd) {
 	float: left;
 	width: 48%;
 	margin-right: 15px;
@@ -235,17 +246,16 @@ form#userProfile .form-group:nth-child(even) {
 	width: 48%;
 }
 
-form#newContactForm .form-group:nth-child(even), form#newProfileForm .form-group:nth-child(even) {
+form#newContactForm .form-group:nth-child(even), form#newProfileForm .form-group:nth-child(even), form#newContactProfileForm .form-group:nth-child(even) {
 	float: left;
 	width: 48%;
 }
 
-form#newContactForm .panel-body, form#newProfileForm .panel-body {
+form#newContactForm .panel-body, form#newProfileForm .panel-body, form#newContactProfileForm .panel-body{
 	padding: 0;
-
 }
 
-form#newContactForm .form-group, form#newProfileForm .form-group {
+form#newContactForm .form-group, form#newProfileForm .form-group, form#newContactProfileForm .form-group {
 	margin-bottom: 0;
 }
 

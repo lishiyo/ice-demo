@@ -1,7 +1,7 @@
 <template name="contactsCreate">
 	{{> contacts }}
 
-	<div class="row">
+	<div class="row next-step-row">
     <button class="btn next-step">Go to the last step</button>
   </div>
 </template>
@@ -52,7 +52,7 @@ crumbs step two
 	      <figcaption>New Contact</figcaption>
 	    </figure>
 	  </div>
-	  <div class="col-lg-8 col-md-8 col-sm-8">
+	  <div class="col-lg-8 col-md-8 col-sm-8" style="padding-bottom: 30px">
 	  	{{> yield region="formWrapper"}} <!-- right column -->
 	  </div>
 	</div>
@@ -74,7 +74,7 @@ crumbs step two
 		  {{> afQuickField name="relation" }}
 		  {{> afQuickField name="type" type="hidden" value="contact" }}
 
-		  <div class="form-group group button-group" style="width: 100%; text-align: right;">
+		  <div class="form-group group button-group" style="width: 100%; text-align: right; margin-right: -40px; margin-top: 10px;">
 		    <button type="submit" class="btn">Save Contact</button>
 		    <button type="reset" class="btn btn-reset">Reset Form</button>
 		  </div>
@@ -90,9 +90,9 @@ crumbs step two
 		  <!-- {{> afQuickField name="belongedGroups" options=userGroups label="Groups"}} -->
 		  {{> afQuickField name="relation" class="relation-group" }}
 
-		  <div class="form-group">
+		  <div class="form-group group button-group" style="width: 100%; text-align: right; margin-right: -40px; margin-top: 10px;">
 		    <button type="submit" class="btn">Update Profile</button>
-		    <button type="reset" class="btn">Reset Form</button>
+		    <button type="reset" class="btn btn-reset">Reset Form</button>
 		  </div>
 		{{/autoForm}}
 </template>
@@ -116,7 +116,10 @@ crumbs step two
 
 <template name="contactSuccess">
 	<div class="row">
-		<p>Awesome! You currently have {{ contactsCount }} contacts.</p>
+		<div class="notifications">
+			<p>Awesome! You currently have {{ contactsCount }} contacts.</p>
+		</div>
+
 		<h5>Recommended</h5>
 		<p>We highly recommend adding at least <strong>three contacts</strong> for different crisis levels.</p>
 
