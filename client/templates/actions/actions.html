@@ -10,8 +10,8 @@ crumbs step three
 	<div class="row">
 	  <div class="col-lg-4 col-md-4 col-sm-4">
 	    <figure>
-	      <img src="/images/icons/me.png">
 	      <figcaption>{{ profile.fullName }}</figcaption>
+	      <img src="/images/icons/me.png">
 	    </figure>
 	  </div>
 	  <div class="col-lg-8 col-md-8 col-sm-8">
@@ -20,6 +20,10 @@ crumbs step three
 	</div>
 
 	{{> chooseProfile }}
+
+	<div class="row">
+	  <button class="btn next-step">I'm finished! Take me to my dashboard</button>
+	</div>
 
  <!--  <div class="modal fade" id="new-action-modal" role="dialog" aria-labelledby="new-action-modal" aria-hidden="true">
     <div class="modal-dialog">
@@ -45,13 +49,7 @@ crumbs step three
 </template>
 
 <template name="contactsList"> <!-- loop through each -->
-	<div class="row">
-		<ul class="group cards">
-			{{#each contacts}}
-				{{> contactCard }}
-			{{/each}}
-		</ul>
-	</div>
+	{{> contactsRow }}
 	<div class="row">
 	{{#if currContacts.length}}
 		<p>We will contact {{ showFirstNames currContacts }} to verify that they accept responsibility. <a href="#">Learn more.</a>
@@ -62,7 +60,6 @@ crumbs step three
 
 	{{> yield region="notifications" }}
 	{{> addNewAction }}
-
 
 </template>
 

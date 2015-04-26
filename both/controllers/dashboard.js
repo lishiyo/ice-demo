@@ -3,10 +3,7 @@ DashboardController = AppController.extend({
     return [ this.subscribe('dashboardAll', Meteor.userId()) ];
   },
   data: function() {
-    return {
-      items: Items.find(),
-      groups: Groups.find()
-    }
+    return Contacts.find();
   },
   onAfterAction: function () {
     Meta.setTitle('Dashboard');

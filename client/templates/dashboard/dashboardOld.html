@@ -1,0 +1,61 @@
+<template name="dashboardOld">
+  <div class="template-dashboard">
+    <div class="page-header">
+      <h1>Dashboard</h1>
+      <h3>Welcome {{ fullNameify currentUser.profile }}</h3>
+    </div>
+    {{> actions }}
+    {{> items }}
+    {{> contacts }}
+  </div>
+</template>
+
+<template name="items">
+    <h3>Key Identification</h3>
+    <div class="container-fluid">
+      <div class="row">
+        {{#each allTypes}}
+        <div class="col-md-4 col-xs-4 col-lg-4">
+            {{#if userHasItem this }}
+              {{#with getModelFromType this }}
+                {{> IdItem }}
+              {{/with}}
+            {{else}}
+              {{> IdItemForm type=this }}
+            {{/if}}
+        </div>
+        {{/each}}
+      </div>
+    </div>
+
+  <hr>
+
+  <h3>Key Documents</h3>
+  <div class="container-fluid">
+    <div class="row">
+      <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#new-doc-modal">
+        Add New Document
+      </button>
+
+      <div class="modal fade" id="new-doc-modal" role="dialog" aria-labelledby="new-doc-modal" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            {{> DocItemForm }}
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <div class="row">
+      {{#each docTypes }}
+        {{> DocItemRow }}
+      {{/each }}
+    </div>
+  </div>
+
+  <h3>Key Info</h3>
+  <h5>Critical numbers, dates, account names + passwords</h5>
+
+</template>
+
+

@@ -1,61 +1,35 @@
 <template name="dashboard">
-  <div class="template-dashboard">
-    <div class="page-header">
-      <h1>Dashboard</h1>
-      <h3>Welcome {{ fullNameify currentUser.profile }}</h3>
-    </div>
-    {{> actions }}
-    {{> items }}
-    {{> contacts }}
-  </div>
+	<h3>Dashboard</h3>
+	<div class="center">
+		{{> notifications }}
+
+		<div class="container-fluid">
+			<h5>Your Profiles</h5>
+			{{> profilesDash }}
+		</div>
+
+		<div class="container-fluid">
+			<h5>Your Contacts</h5>
+			{{> contactsRow }}
+		</div>
+	</div>
 </template>
 
-<template name="items">
-    <h3>Key Identification</h3>
-    <div class="container-fluid">
-      <div class="row">
-        {{#each allTypes}}
-        <div class="col-md-4 col-xs-4 col-lg-4">
-            {{#if userHasItem this }}
-              {{#with getModelFromType this }}
-                {{> IdItem }}
-              {{/with}}
-            {{else}}
-              {{> IdItemForm type=this }}
-            {{/if}}
-        </div>
-        {{/each}}
-      </div>
-    </div>
-
-  <hr>
-
-  <h3>Key Documents</h3>
-  <div class="container-fluid">
-    <div class="row">
-      <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#new-doc-modal">
-        Add New Document
-      </button>
-
-      <div class="modal fade" id="new-doc-modal" role="dialog" aria-labelledby="new-doc-modal" aria-hidden="true">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            {{> DocItemForm }}
-          </div>
-        </div>
-      </div>
-
-    </div>
-    <div class="row">
-      {{#each docTypes }}
-        {{> DocItemRow }}
-      {{/each }}
-    </div>
-  </div>
-
-  <h3>Key Info</h3>
-  <h5>Critical numbers, dates, account names + passwords</h5>
-
+<template name="notifications">
+	<div class="row notifications">
+		Great! You've successfully set up ICEPlans for {{ showFullNames profilesWithActions }}. Review and edit any details below.
+	</div>
 </template>
 
-
+<template name="profilesDash">
+	<ul class="group row">
+		{{#each profiles }}
+			<li class="card profile-card-wide">
+				<div class="pull-left">{{ this.fullName }}</div>
+				<div class="pull-right">
+					Plans
+				</div>
+			</li>
+		{{/each}}
+	</ul>
+</template>

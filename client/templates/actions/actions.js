@@ -10,11 +10,18 @@ Template.actionsCreate.helpers({
 	}
 });
 
+Template.actionsCreate.events({
+	'click .next-step': function(){
+		Router.go('dashboard');
+	}
+});
+
 Template.existingContactsWrapper.helpers({
 	profile: function(){
 		return Router.current().data().profile;
 	}
 });
+
 
 Template.contactsList.helpers({
 	currContacts: function(){
@@ -36,9 +43,6 @@ Template.contactsList.helpers({
 		// console.log("contacts", contacts);
 		return contacts;
 	},
-	contacts: function(){
-		return Contacts.find({type: "contact"});
-	}
 });
 
 Template.contactCard.events({

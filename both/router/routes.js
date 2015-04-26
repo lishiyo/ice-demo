@@ -34,7 +34,9 @@ Router.route('/', {
 });
 
 Router.route('/dashboard', {
-  name: 'dashboard'
+  name: 'dashboard',
+  controller: 'DashboardController',
+  template: 'dashboard'
 });
 
 // Router.route('/setup', {

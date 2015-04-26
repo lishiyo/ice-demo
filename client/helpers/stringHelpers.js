@@ -27,3 +27,20 @@ Template.registerHelper('showFirstNames', function(arr){
 		return (uptoLast + " and " + newArr[newArr.length-1]);
 	}
 });
+
+Template.registerHelper('showFullNames', function(arr){
+	if (!arr.length) return "yourself";
+
+	var newArr = arr.map(function(contact){
+		return contact.profile.fullName;
+	});
+
+	if (newArr.length === 1) {
+		return newArr[0];
+	} else {
+		var uptoLast = newArr.slice(0, (newArr.length-1));
+		uptoLast = uptoLast.join(", ");
+		return (uptoLast + " and " + newArr[newArr.length-1]);
+	}
+});
+

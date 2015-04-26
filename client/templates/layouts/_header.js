@@ -5,7 +5,6 @@ Template._header.events({
 
 Template.activateActionModal.helpers({
 	actions: function(){
-		console.log(ActionSteps.find().fetch());
 		return ActionSteps.find().fetch();
 	}
 });

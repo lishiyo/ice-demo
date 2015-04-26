@@ -5,6 +5,11 @@
 	margin-left: 0 !important;
 }
 
+figcaption {
+	font-size: 2.5rem;
+	font-weight: 700;
+}
+
 ul, li {
 	list-style: none;
 }
@@ -107,7 +112,7 @@ li.card:hover, li.card.active {
 	margin-right: 20px;
 }
 
-.wrap-form-half .form-group:last-child {
+.wrap-form-half .form-group:nth-child(2) {
 	float: left;
 	width: 62%;
 }
